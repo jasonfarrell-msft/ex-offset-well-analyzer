@@ -1,0 +1,19 @@
+{
+  "operation": "compare",
+  "contractVersion": "offset-well-analysis-v1",
+  "releaseId": "v1.1.0:904a5b293fdf0654fb1c5b4d28dd79d1c9cfaaac612f71d8f297ec874f4d284d",
+  "context": {
+    "targetId": "SYN-TARGET-0001",
+    "criteria": {
+      "radiusFt": "10000",
+      "formationMatch": true,
+      "holeSizeMatch": true,
+      "mdOverlap": false
+    },
+    "selectedWellIds": [
+      "SYN-WELL-0002",
+      "SYN-WELL-0019"
+    ],
+    "contextRevision": 1
+  }
+}

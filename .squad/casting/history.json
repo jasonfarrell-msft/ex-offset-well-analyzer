@@ -1,0 +1,77 @@
+{
+  "universe_usage_history": [
+    {
+      "universe": "Solo Leveling",
+      "assignment_id": "weatherford-synthetic-data-poc-20261023t093340483-0400",
+      "created_at": "2026-10-23T09:33:40.483-04:00"
+    }
+  ],
+  "assignment_cast_snapshots": {
+    "weatherford-synthetic-data-poc-20261023t093340483-0400": {
+      "assignment_id": "weatherford-synthetic-data-poc-20261023t093340483-0400",
+      "project": "Weatherford Synthetic Data POC",
+      "universe": "Solo Leveling",
+      "created_at": "2026-10-23T09:33:40.483-04:00",
+      "members": [
+        "Sung Jinwoo",
+        "Woo Jinchul",
+        "Choi Jong-In",
+        "Cha Hae-In",
+        "Yoo Jinho",
+        "Baek Yoonho"
+      ]
+    },
+    "weatherford-synthetic-data-poc-20261023t093340483-0400-cast-expansion-20261023t135058101-0400": {
+      "assignment_id": "weatherford-synthetic-data-poc-20261023t093340483-0400",
+      "project": "Weatherford Synthetic Data POC",
+      "universe": "Solo Leveling",
+      "created_at": "2026-10-23T13:50:58.101-04:00",
+      "members": [
+        "Sung Jinwoo",
+        "Go Gunhee",
+        "Woo Jinchul",
+        "Choi Jong-In",
+        "Cha Hae-In",
+        "Yoo Jinho",
+        "Baek Yoonho"
+      ]
+    },
+    "weatherford-synthetic-data-poc-20261023t093340483-0400-cast-expansion-20261029t160246651-0400": {
+      "assignment_id": "weatherford-synthetic-data-poc-20261023t093340483-0400",
+      "project": "Weatherford Synthetic Data POC",
+      "universe": "Solo Leveling",
+      "created_at": "2026-10-29T16:02:46.651-04:00",
+      "members": [
+        "Sung Jinwoo",
+        "Go Gunhee",
+        "Woo Jinchul",
+        "Min Byung-Gyu",
+        "Choi Jong-In",
+        "Cha Hae-In",
+        "Yoo Jinho",
+        "Baek Yoonho",
+        "Thomas Andre",
+        "Beru",
+        "Igris"
+      ]
+    },
+    "weatherford-synthetic-data-poc-20261023t093340483-0400-cast-expansion-20261023t135826155-0400": {
+      "assignment_id": "weatherford-synthetic-data-poc-20261023t093340483-0400",
+      "project": "Weatherford Synthetic Data POC",
+      "universe": "Solo Leveling",
+      "created_at": "2026-10-23T13:58:26.155-04:00",
+      "members": [
+        "Sung Jinwoo",
+        "Go Gunhee",
+        "Woo Jinchul",
+        "Choi Jong-In",
+        "Cha Hae-In",
+        "Yoo Jinho",
+        "Baek Yoonho",
+        "Thomas Andre",
+        "Beru",
+        "Igris"
+      ]
+    }
+  }
+}

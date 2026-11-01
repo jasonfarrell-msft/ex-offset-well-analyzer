@@ -1,0 +1,195 @@
+{
+  "evidence_schema_version": "1.0.0",
+  "captured_at_utc": "2026-10-29T14:57:02Z",
+  "base_url": "https://ca-drill-advisor-wfrd-mx01.icytree-3fa8fc52.centralus.azurecontainerapps.io",
+  "release_expected": "v1.1.0:904a5b293fdf0654fb1c5b4d28dd79d1c9cfaaac612f71d8f297ec874f4d284d",
+  "checks": {
+    "/healthz": {
+      "status": 200,
+      "body": "{\"status\":\"healthy\"}"
+    },
+    "/readyz": {
+      "status": 200,
+      "body": "{\"status\":\"ready\"}"
+    },
+    "root": {
+      "status": 200,
+      "indexHtml": true,
+      "assetRefs": [
+        "/assets/index-Cy_y-Ekd.js",
+        "/assets/react-CfcuB4oP.js",
+        "/assets/markdown-CPmYdECA.js",
+        "/assets/index-R_nFpGk6.css"
+      ],
+      "hasWorkspaceLabel": false
+    },
+    "asset_probe": {
+      "status": 200,
+      "asset": "/assets/index-Cy_y-Ekd.js",
+      "contains_offset_route_text": true,
+      "contains_workspace_label": true
+    },
+    "chat_get": {
+      "status": 404,
+      "body_excerpt": ""
+    },
+    "targets": {
+      "status": 200,
+      "operation": "targets",
+      "statusValue": "success",
+      "releaseId": "v1.1.0:904a5b293fdf0654fb1c5b4d28dd79d1c9cfaaac612f71d8f297ec874f4d284d",
+      "totalCount": 12,
+      "rowCount": 12,
+      "firstTargetId": "SYN-TARGET-0001"
+    },
+    "candidates": {
+      "status": 200,
+      "operation": "candidates",
+      "statusValue": "success",
+      "totalCount": 10,
+      "rowCount": 10,
+      "firstWellId": "SYN-WELL-0002"
+    },
+    "compare": {
+      "status": 200,
+      "operation": "compare",
+      "statusValue": "success",
+      "totalCount": 2,
+      "rowCount": 2,
+      "selectedWellIds": [
+        "SYN-WELL-0002",
+        "SYN-WELL-0019"
+      ],
+      "rowSchemaKeys": [
+        "matchingSections",
+        "metrics",
+        "wellId"
+      ]
+    },
+    "chat_post": {
+      "status": 200,
+      "conversationId_present": true,
+      "markdown_excerpt": "SYNTHETIC DATA \u2022 v1.1.0 \u2022 DEVELOPMENT / OFFSET COMPARISON ONLY\n\nI can\u2019t retrieve the synthetic release label or any source-name field from the selected `lh_drillrun_summary` serving views with the available tools. The tool rejected the query as not matching the schema, and I\u2019m not allowed to infer or fabricate those va",
+      "toolCallCount": 2,
+      "sourceCount": 0,
+      "toolCalls": [
+        {
+          "type": "mcp_list_tools",
+          "id": "mcpl_0414ba2879d6e8b9006ae35ec22670819093aaa0625189bbd4",
+          "name": null,
+          "server": "fabric-dataagent-mi-bridge",
+          "status": null,
+          "toolCount": 1
+        },
+        {
+          "type": "mcp_call",
+          "id": "mcp_0414ba2879d6e8b9006ae35ec2ee1c819082e49306374b589e",
+          "name": "DataAgent_da_drillrun_public_summary",
+          "server": "fabric-dataagent-mi-bridge",
+          "status": "completed",
+          "toolCount": null
+        }
+      ],
+      "sources": [],
+      "mentions_v1_0_0": false,
+      "mentions_v1_1_0": true
+    },
+    "chat_followup": {
+      "status": 200,
+      "conversationId_present": true,
+      "selectedWellIds": [
+        "SYN-WELL-0002",
+        "SYN-WELL-0019"
+      ],
+      "markdown_excerpt": "SYNTHETIC DATA \u2022 v1.1.0 \u2022 DEVELOPMENT / OFFSET COMPARISON ONLY\n\nThe Fabric Data Agent could not verify values from the serving views for this request, so the only safe basis is the trusted offset context you provided.\n\n| Selected offset well | acceptedRunCount | summaryPenetrationRateFtPerHour | Evidence receipt |\n|---|---:|---:|---|\n| SYN-WELL-0002 | 5 | 64.422685 ft/hr | Receipt 1 |\n| SYN-WELL-0019 | 2 | 30.834613 ",
+      "toolCallCount": 2,
+      "sourceCount": 0,
+      "toolCalls": [
+        {
+          "type": "mcp_list_tools",
+          "id": "mcpl_0575ebe6c477f4e2006ae35edf10e481978b88ffeb04d0c9b1",
+          "name": null,
+          "server": "fabric-dataagent-mi-bridge",
+          "status": null,
+          "toolCount": 1
+        },
+        {
+          "type": "mcp_call",
+          "id": "mcp_0575ebe6c477f4e2006ae35ee0f8dc8197850134f505abd5f7",
+          "name": "DataAgent_da_drillrun_public_summary",
+          "server": "fabric-dataagent-mi-bridge",
+          "status": "completed",
+          "toolCount": null
+        }
+      ],
+      "sources": [],
+      "mentions_v1_0_0": false,
+      "mentions_v1_1_0": true
+    },
+    "contract_summary": {
+      "target_count_expected": 12,
+      "target_count_observed": 12,
+      "target_section_rows_expected": 3288,
+      "target_section_rows_reference": "validated separately via fabric_sql_probe on serving.offset_section_summary for release v1.1.0"
+    }
+  },
+  "deployment": {
+    "subscription_id": "bb4b2781-6739-4fa1-994e-4ad6ce55c59c",
+    "resource_group": "rg-welladvisor-mx01",
+    "container_app": "ca-drill-advisor-wfrd-mx01",
+    "canonical_url": "https://ca-drill-advisor-wfrd-mx01.icytree-3fa8fc52.centralus.azurecontainerapps.io",
+    "previous_image": "acrdrilladvisormx01.azurecr.io/drill-advisor@sha256:cf2fd574657e1d3415e1b68af1242eac2d5b5d53d88987bb76df999db63711aa",
+    "new_image": "acrdrilladvisormx01.azurecr.io/drill-advisor@sha256:4c5951a04291d9255f25f165df652175470892e843bd4e25d618528a0944a8cb",
+    "new_revision": "ca-drill-advisor-wfrd-mx01--0000006",
+    "ready_revision": "ca-drill-advisor-wfrd-mx01--0000006",
+    "identity": {
+      "/subscriptions/bb4b2781-6739-4fa1-994e-4ad6ce55c59c/resourcegroups/rg-welladvisor-mx01/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id-drill-advisor-wfrd-mx01": {
+        "clientId": "56715a5f-8b03-47bc-9d64-787b96ba56ae",
+        "principalId": "882c8c40-02e1-479f-8fbc-93d39412a571"
+      }
+    },
+    "offset_sql_env": {
+      "OFFSET_SQL_SERVER": "ehmqx2iabzxu5od4oe3hb3rhx4-vb3rstx7257ernbnysz3yemphu.datawarehouse.fabric.microsoft.com",
+      "OFFSET_SQL_DATABASE": "lh_drillrun_summary"
+    },
+    "revisions": [
+      {
+        "active": true,
+        "health": "Healthy",
+        "image": "acrdrilladvisormx01.azurecr.io/drill-advisor@sha256:4c5951a04291d9255f25f165df652175470892e843bd4e25d618528a0944a8cb",
+        "name": "ca-drill-advisor-wfrd-mx01--0000006",
+        "running": "RunningAtMaxScale"
+      }
+    ]
+  },
+  "fabric_access_fix": {
+    "issue": "Offset SQL login failed (SqlException 18456) after env wiring",
+    "action": "Added runtime UAMI as Fabric workspace role assignment (Viewer) for workspace 4e1977a8-d7ff-487e-b42d-c4b3bc118f3d",
+    "uami_assignment": {
+      "id": "882c8c40-02e1-479f-8fbc-93d39412a571",
+      "role": "Viewer",
+      "principal": {
+        "displayName": "id-drill-advisor-wfrd-mx01",
+        "id": "882c8c40-02e1-479f-8fbc-93d39412a571",
+        "servicePrincipalDetails": {
+          "aadAppId": "56715a5f-8b03-47bc-9d64-787b96ba56ae"
+        },
+        "type": "ServicePrincipal"
+      }
+    }
+  },
+  "sql_release_validation": {
+    "probe": "scripts/fabric_sql_probe",
+    "release_id": "v1.1.0:904a5b293fdf0654fb1c5b4d28dd79d1c9cfaaac612f71d8f297ec874f4d284d",
+    "planned_target_count": 12,
+    "planned_target_sha256": "E8E0812F55094A893C6F7F8A24A555C0B531FA8582CB75844F26628DBC417123",
+    "offset_section_count": 3288,
+    "offset_section_checksum": 0
+  },
+  "fabric_capacity": {
+    "name": "fabricwelladvisorcusmx01",
+    "state": "Active",
+    "resource_id": "/subscriptions/bb4b2781-6739-4fa1-994e-4ad6ce55c59c/resourceGroups/rg-welladvisor-mx01/providers/Microsoft.Fabric/capacities/fabricwelladvisorcusmx01",
+    "kept_active_per_user_request": true
+  }
+}

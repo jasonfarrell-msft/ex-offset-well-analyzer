@@ -1,0 +1,476 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:drillrun:contracts:offset-well-analysis-v1",
+  "title": "Proposed Offset Well Analysis v1 local test profile",
+  "description": "Not a deployed API or authentication/completeness proof. Examples are non-authoritative shape fixtures; golden answers remain grader-only in tests. Cross-field and numerical rules are normative in the companion markdown. GUD-001–005 are approved for M1/M2 local contract/oracle work and use only within separately gated M2 windows; they do not authorize production implementation or deployment.",
+  "oneOf": [
+    {"$ref": "#/$defs/targetsRequest"},
+    {"$ref": "#/$defs/candidatesRequest"},
+    {"$ref": "#/$defs/compareRequest"},
+    {"$ref": "#/$defs/chatRequest"},
+    {"$ref": "#/$defs/analyticalResponse"},
+    {"$ref": "#/$defs/chatResponse"},
+    {"$ref": "#/$defs/failureResponse"}
+  ],
+  "$defs": {
+    "contractVersion": {"const": "offset-well-analysis-v1"},
+    "releaseId": {"const": "v1.1.0:904a5b293fdf0654fb1c5b4d28dd79d1c9cfaaac612f71d8f297ec874f4d284d"},
+    "manifestSha256": {"const": "904a5b293fdf0654fb1c5b4d28dd79d1c9cfaaac612f71d8f297ec874f4d284d"},
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$(?![\\s\\S])"},
+    "opaqueId": {"type": "string", "pattern": "^[A-Za-z0-9_-]{16,80}$(?![\\s\\S])"},
+    "targetId": {"type": "string", "pattern": "^SYN-TARGET-(?:000[1-9]|001[0-2])$(?![\\s\\S])"},
+    "wellId": {"type": "string", "pattern": "^SYN-WELL-(?:00[0-9][0-9]|0100)$(?![\\s\\S])", "not": {"const": "SYN-WELL-0000"}},
+    "count": {"type": "integer", "minimum": 0, "maximum": 9007199254740991},
+    "decimal": {"type": "string", "maxLength": 40, "pattern": "^(?:0|[1-9][0-9]*)(?:\\.[0-9]{1,12})?$(?![\\s\\S])"},
+    "nullableDecimal": {"anyOf": [{"$ref": "#/$defs/decimal"}, {"type": "null"}]},
+    "coordinate": {"type": "string", "pattern": "^(?:0|-?(?:[1-9][0-9]{0,5}|1000000))$(?![\\s\\S])", "maxLength": 8},
+    "criteria": {
+      "type": "object", "additionalProperties": false,
+      "required": ["radiusFt", "formationMatch", "holeSizeMatch", "mdOverlap"],
+      "properties": {
+        "radiusFt": {"type": "string", "pattern": "^(?:0|[1-9][0-9]{0,6})(?:\\.[0-9]{1,6})?$(?![\\s\\S])", "maxLength": 14},
+        "formationMatch": {"type": "boolean"},
+        "holeSizeMatch": {"type": "boolean"},
+        "mdOverlap": {"type": "boolean"}
+      }
+    },
+    "context": {
+      "type": "object", "additionalProperties": false,
+      "required": ["targetId", "criteria", "selectedWellIds", "contextRevision"],
+      "properties": {
+        "targetId": {"$ref": "#/$defs/targetId"},
+        "criteria": {"$ref": "#/$defs/criteria"},
+        "selectedWellIds": {"type": "array", "maxItems": 5, "uniqueItems": true, "items": {"$ref": "#/$defs/wellId"}},
+        "contextRevision": {"$ref": "#/$defs/count"}
+      },
+      "examples": [{
+        "targetId": "SYN-TARGET-0001",
+        "criteria": {"radiusFt": "10000", "formationMatch": true, "holeSizeMatch": true, "mdOverlap": false},
+        "selectedWellIds": ["SYN-WELL-0019"],
+        "contextRevision": 1
+      }]
+    },
+    "unselectedContext": {
+      "allOf": [
+        {"$ref": "#/$defs/context"},
+        {"properties": {"selectedWellIds": {"maxItems": 0}}}
+      ]
+    },
+    "selectedContext": {
+      "allOf": [
+        {"$ref": "#/$defs/context"},
+        {"properties": {"selectedWellIds": {"minItems": 1}}}
+      ]
+    },
+    "targetsRequest": {
+      "type": "object", "additionalProperties": false,
+      "required": ["operation", "contractVersion", "releaseId"],
+      "properties": {
+        "operation": {"const": "targets"},
+        "contractVersion": {"$ref": "#/$defs/contractVersion"},
+        "releaseId": {"$ref": "#/$defs/releaseId"}
+      }
+    },
+    "candidatesRequest": {
+      "type": "object", "additionalProperties": false,
+      "required": ["operation", "contractVersion", "releaseId", "context"],
+      "properties": {
+        "operation": {"const": "candidates"},
+        "contractVersion": {"$ref": "#/$defs/contractVersion"},
+        "releaseId": {"$ref": "#/$defs/releaseId"},
+        "context": {"$ref": "#/$defs/unselectedContext"}
+      }
+    },
+    "compareRequest": {
+      "type": "object", "additionalProperties": false,
+      "required": ["operation", "contractVersion", "releaseId", "context"],
+      "properties": {
+        "operation": {"const": "compare"},
+        "contractVersion": {"$ref": "#/$defs/contractVersion"},
+        "releaseId": {"$ref": "#/$defs/releaseId"},
+        "context": {"$ref": "#/$defs/selectedContext"}
+      }
+    },
+    "chatRequest": {
+      "type": "object", "additionalProperties": false,
+      "required": ["operation", "contractVersion", "releaseId", "context", "message"],
+      "properties": {
+        "operation": {"const": "chat"},
+        "contractVersion": {"$ref": "#/$defs/contractVersion"},
+        "releaseId": {"$ref": "#/$defs/releaseId"},
+        "context": {"$ref": "#/$defs/selectedContext"},
+        "message": {"type": "string", "minLength": 1, "maxLength": 2000},
+        "conversationId": {"$ref": "#/$defs/opaqueId"}
+      }
+    },
+    "target": {
+      "type": "object", "additionalProperties": false,
+      "required": ["targetId", "recordKind", "basinName", "fieldName", "expectedFormationName", "plannedTrajectoryProfile", "plannedHoleSizeIn", "plannedMdMinFt", "plannedMdMaxFt", "coordinateFrameId", "locationSemantics", "coordinateUnits", "surfaceXFt", "surfaceYFt", "referenceDatasetVersion", "referenceManifestSha256", "isSynthetic"],
+      "properties": {
+        "targetId": {"$ref": "#/$defs/targetId"},
+        "recordKind": {"const": "PLANNED_TARGET"},
+        "basinName": {"type": "string", "minLength": 1, "maxLength": 120},
+        "fieldName": {"type": "string", "minLength": 1, "maxLength": 120},
+        "expectedFormationName": {"type": "string", "enum": ["Synthetic Aster", "Synthetic Brimstone", "Synthetic Cobalt", "Synthetic Driftwood", "Synthetic Ember", "Synthetic Flint"]},
+        "plannedTrajectoryProfile": {"enum": ["VERTICAL", "BUILD_AND_HOLD", "HORIZONTAL"]},
+        "plannedHoleSizeIn": {"enum": ["17.5", "12.25", "8.5", "6.125"]},
+        "plannedMdMinFt": {"$ref": "#/$defs/decimal"},
+        "plannedMdMaxFt": {"$ref": "#/$defs/decimal"},
+        "coordinateFrameId": {"const": "SYN-LOCAL-FT-V1"},
+        "locationSemantics": {"const": "SYNTHETIC_SURFACE_WELLHEAD"},
+        "coordinateUnits": {"const": "ft"},
+        "surfaceXFt": {"$ref": "#/$defs/coordinate"},
+        "surfaceYFt": {"$ref": "#/$defs/coordinate"},
+        "referenceDatasetVersion": {"const": "v1.0.0"},
+        "referenceManifestSha256": {"const": "f27ad627a06a2b554ae359e9aceb682944f1a4becb2de330f5ece629d407fed9"},
+        "isSynthetic": {"const": true}
+      },
+      "examples": [{
+        "targetId": "SYN-TARGET-0001", "recordKind": "PLANNED_TARGET",
+        "basinName": "Synthetic North Basin", "fieldName": "Fictional Aurora Field",
+        "expectedFormationName": "Synthetic Brimstone", "plannedTrajectoryProfile": "BUILD_AND_HOLD",
+        "plannedHoleSizeIn": "17.5", "plannedMdMinFt": "7250", "plannedMdMaxFt": "13000",
+        "coordinateFrameId": "SYN-LOCAL-FT-V1", "locationSemantics": "SYNTHETIC_SURFACE_WELLHEAD",
+        "coordinateUnits": "ft", "surfaceXFt": "-699419", "surfaceYFt": "-600579",
+        "referenceDatasetVersion": "v1.0.0",
+        "referenceManifestSha256": "f27ad627a06a2b554ae359e9aceb682944f1a4becb2de330f5ece629d407fed9",
+        "isSynthetic": true
+      }]
+    },
+    "metrics": {
+      "type": "object", "additionalProperties": false,
+      "required": ["matchingSectionCount", "acceptedRunCount", "acceptedFootageFt", "acceptedDurationHours", "averageFootagePerRunFt", "summaryPenetrationRateFtPerHour", "quarantinedRunCount", "warningRunCount", "warningSectionCount", "warningIssueCount", "scope", "unavailableReasons"],
+      "properties": {
+        "matchingSectionCount": {"$ref": "#/$defs/count"},
+        "acceptedRunCount": {"$ref": "#/$defs/count"},
+        "acceptedFootageFt": {"$ref": "#/$defs/nullableDecimal"},
+        "acceptedDurationHours": {"$ref": "#/$defs/nullableDecimal"},
+        "averageFootagePerRunFt": {"$ref": "#/$defs/nullableDecimal"},
+        "summaryPenetrationRateFtPerHour": {"$ref": "#/$defs/nullableDecimal"},
+        "quarantinedRunCount": {"$ref": "#/$defs/count"},
+        "warningRunCount": {"$ref": "#/$defs/count"},
+        "warningSectionCount": {"$ref": "#/$defs/count"},
+        "warningIssueCount": {"$ref": "#/$defs/count"},
+        "scope": {"const": "MATCHING_WHOLE_SECTIONS"},
+        "unavailableReasons": {
+          "type": "array", "uniqueItems": true, "maxItems": 3,
+          "items": {"enum": ["NO_ACCEPTED_RUNS", "MISSING_ACCEPTED_QUANTITY", "NON_POSITIVE_DURATION"]}
+        }
+      },
+      "examples": [{
+        "matchingSectionCount": 1, "acceptedRunCount": 2,
+        "acceptedFootageFt": "100", "acceptedDurationHours": "10",
+        "averageFootagePerRunFt": "50.000000", "summaryPenetrationRateFtPerHour": "10.000000",
+        "quarantinedRunCount": 0, "warningRunCount": 0, "warningSectionCount": 0, "warningIssueCount": 0,
+        "scope": "MATCHING_WHOLE_SECTIONS", "unavailableReasons": []
+      }]
+    },
+    "matchingSection": {
+      "type": "object", "additionalProperties": false,
+      "required": ["sectionId", "formationName", "holeSizeIn", "startMdFt", "endMdFt", "trajectoryProfile"],
+      "properties": {
+        "sectionId": {"type": "string", "pattern": "^SYN-SEC-[0-9]{4}-[0-9]{2}$(?![\\s\\S])"},
+        "formationName": {"anyOf": [{"type": "string", "enum": ["Synthetic Aster", "Synthetic Brimstone", "Synthetic Cobalt", "Synthetic Driftwood", "Synthetic Ember", "Synthetic Flint"]}, {"type": "null"}]},
+        "holeSizeIn": {"$ref": "#/$defs/nullableDecimal"},
+        "startMdFt": {"$ref": "#/$defs/nullableDecimal"},
+        "endMdFt": {"$ref": "#/$defs/nullableDecimal"},
+        "trajectoryProfile": {"enum": ["VERTICAL", "BUILD_AND_HOLD", "HORIZONTAL", null]}
+      },
+      "examples": [{"sectionId": "SYN-SEC-0001-01", "formationName": null, "holeSizeIn": "17.5", "startMdFt": "0", "endMdFt": "4087.6", "trajectoryProfile": "VERTICAL"}]
+    },
+    "matchingSections": {
+      "type": "array", "minItems": 1, "maxItems": 274, "uniqueItems": true,
+      "items": {"$ref": "#/$defs/matchingSection"}
+    },
+    "candidate": {
+      "type": "object", "additionalProperties": false,
+      "required": ["wellId", "wellName", "basinName", "fieldName", "coordinateFrameId", "locationSemantics", "coordinateUnits", "distanceSquaredFt2", "distanceFt", "matchingSections", "metrics"],
+      "properties": {
+        "wellId": {"$ref": "#/$defs/wellId"},
+        "wellName": {"type": "string", "minLength": 1, "maxLength": 120},
+        "basinName": {"type": "string", "minLength": 1, "maxLength": 120},
+        "fieldName": {"type": "string", "minLength": 1, "maxLength": 120},
+        "coordinateFrameId": {"const": "SYN-LOCAL-FT-V1"},
+        "locationSemantics": {"const": "SYNTHETIC_SURFACE_WELLHEAD"},
+        "coordinateUnits": {"const": "ft"},
+        "distanceSquaredFt2": {"$ref": "#/$defs/decimal"},
+        "distanceFt": {"type": "string", "pattern": "^(?:0|[1-9][0-9]*)\\.[0-9]$(?![\\s\\S])", "maxLength": 16},
+        "matchingSections": {"$ref": "#/$defs/matchingSections"},
+        "metrics": {"$ref": "#/$defs/metrics"}
+      },
+      "examples": [{
+        "wellId": "SYN-WELL-0019", "wellName": "Fictional Well 0019",
+        "basinName": "Synthetic North Basin", "fieldName": "Fictional Aurora Field",
+        "coordinateFrameId": "SYN-LOCAL-FT-V1",
+        "locationSemantics": "SYNTHETIC_SURFACE_WELLHEAD", "coordinateUnits": "ft",
+        "distanceSquaredFt2": "25", "distanceFt": "5.0",
+        "matchingSections": [{
+          "sectionId": "SYN-SEC-0019-01", "formationName": "Synthetic Brimstone",
+          "holeSizeIn": "17.5", "startMdFt": "0", "endMdFt": "4087.6",
+          "trajectoryProfile": "VERTICAL"
+        }],
+        "metrics": {
+          "matchingSectionCount": 1, "acceptedRunCount": 2,
+          "acceptedFootageFt": "100", "acceptedDurationHours": "10",
+          "averageFootagePerRunFt": "50.000000",
+          "summaryPenetrationRateFtPerHour": "10.000000",
+          "quarantinedRunCount": 0, "warningRunCount": 0,
+          "warningSectionCount": 0, "warningIssueCount": 0,
+          "scope": "MATCHING_WHOLE_SECTIONS", "unavailableReasons": []
+        }
+      }]
+    },
+    "comparison": {
+      "type": "object", "additionalProperties": false,
+      "required": ["wellId", "matchingSections", "metrics"],
+      "properties": {
+        "wellId": {"$ref": "#/$defs/wellId"},
+        "matchingSections": {"$ref": "#/$defs/matchingSections"},
+        "metrics": {"$ref": "#/$defs/metrics"}
+      },
+      "examples": [{
+        "wellId": "SYN-WELL-0019",
+        "matchingSections": [{
+          "sectionId": "SYN-SEC-0019-01", "formationName": "Synthetic Brimstone",
+          "holeSizeIn": "17.5", "startMdFt": "0", "endMdFt": "4087.6",
+          "trajectoryProfile": "VERTICAL"
+        }],
+        "metrics": {
+          "matchingSectionCount": 1, "acceptedRunCount": 2,
+          "acceptedFootageFt": "100", "acceptedDurationHours": "10",
+          "averageFootagePerRunFt": "50.000000",
+          "summaryPenetrationRateFtPerHour": "10.000000",
+          "quarantinedRunCount": 0, "warningRunCount": 0,
+          "warningSectionCount": 0, "warningIssueCount": 0,
+          "scope": "MATCHING_WHOLE_SECTIONS", "unavailableReasons": []
+        }
+      }]
+    },
+    "exclusion": {
+      "type": "object", "additionalProperties": false,
+      "required": ["wellId", "reasons"],
+      "properties": {
+        "wellId": {"$ref": "#/$defs/wellId"},
+        "reasons": {
+          "type": "array", "minItems": 1, "maxItems": 7, "uniqueItems": true,
+          "items": {"enum": ["INCOMPATIBLE_COORDINATES", "OUTSIDE_RADIUS", "NO_MATCHING_SECTION", "NO_ACCEPTED_RUNS", "UNKNOWN_FORMATION", "UNKNOWN_HOLE_SIZE", "UNKNOWN_MD"]}
+        }
+      }
+    },
+    "source": {
+      "type": "object", "additionalProperties": false,
+      "required": ["view", "columns", "measures"],
+      "properties": {
+        "view": {"enum": ["serving.planned_target_summary", "serving.offset_candidate_summary", "serving.offset_section_summary"]},
+        "columns": {
+          "type": "array", "uniqueItems": true, "maxItems": 40,
+          "items": {"enum": ["_release_id", "target_id", "record_kind", "basin_name", "field_name", "expected_formation_name", "planned_trajectory_profile", "planned_hole_size_in", "planned_md_min_ft", "planned_md_max_ft", "coordinate_frame_id", "location_semantics", "surface_x_ft", "surface_y_ft", "reference_dataset_version", "reference_manifest_sha256", "is_synthetic", "well_id", "well_name", "section_id", "formation_name", "hole_size_in", "start_md_ft", "end_md_ft", "trajectory_profile", "distance_squared_ft2", "accepted_run_count", "accepted_footage_ft", "accepted_duration_hours", "quarantined_run_count", "warning_run_count", "warning_section_count", "warning_issue_count"]}
+        },
+        "measures": {
+          "type": "array", "uniqueItems": true, "maxItems": 5,
+          "items": {"enum": ["Matching Accepted Run Count", "Matching Accepted Footage", "Matching Accepted Duration", "Matching Average Footage Per Run", "Matching Summary Penetration Rate"]}
+        }
+      }
+    },
+    "evidence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["receiptId", "requestId", "toolCallId", "resultId", "sources", "grain", "units", "denominators", "qualityCaveats", "completion"],
+      "properties": {
+        "receiptId": {"$ref": "#/$defs/opaqueId"},
+        "requestId": {"$ref": "#/$defs/opaqueId"},
+        "toolCallId": {"$ref": "#/$defs/opaqueId"},
+        "resultId": {"$ref": "#/$defs/opaqueId"},
+        "sources": {"type": "array", "minItems": 1, "maxItems": 3, "uniqueItems": true, "items": {"$ref": "#/$defs/source"}},
+        "grain": {"enum": ["RELEASE_TARGET", "RELEASE_TARGET_WELL_MATCHING_SECTIONS"]},
+        "units": {
+          "const": {"distanceSquaredFt2": "ft^2", "distanceFt": "ft", "acceptedFootageFt": "ft", "acceptedDurationHours": "hours", "averageFootagePerRunFt": "ft/run", "summaryPenetrationRateFtPerHour": "ft/hour", "counts": "entities_at_named_grain"}
+        },
+        "denominators": {
+          "const": {"averageFootagePerRunFt": "acceptedRunCount", "summaryPenetrationRateFtPerHour": "acceptedDurationHours"}
+        },
+        "qualityCaveats": {"type": "array", "minItems": 1, "maxItems": 8, "uniqueItems": true, "items": {"type": "string", "minLength": 1, "maxLength": 240}},
+        "completion": {"const": "VALIDATED_AUTHENTICATED_RESULT"}
+      },
+      "examples": [{
+        "receiptId": "fixture_receipt_0001", "requestId": "fixture_request_0001",
+        "toolCallId": "fixture_toolcall_001", "resultId": "fixture_result_0001",
+        "sources": [{"view": "serving.offset_section_summary", "columns": ["_release_id", "target_id", "well_id", "section_id", "accepted_run_count", "accepted_footage_ft", "accepted_duration_hours"], "measures": []}],
+        "grain": "RELEASE_TARGET_WELL_MATCHING_SECTIONS",
+        "units": {"distanceSquaredFt2": "ft^2", "distanceFt": "ft", "acceptedFootageFt": "ft", "acceptedDurationHours": "hours", "averageFootagePerRunFt": "ft/run", "summaryPenetrationRateFtPerHour": "ft/hour", "counts": "entities_at_named_grain"},
+        "denominators": {"averageFootagePerRunFt": "acceptedRunCount", "summaryPenetrationRateFtPerHour": "acceptedDurationHours"},
+        "qualityCaveats": ["Fictional surface proximity only; PASS/WARNING accepted; ERROR excluded. Fixture is not live evidence."],
+        "completion": "VALIDATED_AUTHENTICATED_RESULT"
+      }]
+    },
+    "versions": {
+      "type": "object",
+      "required": ["contractVersion", "queryContractVersion", "transformationContractVersion", "datasetVersion", "releaseId", "manifestSha256"],
+      "properties": {
+        "contractVersion": {"$ref": "#/$defs/contractVersion"},
+        "queryContractVersion": {"$ref": "#/$defs/contractVersion"},
+        "transformationContractVersion": {"const": "1.1.0"},
+        "datasetVersion": {"const": "v1.1.0"},
+        "releaseId": {"$ref": "#/$defs/releaseId"},
+        "manifestSha256": {"$ref": "#/$defs/manifestSha256"}
+      }
+    },
+    "analyticalResponse": {
+      "allOf": [
+        {"$ref": "#/$defs/versions"},
+        {
+          "type": "object",
+          "required": ["operation", "status", "context", "contextHash", "rows", "totalCount", "truncated", "exclusions", "evidence"],
+          "properties": {
+            "operation": {"enum": ["targets", "candidates", "compare"]},
+            "status": {"enum": ["success", "empty"]},
+            "context": {"anyOf": [{"$ref": "#/$defs/context"}, {"type": "null"}]},
+            "contextHash": {"anyOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]},
+            "rows": {"type": "array", "maxItems": 100, "uniqueItems": true},
+            "totalCount": {"type": "integer", "minimum": 0, "maximum": 100},
+            "truncated": {"const": false},
+            "exclusions": {"type": "array", "maxItems": 100, "uniqueItems": true, "items": {"$ref": "#/$defs/exclusion"}},
+            "evidence": {"$ref": "#/$defs/evidence"}
+          }
+        },
+        {
+          "oneOf": [
+            {"properties": {"operation": {"const": "targets"}, "status": {"const": "success"}, "context": {"type": "null"}, "contextHash": {"type": "null"}, "rows": {"minItems": 12, "maxItems": 12, "items": {"$ref": "#/$defs/target"}}, "totalCount": {"const": 12}, "exclusions": {"maxItems": 0}}},
+            {"properties": {"operation": {"const": "candidates"}, "context": {"$ref": "#/$defs/unselectedContext"}, "contextHash": {"$ref": "#/$defs/sha256"}, "rows": {"items": {"$ref": "#/$defs/candidate"}}}},
+            {"properties": {"operation": {"const": "compare"}, "status": {"const": "success"}, "context": {"$ref": "#/$defs/selectedContext"}, "contextHash": {"$ref": "#/$defs/sha256"}, "rows": {"minItems": 1, "maxItems": 5, "items": {"$ref": "#/$defs/comparison"}}, "exclusions": {"maxItems": 0}}}
+          ]
+        },
+        {
+          "oneOf": [
+            {"properties": {"status": {"const": "success"}, "rows": {"minItems": 1}, "totalCount": {"minimum": 1}}},
+            {"properties": {"status": {"const": "empty"}, "operation": {"const": "candidates"}, "rows": {"maxItems": 0}, "totalCount": {"const": 0}}}
+          ]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "claim": {
+      "type": "object", "additionalProperties": false,
+      "required": ["claimId", "text", "receiptId", "sourceIndex", "wellIds"],
+      "properties": {
+        "claimId": {"$ref": "#/$defs/opaqueId"},
+        "text": {"type": "string", "minLength": 1, "maxLength": 2000},
+        "receiptId": {"$ref": "#/$defs/opaqueId"},
+        "sourceIndex": {"type": "integer", "minimum": 0, "maximum": 2},
+        "wellIds": {"type": "array", "minItems": 1, "maxItems": 5, "uniqueItems": true, "items": {"$ref": "#/$defs/wellId"}}
+      }
+    },
+    "chatResponse": {
+      "allOf": [
+        {"$ref": "#/$defs/versions"},
+        {
+          "type": "object",
+          "required": ["operation", "status", "context", "contextHash", "message", "conversationId", "claims", "evidence"],
+          "properties": {
+            "operation": {"const": "chat"},
+            "status": {"const": "success"},
+            "context": {"$ref": "#/$defs/selectedContext"},
+            "contextHash": {"$ref": "#/$defs/sha256"},
+            "message": {"type": "string", "minLength": 1, "maxLength": 16000, "pattern": "^SYNTHETIC DATA • v1\\.1\\.0 • DEVELOPMENT / OFFSET COMPARISON ONLY\\n"},
+            "conversationId": {"$ref": "#/$defs/opaqueId"},
+            "claims": {"type": "array", "minItems": 1, "maxItems": 20, "items": {"$ref": "#/$defs/claim"}},
+            "evidence": {"$ref": "#/$defs/evidence"}
+          }
+        }
+      ],
+      "examples": [{
+        "operation": "chat", "status": "success",
+        "contractVersion": "offset-well-analysis-v1",
+        "queryContractVersion": "offset-well-analysis-v1",
+        "transformationContractVersion": "1.1.0", "datasetVersion": "v1.1.0",
+        "releaseId": "v1.1.0:904a5b293fdf0654fb1c5b4d28dd79d1c9cfaaac612f71d8f297ec874f4d284d",
+        "manifestSha256": "904a5b293fdf0654fb1c5b4d28dd79d1c9cfaaac612f71d8f297ec874f4d284d",
+        "context": {
+          "targetId": "SYN-TARGET-0001",
+          "criteria": {"radiusFt": "10000", "formationMatch": true, "holeSizeMatch": true, "mdOverlap": false},
+          "selectedWellIds": ["SYN-WELL-0019"], "contextRevision": 1
+        },
+        "contextHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "message": "SYNTHETIC DATA • v1.1.0 • DEVELOPMENT / OFFSET COMPARISON ONLY\nThis describes historical summaries, not target outcomes.",
+        "conversationId": "fixture_conversation_001",
+        "claims": [{
+          "claimId": "fixture_claim_0001", "text": "The selected well has historical summary evidence.",
+          "receiptId": "fixture_receipt_0001", "sourceIndex": 0,
+          "wellIds": ["SYN-WELL-0019"]
+        }],
+        "evidence": {
+          "receiptId": "fixture_receipt_0001", "requestId": "fixture_request_0001",
+          "toolCallId": "fixture_toolcall_001", "resultId": "fixture_result_0001",
+          "sources": [{
+            "view": "serving.offset_section_summary",
+            "columns": ["_release_id", "target_id", "well_id", "section_id", "accepted_run_count"],
+            "measures": []
+          }],
+          "grain": "RELEASE_TARGET_WELL_MATCHING_SECTIONS",
+          "units": {
+            "distanceSquaredFt2": "ft^2", "distanceFt": "ft", "acceptedFootageFt": "ft",
+            "acceptedDurationHours": "hours", "averageFootagePerRunFt": "ft/run",
+            "summaryPenetrationRateFtPerHour": "ft/hour", "counts": "entities_at_named_grain"
+          },
+          "denominators": {
+            "averageFootagePerRunFt": "acceptedRunCount",
+            "summaryPenetrationRateFtPerHour": "acceptedDurationHours"
+          },
+          "qualityCaveats": ["Illustrative shape only; not live evidence."],
+          "completion": "VALIDATED_AUTHENTICATED_RESULT"
+        }
+      }],
+      "unevaluatedProperties": false
+    },
+    "failureResponse": {
+      "allOf": [
+        {"$ref": "#/$defs/versions"},
+        {
+          "type": "object",
+          "required": ["operation", "status", "context", "contextHash", "evidence", "error"],
+          "properties": {
+            "operation": {"enum": ["targets", "candidates", "compare", "chat", null]},
+            "status": {"enum": ["unavailable", "stale", "error"]},
+            "context": {"anyOf": [{"$ref": "#/$defs/context"}, {"type": "null"}]},
+            "contextHash": {"type": "null"},
+            "evidence": {"type": "null"},
+            "error": {
+              "type": "object", "additionalProperties": false,
+              "required": ["code", "retryable"],
+              "properties": {
+                "code": {"enum": ["INVALID_REQUEST", "CAPABILITY_UNPROVEN", "UPSTREAM_UNAVAILABLE", "INCOMPLETE_RESULT", "CONTEXT_MISMATCH", "CLAIM_NOT_GROUNDED"]},
+                "retryable": {"type": "boolean"}
+              }
+            }
+          },
+          "oneOf": [
+            {"properties": {"operation": {"type": "null"}, "context": {"type": "null"}}},
+            {"properties": {"operation": {"enum": ["targets", "candidates", "compare", "chat"]}}}
+          ]
+        }
+      ],
+      "unevaluatedProperties": false
+    }
+  },
+  "examples": [
+    {
+      "operation": "targets", "contractVersion": "offset-well-analysis-v1",
+      "releaseId": "v1.1.0:904a5b293fdf0654fb1c5b4d28dd79d1c9cfaaac612f71d8f297ec874f4d284d"
+    },
+    {
+      "operation": "candidates", "contractVersion": "offset-well-analysis-v1",
+      "releaseId": "v1.1.0:904a5b293fdf0654fb1c5b4d28dd79d1c9cfaaac612f71d8f297ec874f4d284d",
+      "context": {"targetId": "SYN-TARGET-0001", "criteria": {"radiusFt": "10000", "formationMatch": true, "holeSizeMatch": true, "mdOverlap": false}, "selectedWellIds": [], "contextRevision": 0}
+    },
+    {
+      "operation": "compare", "contractVersion": "offset-well-analysis-v1",
+      "releaseId": "v1.1.0:904a5b293fdf0654fb1c5b4d28dd79d1c9cfaaac612f71d8f297ec874f4d284d",
+      "context": {"targetId": "SYN-TARGET-0001", "criteria": {"radiusFt": "10000", "formationMatch": true, "holeSizeMatch": true, "mdOverlap": false}, "selectedWellIds": ["SYN-WELL-0019"], "contextRevision": 1}
+    },
+    {
+      "operation": "chat", "contractVersion": "offset-well-analysis-v1",
+      "releaseId": "v1.1.0:904a5b293fdf0654fb1c5b4d28dd79d1c9cfaaac612f71d8f297ec874f4d284d",
+      "context": {"targetId": "SYN-TARGET-0001", "criteria": {"radiusFt": "10000", "formationMatch": true, "holeSizeMatch": true, "mdOverlap": false}, "selectedWellIds": ["SYN-WELL-0019"], "contextRevision": 1},
+      "message": "Explain the selected historical summary quantities."
+    }
+  ]
+}

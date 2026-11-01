@@ -1,0 +1,24 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+    "ENTRA_TENANT_ID": "00000000-0000-0000-0000-000000000000",
+    "MANAGED_IDENTITY_CLIENT_ID": "00000000-0000-0000-0000-000000000000",
+    "FABRIC_APP_CLIENT_ID": "00000000-0000-0000-0000-000000000000",
+    "FABRIC_TOKEN_SCOPE": "https://api.fabric.microsoft.com/.default",
+    "FOUNDRY_PROJECT_PRINCIPAL_ID": "00000000-0000-0000-0000-000000000000",
+    "FOUNDRY_PROJECT_ENDPOINT": "https://example.services.ai.azure.com/api/projects/example-project",
+    "FOUNDRY_AGENT_NAME": "example-agent",
+    "OFFSET_SQL_SERVER": "example.database.windows.net",
+    "OFFSET_SQL_DATABASE": "drilladvisor",
+    "OFFSET_SQL_COMMAND_TIMEOUT_SECONDS": "30",
+    "FABRIC_DATA_AGENT_MCP_ENDPOINT": "https://api.fabric.microsoft.com/v1/mcp/workspaces/00000000-0000-0000-0000-000000000000/dataagents/00000000-0000-0000-0000-000000000000/agent",
+    "PUBLIC_CHAT_ENABLED": "true",
+    "ALLOW_LOCAL_ANONYMOUS": "true",
+    "TRUSTED_PLATFORM_AUTH_ENABLED": "false",
+    "SWA_ANONYMOUS_IDENTITY_PROVIDER": "anonymous",
+    "SWA_BACKEND_IDENTITY_PROVIDER": "anonymous",
+    "FOUNDRY_IDENTITY_PROVIDER": "aad"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "status": 200,
+  "response": {
+    "conversationId": "resp_063a2ae91b783495006ae36d2b49988197ae61526f9631a3ec",
+    "message": {
+      "id": "msg_063a2ae91b783495006ae36d5f04208197a1ce1a7f539043f6",
+      "role": "assistant",
+      "markdown": "SYNTHETIC DATA \u2022 v1.1.0 \u2022 DEVELOPMENT / OFFSET COMPARISON ONLY\n\n| Well | Accepted historical drilling footage |\n|---|---:|\n| Synthetic Cobalt | 247,512.3 ft |\n| Synthetic Driftwood | 170,381.6 ft |\n\nSource: synthetic historical release; accepted historical drilling footage\n\n",
+      "createdAtUtc": "2026-10-29T15:58:35+00:00"
+    },
+    "visuals": [
+      {
+        "type": "data-table",
+        "title": "Accepted historical drilling footage",
+        "columns": [
+          {
+            "key": "well",
+            "label": "Well"
+          },
+          {
+            "key": "footage",
+            "label": "Accepted historical drilling footage"
+          }
+        ],
+        "rows": [
+          {
+            "well": "Synthetic Cobalt",
+            "footage": 247512.3
+          },
+          {
+            "well": "Synthetic Driftwood",
+            "footage": 170381.6
+          }
+        ]
+      }
+    ],
+    "toolCalls": [
+      {
+        "type": "mcp_list_tools",
+        "id": "mcpl_063a2ae91b783495006ae36d2b71408197937ba99f341f502a",
+        "name": null,
+        "server": "fabric-dataagent-mi-bridge",
+        "status": null,
+        "toolCount": 1
+      },
+      {
+        "type": "mcp_call",
+        "id": "mcp_063a2ae91b783495006ae36d2c5cb4819795c647a97a6ba3ac",
+        "name": "DataAgent_da_drillrun_public_summary",
+        "server": "fabric-dataagent-mi-bridge",
+        "status": "completed",
+        "toolCount": null
+      }
+    ],
+    "sources": [],
+    "usage": {
+      "inputTokens": 1064,
+      "outputTokens": 210,
+      "totalTokens": 1274
+    },
+    "latencyMs": 53703
+  }
+}

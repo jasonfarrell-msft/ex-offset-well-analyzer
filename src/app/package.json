@@ -1,0 +1,17 @@
+{
+  "name": "drill-advisor-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Same-origin React and ASP.NET Core Azure Container Apps application for Drill Advisor.",
+  "scripts": {
+    "dev": "npm --prefix client run dev",
+    "dev:server": "dotnet watch --project server/DrillAdvisor.Web/DrillAdvisor.Web.csproj",
+    "build": "npm --prefix client run build && dotnet build server/DrillAdvisor.Web/DrillAdvisor.Web.csproj",
+    "lint": "npm --prefix client run lint",
+    "typecheck": "npm --prefix client run typecheck",
+    "test": "npm --prefix client test && dotnet test server/DrillAdvisor.Web.Tests/DrillAdvisor.Web.Tests.csproj && DOTNET_ROLL_FORWARD=Major dotnet test api/DrillAdvisor.Api.Tests/DrillAdvisor.Api.Tests.csproj",
+    "format:check": "dotnet format server/DrillAdvisor.Web.Tests/DrillAdvisor.Web.Tests.csproj --verify-no-changes --no-restore",
+    "container:build": "docker build --tag drill-advisor:local .",
+    "container:run": "docker run --rm --name drill-advisor-local --publish 8080:8080 --env-file .env.container.local drill-advisor:local"
+  }
+}

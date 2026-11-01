@@ -1,0 +1,281 @@
+name: Squad Issue Assign
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  assign-work:
+    # Only trigger on squad:{member} labels (not the base "squad" label)
+    if: startsWith(github.event.label.name, 'squad:')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve operative routing state
+        id: routing
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const label = context.payload.label.name;
+            const memberName = label.replace(/^squad:/, '').toLowerCase();
+
+            // Every later step consumes these fail-closed outputs.
+            core.setOutput('routing_approved', 'false');
+            core.setOutput('target', memberName);
+            core.setOutput('coordinator', '');
+            core.setOutput('coordinator_label', '');
+            core.setOutput('assigned_name', '');
+            core.setOutput('assigned_role', '');
+
+            const routingFile = '.squad/routing.md';
+            if (!fs.existsSync(routingFile)) {
+              core.setFailed('No .squad/routing.md found; refusing assignment');
+              return;
+            }
+            const routingContent = fs.readFileSync(routingFile, 'utf8');
+            const routingMatch = routingContent.match(
+              /## Operative Named-Member Routing[\s\S]*?```json\s*(\{[\s\S]*?\})\s*```/
+            );
+            if (!routingMatch) {
+              core.setFailed('routing.md lacks operative routing JSON; refusing assignment');
+              return;
+            }
+            const routingState = JSON.parse(routingMatch[1]);
+            const activeMemberIds = new Set(routingState.active_members);
+            function slugify(t) { return t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+            const coordinator = slugify(routingState.coordinator || '');
+            if (!coordinator || !activeMemberIds.has(coordinator)) {
+              core.setFailed('routing coordinator must be in active_members; refusing assignment');
+              return;
+            }
+            const coordinatorLabel = routingState.issue_label_pattern.replace(
+              '{member-id}', coordinator
+            );
+            core.setOutput('coordinator', coordinator);
+            core.setOutput('coordinator_label', coordinatorLabel);
+
+            const teamFile = '.squad/team.md';
+            if (!fs.existsSync(teamFile)) {
+              core.setFailed('No .squad/team.md found; refusing assignment');
+              return;
+            }
+
+            const content = fs.readFileSync(teamFile, 'utf8');
+            const lines = content.split('\n');
+
+            if (!activeMemberIds.has(memberName)) {
+              core.warning(`Rejected inactive or unlisted member label "${label}"`);
+              return;
+            }
+
+            const isCopilotAssignment = memberName === 'copilot';
+            let assignedMember = null;
+            if (isCopilotAssignment) {
+              assignedMember = { name: '@copilot', role: 'Coding Agent' };
+            } else {
+              let inMembersTable = false;
+              for (const line of lines) {
+                if (line.match(/^##\s+(Members|Team Roster)/i)) {
+                  inMembersTable = true;
+                  continue;
+                }
+                if (inMembersTable && line.startsWith('## ')) {
+                  break;
+                }
+                if (inMembersTable && line.startsWith('|') && !line.includes('---') && !line.includes('Name')) {
+                  const cells = line.split('|').map(c => c.trim()).filter(Boolean);
+                  if (cells.length >= 2 && slugify(cells[0]) === memberName) {
+                    assignedMember = { name: cells[0], role: cells[1] };
+                    break;
+                  }
+                }
+              }
+            }
+
+            if (!assignedMember) {
+              core.warning(`No member found matching label "${label}"`);
+              return;
+            }
+
+            core.setOutput('assigned_name', assignedMember.name);
+            core.setOutput('assigned_role', assignedMember.role);
+            core.setOutput('routing_approved', 'true');
+            core.info(`Approved issue route to ${assignedMember.name} (${assignedMember.role})`);
+
+      - name: Route rejected target to coordinator triage
+        if: steps.routing.outputs.routing_approved != 'true'
+        uses: actions/github-script@v7
+        env:
+          COORDINATOR_LABEL: ${{ steps.routing.outputs.coordinator_label }}
+          REJECTED_TARGET: ${{ steps.routing.outputs.target }}
+        with:
+          script: |
+            const fs = require('fs');
+            const issue = context.payload.issue;
+            const routingContent = fs.readFileSync('.squad/routing.md', 'utf8');
+            const routingMatch = routingContent.match(
+              /## Operative Named-Member Routing[\s\S]*?```json\s*(\{[\s\S]*?\})\s*```/
+            );
+            const routingState = routingMatch ? JSON.parse(routingMatch[1]) : {};
+            const activeMemberIds = new Set(routingState.active_members || []);
+            const expectedCoordinatorLabel =
+              typeof routingState.issue_label_pattern === 'string'
+                ? routingState.issue_label_pattern.replace(
+                    '{member-id}', routingState.coordinator
+                  )
+                : '';
+            const coordinatorTriageAllowed =
+              activeMemberIds.has(routingState.coordinator) &&
+              process.env.COORDINATOR_LABEL === expectedCoordinatorLabel;
+            if (!coordinatorTriageAllowed) {
+              core.setFailed('No authorized coordinator route is available');
+              return;
+            }
+            if (coordinatorTriageAllowed) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: [process.env.COORDINATOR_LABEL]
+              });
+            }
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              body: `⚠️ Target \`${process.env.REJECTED_TARGET}\` is not in the current active-member allowlist. Routed to the coordinator for triage; no agent was assigned.`
+            });
+
+      - name: Acknowledge approved member route
+        if: steps.routing.outputs.routing_approved == 'true'
+        uses: actions/github-script@v7
+        env:
+          ROUTING_APPROVED: ${{ steps.routing.outputs.routing_approved }}
+          ROUTING_TARGET: ${{ steps.routing.outputs.target }}
+          ASSIGNED_NAME: ${{ steps.routing.outputs.assigned_name }}
+          ASSIGNED_ROLE: ${{ steps.routing.outputs.assigned_role }}
+        with:
+          script: |
+            if (process.env.ROUTING_APPROVED !== 'true') {
+              core.warning('Refusing acknowledgment for an unapproved route');
+              return;
+            }
+            const issue = context.payload.issue;
+            const isCopilotAssignment = process.env.ROUTING_TARGET === 'copilot';
+            let comment;
+            if (isCopilotAssignment) {
+              comment = [
+                `### 🤖 Routed to @copilot (Coding Agent)`,
+                '',
+                `**Issue:** #${issue.number} — ${issue.title}`,
+                '',
+                `@copilot has been assigned and will pick this up automatically.`,
+                '',
+                `> The coding agent will create a \`copilot/*\` branch and open a draft PR.`,
+                `> Review the PR as you would any team member's work.`,
+              ].join('\n');
+            } else {
+              comment = [
+                `### 📋 Assigned to ${process.env.ASSIGNED_NAME} (${process.env.ASSIGNED_ROLE})`,
+                '',
+                `**Issue:** #${issue.number} — ${issue.title}`,
+                '',
+                `${process.env.ASSIGNED_NAME} will pick this up in the next Copilot session.`,
+                '',
+                `> **For Copilot coding agent:** If enabled, this issue will be worked automatically.`,
+                `> Otherwise, start a Copilot session and say:`,
+                `> \`${process.env.ASSIGNED_NAME}, work on issue #${issue.number}\``,
+              ].join('\n');
+            }
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              body: comment
+            });
+
+            core.info(`Issue #${issue.number} routed to ${process.env.ASSIGNED_NAME} (${process.env.ASSIGNED_ROLE})`);
+
+      # Separate step: assign @copilot using PAT (required for coding agent)
+      - name: Assign @copilot coding agent
+        if: steps.routing.outputs.routing_approved == 'true' && steps.routing.outputs.target == 'copilot'
+        uses: actions/github-script@v7
+        env:
+          ROUTING_APPROVED: ${{ steps.routing.outputs.routing_approved }}
+          ROUTING_TARGET: ${{ steps.routing.outputs.target }}
+        with:
+          github-token: ${{ secrets.COPILOT_ASSIGN_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issue_number = context.payload.issue.number;
+            const routingContent = fs.readFileSync('.squad/routing.md', 'utf8');
+            const routingMatch = routingContent.match(
+              /## Operative Named-Member Routing[\s\S]*?```json\s*(\{[\s\S]*?\})\s*```/
+            );
+            if (!routingMatch) {
+              core.setFailed('routing.md lacks operative routing JSON; refusing Copilot assignment');
+              return;
+            }
+            const routingState = JSON.parse(routingMatch[1]);
+            const activeMemberIds = new Set(routingState.active_members);
+            const assignmentAllowed =
+              process.env.ROUTING_APPROVED === 'true' &&
+              process.env.ROUTING_TARGET === 'copilot' &&
+              activeMemberIds.has('copilot');
+
+            // Get the default branch name (main, master, etc.)
+            const { data: repoData } = assignmentAllowed
+              ? await github.rest.repos.get({ owner, repo })
+              : { data: { default_branch: '' } };
+            const baseBranch = repoData.default_branch;
+
+            try {
+              if (!assignmentAllowed) {
+                throw new Error('Copilot is not approved by operative active_members');
+              }
+              if (assignmentAllowed) {
+                await github.request('POST /repos/{owner}/{repo}/issues/{issue_number}/assignees', {
+                  owner,
+                  repo,
+                  issue_number,
+                  assignees: ['copilot-swe-agent[bot]'],
+                  agent_assignment: {
+                    target_repo: `${owner}/${repo}`,
+                    base_branch: baseBranch,
+                    custom_instructions: '',
+                    custom_agent: '',
+                    model: ''
+                  },
+                  headers: {
+                    'X-GitHub-Api-Version': '2022-11-28'
+                  }
+                });
+              }
+              core.info(`Assigned copilot-swe-agent to issue #${issue_number} (base: ${baseBranch})`);
+            } catch (err) {
+              core.warning(`Assignment with agent_assignment failed: ${err.message}`);
+              // Fallback: try without agent_assignment
+              try {
+                if (!assignmentAllowed) {
+                  throw new Error('Copilot fallback is not approved by operative active_members');
+                }
+                if (assignmentAllowed) {
+                  await github.rest.issues.addAssignees({
+                    owner, repo, issue_number,
+                    assignees: ['copilot-swe-agent']
+                  });
+                }
+                core.info(`Fallback assigned copilot-swe-agent to issue #${issue_number}`);
+              } catch (err2) {
+                core.warning(`Fallback also failed: ${err2.message}`);
+              }
+            }

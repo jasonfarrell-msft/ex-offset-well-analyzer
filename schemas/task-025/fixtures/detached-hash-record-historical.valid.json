@@ -1,0 +1,11 @@
+{
+  "artifact_path": "evidence/historical-failure.json",
+  "artifact_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "canonicalization_version": "TASK-025-REQ-009",
+  "computed_at": "2026-10-28T17:06:14.463Z",
+  "computed_by": {
+    "marker_type": "UNAVAILABLE",
+    "reason_code": "NOT_EXPOSED_BY_SUPPORTED_INTERFACE",
+    "source_reference": null
+  }
+}

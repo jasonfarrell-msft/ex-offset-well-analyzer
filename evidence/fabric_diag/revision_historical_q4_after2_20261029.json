@@ -1,0 +1,69 @@
+{
+  "status": 200,
+  "response": {
+    "conversationId": "resp_0e08b847473ce32f006ae36e79d8b48190a39833066859ba21",
+    "message": {
+      "id": "msg_0e08b847473ce32f006ae36ebdfbb08190a470e28bfb76bdec",
+      "role": "assistant",
+      "markdown": "SYNTHETIC DATA \u2022 v1.1.0 \u2022 DEVELOPMENT / OFFSET COMPARISON ONLY\n\nHere are the top two formations by accepted historical drilling footage in the synthetic summary model:\n\n| Rank | Formation | Accepted historical drilling footage |\n|---|---|---:|\n| 1 | Synthetic Cobalt | 247,512.3 ft |\n| 2 | Synthetic Driftwood | 170,381.6 ft |\n\nSource: synthetic summary model; accepted historical drilling footage metric\n\n",
+      "createdAtUtc": "2026-10-29T16:04:09+00:00"
+    },
+    "visuals": [
+      {
+        "type": "data-table",
+        "title": "Top two formations by accepted historical drilling footage",
+        "columns": [
+          {
+            "key": "rank",
+            "label": "Rank"
+          },
+          {
+            "key": "formation",
+            "label": "Formation"
+          },
+          {
+            "key": "value",
+            "label": "Accepted historical drilling footage"
+          }
+        ],
+        "rows": [
+          {
+            "rank": 1,
+            "formation": "Synthetic Cobalt",
+            "value": "247,512.3 ft"
+          },
+          {
+            "rank": 2,
+            "formation": "Synthetic Driftwood",
+            "value": "170,381.6 ft"
+          }
+        ]
+      }
+    ],
+    "toolCalls": [
+      {
+        "type": "mcp_list_tools",
+        "id": "mcpl_0e08b847473ce32f006ae36e79f3348190847c9c6748a138a9",
+        "name": null,
+        "server": "fabric-dataagent-mi-bridge",
+        "status": null,
+        "toolCount": 1
+      },
+      {
+        "type": "mcp_call",
+        "id": "mcp_0e08b847473ce32f006ae36e7ad5a881909526fee9d80997b2",
+        "name": "DataAgent_da_drillrun_public_summary",
+        "server": "fabric-dataagent-mi-bridge",
+        "status": "completed",
+        "toolCount": null
+      }
+    ],
+    "sources": [],
+    "usage": {
+      "inputTokens": 1093,
+      "outputTokens": 266,
+      "totalTokens": 1359
+    },
+    "latencyMs": 70425
+  }
+}

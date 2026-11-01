@@ -1,0 +1,5 @@
+expression SqlEndpointHost = "SET-BY-DEPLOYMENT" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 77c28960-13a5-51d2-89e7-b19d20d2b376
+
+expression SqlEndpointDatabase = "lh_drillrun_summary" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 9c625f82-1151-5005-98d6-1293b73c0d23

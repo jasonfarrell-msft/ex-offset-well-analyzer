@@ -1,0 +1,94 @@
+{
+  "evidence_schema_version": "1.0.0",
+  "captured_at_utc": "2026-10-29T15:48:10.337101+00:00",
+  "repair_scope": "Fabric Data Agent schema visibility and instructions for live historical + offset semantic responses",
+  "workspace_id": "4e1977a8-d7ff-487e-b42d-c4b3bc118f3d",
+  "data_agent_id": "dd1cd69f-3b49-4575-932f-1d871f73d2e2",
+  "operations": {
+    "update_definition_operation_ids": [
+      "2496d7db-5cca-4488-8ded-116fed6324ef",
+      "6f2b17c4-5ca2-4a8b-9518-0b247b19b982",
+      "d2d95877-ca6a-465f-84d5-04c122a8bd9c",
+      "16d5d1e2-b067-476c-ba99-1bedf43b180e"
+    ],
+    "final_update_succeeded": true
+  },
+  "definition_verification": {
+    "published_parts_count": 7,
+    "selected_additional_summary_tables": {
+      "__planned_target_summary_release_data": true,
+      "__offset_section_summary_release_data": true
+    },
+    "stage_instruction_line1": "SYNTHETIC DATA \u2022 v1.1.0 \u2022 DEVELOPMENT / OFFSET COMPARISON ONLY"
+  },
+  "semantic_e2e": {
+    "chat_q1": {
+      "question": "How many historical wells are in this synthetic dataset, and summarize accepted historical drilling footage by formation?",
+      "latency_ms": 49131,
+      "tool_calls": [
+        {
+          "type": "mcp_list_tools",
+          "id": "mcpl_07aa0d68a957d2b1006ae36a375284819689c2c473d90636ad",
+          "name": null,
+          "server": "fabric-dataagent-mi-bridge",
+          "status": null,
+          "toolCount": 1
+        },
+        {
+          "type": "mcp_call",
+          "id": "mcp_07aa0d68a957d2b1006ae36a3827f08196b36ba87b67098dd4",
+          "name": "DataAgent_da_drillrun_public_summary",
+          "server": "fabric-dataagent-mi-bridge",
+          "status": "completed",
+          "toolCount": null
+        }
+      ],
+      "source_count": 0,
+      "answer_excerpt": "SYNTHETIC DATA \u2022 v1.1.0 \u2022 DEVELOPMENT / OFFSET COMPARISON ONLY\n\n### KPI\n| Metric | Value | Unit |\n|---|---:|---|\n| Historical wells | **100** | wells |\n\n### Accepted historical drilling footage by formation\n| Formation | Accepted footage |\n|---|---:|"
+    },
+    "chat_q2": {
+      "question": "For target SYN-TARGET-0001, compare selected offset wells SYN-WELL-0002 and SYN-WELL-0019 using accepted run count and penetration rate context with section-level support.",
+      "latency_ms": 60393,
+      "tool_calls": [
+        {
+          "type": "mcp_call",
+          "id": "mcp_07aa0d68a957d2b1006ae36a6852d08196a3b8b6a4266191d3",
+          "name": "DataAgent_da_drillrun_public_summary",
+          "server": "fabric-dataagent-mi-bridge",
+          "status": "completed",
+          "toolCount": null
+        }
+      ],
+      "source_count": 0,
+      "answer_excerpt": "SYNTHETIC DATA \u2022 v1.1.0 \u2022 DEVELOPMENT / OFFSET COMPARISON ONLY\n\n### Section-level accepted-run and penetration-rate comparison for target SYN-TARGET-0001\n\n| Well | Section | Formation | Hole size | Accepted run count | Penetration rate |\n|---|---|---|---|---:|---:|\n| SYN-WELL-0002 | SYN-SEC-0002-01 | Synthetic Brimstone | 17.5 in | **5** | **64.42 ft/hr** |\n| SYN-WELL-0002 | SYN-SEC-0002-02 | Synthetic Cobalt | 12.25 in | **2** | **102.28 ft/hr** |\n| SYN-WELL-0019 | SYN-SEC-0019-01 | Synthetic Brimstone | 17.5 in | **2** | **30.83 ft/hr** |\n| SYN-WELL-0019 | SYN-SEC-0019-02 | Synthetic Aster | 12.25 in | **2** | **27.18 ft/hr** |\n\n### Accepted-only context"
+    }
+  },
+  "consistency_checks": {
+    "offset_compare_endpoint": {
+      "status": "success",
+      "rows": [
+        {
+          "wellId": "SYN-WELL-0002",
+          "acceptedRunCount": 5,
+          "summaryPenetrationRateFtPerHour": "64.422685"
+        },
+        {
+          "wellId": "SYN-WELL-0019",
+          "acceptedRunCount": 2,
+          "summaryPenetrationRateFtPerHour": "30.834613"
+        }
+      ]
+    },
+    "cross_check_note": "Chat Q2 Brimstone section values align with /api/offset-analysis compare values for SYN-WELL-0002 (5, 64.42) and SYN-WELL-0019 (2, 30.83)."
+  },
+  "capacity": {
+    "name": "fabricwelladvisorcusmx01",
+    "state": "Active",
+    "kept_active": true
+  },
+  "truthful_state_notes": [
+    "Fabric Data Agent calls are now capable of factual live answers for the targeted historical and offset questions (evidence above).",
+    "Foundry response source envelopes remain empty (sourceCount=0); tool-call completion is the current verification signal.",
+    "A direct publish endpoint for items/{id}/staging/publish returned EntityNotFound; updateDefinition succeeded and live behavior changed immediately."
+  ]
+}

@@ -1,0 +1,1053 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sanitized-baseline.schema.json",
+  "title": "TASK-025 sanitized baseline",
+  "$comment": "Canonical JSON: UTF-8 without BOM, LF line endings, sorted object keys, two-space indentation, exactly one trailing LF. Timestamps are UTC ISO-8601 with Z and millisecond precision. Arrays use REQ-009 stable sort keys: requests (started_at, request_id); definition parts (item_id, path); source nodes (item_id, parent_id, source_type, source_id), null parent first; ACL entries (scope_type, scope_id, principal_type, principal_id, role, inheritance_path); transitions (observed_at, state); redactions/unavailable fields (json_path, marker_type, reason_code); reviews (reviewed_at, reviewer_id). The offline validator parses calendar-valid timestamps, checks stable ordering and verifies every nested live-record manifest hash and window id against the shared baseline binding. Every top-level key from REQ-008 is required. Each contributing live record binds window_id and window_manifest_sha256. Public scalar strings are short and restricted to a conservative syntax, numeric values are bounded integers, and excluded values must use typed markers. These constraints do not prove content safety or that a field was approved; independent redaction/content review remains required. Top-level hashes contains detached records for included artifacts; the baseline own digest must remain in a separate detached hash record.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "$ref": "./common.schema.json#/$defs/nonEmptyString"
+    },
+    "artifact_type": {
+      "const": "TASK-025_SANITIZED_BASELINE"
+    },
+    "generated_at": {
+      "$ref": "./common.schema.json#/$defs/utcTimestamp"
+    },
+    "window_manifest_sha256": {
+      "$ref": "./common.schema.json#/$defs/sha256"
+    },
+    "documentation_reconciliation_approval": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "approver_id": {
+              "$ref": "./common.schema.json#/$defs/nonEmptyString"
+            },
+            "approver_role": {
+              "$ref": "./common.schema.json#/$defs/nonEmptyString"
+            },
+            "decision": {
+              "enum": [
+                "ACCEPT",
+                "REJECT"
+              ]
+            },
+            "approved_at": {
+              "$ref": "./common.schema.json#/$defs/utcTimestamp"
+            },
+            "approval_record_location": {
+              "$ref": "./common.schema.json#/$defs/approvalRecordLocation"
+            },
+            "source_document_retrievals": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "source_reference": {
+                    "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                  },
+                  "retrieved_at": {
+                    "$ref": "./common.schema.json#/$defs/utcTimestamp"
+                  }
+                },
+                "required": [
+                  "source_reference",
+                  "retrieved_at"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "approver_id",
+            "approver_role",
+            "decision",
+            "approved_at",
+            "approval_record_location",
+            "source_document_retrievals"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "$ref": "./common.schema.json#/$defs/unavailableMarker"
+        }
+      ]
+    },
+    "foundry": {
+      "type": "object",
+      "properties": {
+        "window_id": {
+          "$ref": "./common.schema.json#/$defs/nonEmptyString"
+        },
+        "window_manifest_sha256": {
+          "$ref": "./common.schema.json#/$defs/sha256"
+        },
+        "agent_id": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/nonEmptyString"
+            },
+            {
+              "$ref": "./common.schema.json#/$defs/unavailableMarker"
+            }
+          ]
+        },
+        "resource_id": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/nonEmptyString"
+            },
+            {
+              "$ref": "./common.schema.json#/$defs/unavailableMarker"
+            }
+          ]
+        },
+        "version_label": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/nonEmptyString"
+            },
+            {
+              "$ref": "./common.schema.json#/$defs/unavailableMarker"
+            }
+          ]
+        },
+        "relay_uri_sha256": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/sha256"
+            },
+            {
+              "$ref": "./common.schema.json#/$defs/unavailableMarker"
+            }
+          ]
+        },
+        "relay_host": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/nonEmptyString"
+            },
+            {
+              "$ref": "./common.schema.json#/$defs/unavailableMarker"
+            }
+          ]
+        },
+        "relay_path": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/nonEmptyString"
+            },
+            {
+              "$ref": "./common.schema.json#/$defs/unavailableMarker"
+            }
+          ]
+        },
+        "model_deployment_label": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/nonEmptyString"
+            },
+            {
+              "$ref": "./common.schema.json#/$defs/unavailableMarker"
+            }
+          ]
+        },
+        "enabled_tool_configuration_sha256": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/sha256"
+            },
+            {
+              "$ref": "./common.schema.json#/$defs/unavailableMarker"
+            }
+          ]
+        },
+        "safe_configuration_sha256": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/sha256"
+            },
+            {
+              "$ref": "./common.schema.json#/$defs/unavailableMarker"
+            }
+          ]
+        }
+      },
+      "required": [
+        "window_id",
+        "window_manifest_sha256",
+        "agent_id",
+        "resource_id",
+        "version_label",
+        "relay_uri_sha256",
+        "relay_host",
+        "relay_path",
+        "model_deployment_label",
+        "enabled_tool_configuration_sha256",
+        "safe_configuration_sha256"
+      ],
+      "additionalProperties": false
+    },
+    "data_agents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "window_id": {
+            "$ref": "./common.schema.json#/$defs/nonEmptyString"
+          },
+          "window_manifest_sha256": {
+            "$ref": "./common.schema.json#/$defs/sha256"
+          },
+          "workspace_id": {
+            "oneOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              {
+                "$ref": "./common.schema.json#/$defs/unavailableMarker"
+              }
+            ]
+          },
+          "item_id": {
+            "oneOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              {
+                "$ref": "./common.schema.json#/$defs/unavailableMarker"
+              }
+            ]
+          },
+          "display_name": {
+            "oneOf": [
+              {
+                  "$ref": "./common.schema.json#/$defs/safePublicString"
+              },
+              {
+                "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                },
+                {
+                  "$ref": "./common.schema.json#/$defs/redactedMarker"
+              }
+            ]
+          },
+          "item_type": {
+            "oneOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              {
+                "$ref": "./common.schema.json#/$defs/unavailableMarker"
+              }
+            ]
+          },
+          "live_definition_format": {
+            "oneOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              {
+                "$ref": "./common.schema.json#/$defs/unavailableMarker"
+              }
+            ]
+          },
+          "definition_parts": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "properties": {
+                "window_id": {
+                  "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                },
+                "window_manifest_sha256": {
+                  "$ref": "./common.schema.json#/$defs/sha256"
+                },
+                "item_id": {
+                  "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                },
+                "path": {
+                  "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                },
+                "payload_type": {
+                  "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                },
+                "decoded_byte_length": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "sha256": {
+                  "$ref": "./common.schema.json#/$defs/sha256"
+                },
+                "media_classification": {
+                  "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                }
+              },
+              "required": [
+                "window_id",
+                "window_manifest_sha256",
+                "item_id",
+                "path",
+                "payload_type",
+                "decoded_byte_length",
+                "sha256",
+                "media_classification"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "public_projection": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "json_path": {
+                  "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                },
+                "value": {
+                  "oneOf": [
+                    {
+                      "$ref": "./common.schema.json#/$defs/safePublicString"
+                    },
+                    {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                    },
+                    {
+                      "$ref": "./common.schema.json#/$defs/redactedMarker"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "json_path",
+                "value"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "publication_metadata": {
+            "type": "object",
+            "properties": {
+              "window_id": {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              "window_manifest_sha256": {
+                "$ref": "./common.schema.json#/$defs/sha256"
+              },
+              "is_published": {
+                "oneOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                  }
+                ]
+              },
+              "published_at": {
+                "oneOf": [
+                  {
+                    "$ref": "./common.schema.json#/$defs/utcTimestamp"
+                  },
+                  {
+                    "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                  }
+                ]
+              },
+              "published_by": {
+                "oneOf": [
+                  {
+                    "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                  },
+                  {
+                    "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                  }
+                ]
+              },
+              "publish_info": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "oneOf": [
+                          {
+                            "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                          },
+                          {
+                            "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                          }
+                        ]
+                      },
+                      "published_at": {
+                        "oneOf": [
+                          {
+                            "$ref": "./common.schema.json#/$defs/utcTimestamp"
+                          },
+                          {
+                            "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                          }
+                        ]
+                      },
+                      "published_by": {
+                        "oneOf": [
+                          {
+                            "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                          },
+                          {
+                            "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "status",
+                      "published_at",
+                      "published_by"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "window_id",
+              "window_manifest_sha256",
+              "is_published",
+              "published_at",
+              "published_by",
+              "publish_info"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "window_id",
+          "window_manifest_sha256",
+          "workspace_id",
+          "item_id",
+          "display_name",
+          "item_type",
+          "live_definition_format",
+          "definition_parts",
+          "public_projection",
+          "publication_metadata"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "source_trees": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "window_id": {
+            "$ref": "./common.schema.json#/$defs/nonEmptyString"
+          },
+          "window_manifest_sha256": {
+            "$ref": "./common.schema.json#/$defs/sha256"
+          },
+          "item_id": {
+            "$ref": "./common.schema.json#/$defs/nonEmptyString"
+          },
+          "complete": {
+            "type": "boolean"
+          },
+          "nodes": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "properties": {
+                "window_id": {
+                  "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                },
+                "window_manifest_sha256": {
+                  "$ref": "./common.schema.json#/$defs/sha256"
+                },
+                "item_id": {
+                  "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                },
+                "parent_id": {
+                  "oneOf": [
+                    {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    {
+                      "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                    }
+                  ]
+                },
+                "source_type": {
+                  "oneOf": [
+                    {
+                      "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                    },
+                    {
+                      "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                    }
+                  ]
+                },
+                "source_id": {
+                  "oneOf": [
+                    {
+                      "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                    },
+                    {
+                      "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                    }
+                  ]
+                },
+                "selected": {
+                  "oneOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                    }
+                  ]
+                },
+                "public_fields": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "field_name": {
+                        "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                      },
+                      "value": {
+                        "oneOf": [
+                          {
+                            "$ref": "./common.schema.json#/$defs/safePublicString"
+                          },
+                          {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                          },
+                          {
+                            "$ref": "./common.schema.json#/$defs/redactedMarker"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "field_name",
+                      "value"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "window_id",
+                "window_manifest_sha256",
+                "item_id",
+                "parent_id",
+                "source_type",
+                "source_id",
+                "selected",
+                "public_fields"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "pagination_state": {
+            "enum": [
+              "COMPLETE",
+              "INCOMPLETE",
+              "NOT_ATTEMPTED",
+              "UNKNOWN"
+            ]
+          }
+        },
+        "required": [
+          "window_id",
+          "window_manifest_sha256",
+          "item_id",
+          "complete",
+          "nodes",
+          "pagination_state"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "identity_chain": {
+      "type": "object",
+      "properties": {
+        "window_id": {
+          "$ref": "./common.schema.json#/$defs/nonEmptyString"
+        },
+        "window_manifest_sha256": {
+          "$ref": "./common.schema.json#/$defs/sha256"
+        },
+        "status": {
+          "enum": [
+            "COMPLETE",
+            "INCOMPLETE",
+            "UNKNOWN"
+          ]
+        },
+        "hops": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "window_id": {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              "window_manifest_sha256": {
+                "$ref": "./common.schema.json#/$defs/sha256"
+              },
+              "from_identity": {
+                "$ref": "./common.schema.json#/$defs/identityRef"
+              },
+              "to_identity": {
+                "$ref": "./common.schema.json#/$defs/identityRef"
+              },
+              "mechanism": {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              "evidence_reference": {
+                "oneOf": [
+                  {
+                    "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                  },
+                  {
+                    "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "window_id",
+              "window_manifest_sha256",
+              "from_identity",
+              "to_identity",
+              "mechanism",
+              "evidence_reference"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "window_id",
+        "window_manifest_sha256",
+        "status",
+        "hops"
+      ],
+      "additionalProperties": false
+    },
+    "acl_evidence": {
+      "type": "object",
+      "properties": {
+        "window_id": {
+          "$ref": "./common.schema.json#/$defs/nonEmptyString"
+        },
+        "window_manifest_sha256": {
+          "$ref": "./common.schema.json#/$defs/sha256"
+        },
+        "status": {
+          "enum": [
+            "COMPLETE",
+            "INCOMPLETE",
+            "NOT_AUTHORIZED",
+            "UNKNOWN"
+          ]
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "window_id": {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              "window_manifest_sha256": {
+                "$ref": "./common.schema.json#/$defs/sha256"
+              },
+              "scope_type": {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              "scope_id": {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              "principal_type": {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              "principal_id": {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              "role": {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              "grant_type": {
+                "enum": [
+                  "DIRECT",
+                  "INHERITED"
+                ]
+              },
+              "inheritance_path": {
+                "type": "array",
+                "items": {
+                  "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                }
+              },
+              "evidence_reference": {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              "group_expansion": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "COMPLETE",
+                      "INCOMPLETE",
+                      "NOT_AUTHORIZED",
+                      "NOT_APPLICABLE"
+                    ]
+                  },
+                  "expanded_principal_ids": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                    }
+                  },
+                  "evidence_reference": {
+                    "oneOf": [
+                      {
+                        "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                      },
+                      {
+                        "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "status",
+                  "expanded_principal_ids",
+                  "evidence_reference"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "window_id",
+              "window_manifest_sha256",
+              "scope_type",
+              "scope_id",
+              "principal_type",
+              "principal_id",
+              "role",
+              "grant_type",
+              "inheritance_path",
+              "evidence_reference",
+              "group_expansion"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "documented_permission_requirements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "window_id": {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              "window_manifest_sha256": {
+                "$ref": "./common.schema.json#/$defs/sha256"
+              },
+              "operation": {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              "required_permission": {
+                "oneOf": [
+                  {
+                    "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                  },
+                  {
+                    "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                  }
+                ]
+              },
+              "source_reference": {
+                "oneOf": [
+                  {
+                    "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                  },
+                  {
+                    "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "window_id",
+              "window_manifest_sha256",
+              "operation",
+              "required_permission",
+              "source_reference"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "window_id",
+        "window_manifest_sha256",
+        "status",
+        "entries",
+        "documented_permission_requirements"
+      ],
+      "additionalProperties": false
+    },
+    "capacity_transitions": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "properties": {
+          "window_id": {
+            "$ref": "./common.schema.json#/$defs/nonEmptyString"
+          },
+          "window_manifest_sha256": {
+            "$ref": "./common.schema.json#/$defs/sha256"
+          },
+          "observed_at": {
+            "$ref": "./common.schema.json#/$defs/utcTimestamp"
+          },
+          "state": {
+            "$ref": "./common.schema.json#/$defs/nonEmptyString"
+          },
+          "evidence_reference": {
+            "oneOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              {
+                "$ref": "./common.schema.json#/$defs/unavailableMarker"
+              }
+            ]
+          }
+        },
+        "required": [
+          "window_id",
+          "window_manifest_sha256",
+          "observed_at",
+          "state",
+          "evidence_reference"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "requests": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "window_id": {
+            "$ref": "./common.schema.json#/$defs/nonEmptyString"
+          },
+          "window_manifest_sha256": {
+            "$ref": "./common.schema.json#/$defs/sha256"
+          },
+          "request_id": {
+            "oneOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              {
+                "$ref": "./common.schema.json#/$defs/unavailableMarker"
+              }
+            ]
+          },
+          "operation_id": {
+            "oneOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              {
+                "$ref": "./common.schema.json#/$defs/unavailableMarker"
+              }
+            ]
+          },
+          "started_at": {
+            "$ref": "./common.schema.json#/$defs/utcTimestamp"
+          },
+          "completed_at": {
+            "oneOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/utcTimestamp"
+              },
+              {
+                "$ref": "./common.schema.json#/$defs/unavailableMarker"
+              }
+            ]
+          },
+          "method": {
+            "oneOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              {
+                "$ref": "./common.schema.json#/$defs/unavailableMarker"
+              }
+            ]
+          },
+          "normalized_uri": {
+            "oneOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/normalizedUri"
+              },
+              {
+                "$ref": "./common.schema.json#/$defs/unavailableMarker"
+              }
+            ]
+          },
+          "status_code": {
+            "oneOf": [
+              {
+                "type": "integer",
+                "minimum": 100,
+                "maximum": 599
+              },
+              {
+                "$ref": "./common.schema.json#/$defs/unavailableMarker"
+              }
+            ]
+          },
+          "response_body_length_bytes": {
+            "oneOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "./common.schema.json#/$defs/unavailableMarker"
+              }
+            ]
+          },
+          "response_body_sha256": {
+            "oneOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/sha256"
+              },
+              {
+                "$ref": "./common.schema.json#/$defs/unavailableMarker"
+              }
+            ]
+          },
+          "outcome": {
+            "$ref": "./common.schema.json#/$defs/nonEmptyString"
+          }
+        },
+        "required": [
+          "window_id",
+          "window_manifest_sha256",
+          "request_id",
+          "operation_id",
+          "started_at",
+          "completed_at",
+          "method",
+          "normalized_uri",
+          "status_code",
+          "response_body_length_bytes",
+          "response_body_sha256",
+          "outcome"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "redactions": {
+      "type": "array",
+      "items": {
+        "$ref": "./redaction-entry.schema.json"
+      }
+    },
+    "unavailable_fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "json_path": {
+            "$ref": "./common.schema.json#/$defs/nonEmptyString"
+          },
+          "marker": {
+            "$ref": "./common.schema.json#/$defs/unavailableMarker"
+          }
+        },
+        "required": [
+          "json_path",
+          "marker"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "hashes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "./detached-hash-record.schema.json"
+      }
+    },
+    "reviews": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "./review-signature.schema.json"
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "artifact_type",
+    "generated_at",
+    "window_manifest_sha256",
+    "documentation_reconciliation_approval",
+    "foundry",
+    "data_agents",
+    "source_trees",
+    "identity_chain",
+    "acl_evidence",
+    "capacity_transitions",
+    "requests",
+    "redactions",
+    "unavailable_fields",
+    "hashes",
+    "reviews"
+  ],
+  "additionalProperties": false
+}

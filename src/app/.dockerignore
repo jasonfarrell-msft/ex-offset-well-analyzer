@@ -1,0 +1,15 @@
+**/bin/
+**/obj/
+**/node_modules/
+client/dist/
+client/coverage/
+client/.env
+client/.env.*
+api/**/local.settings.json
+*.local
+.git/
+.gitignore
+.DS_Store
+swa-cli.config.json
+README.md
+**/README.md

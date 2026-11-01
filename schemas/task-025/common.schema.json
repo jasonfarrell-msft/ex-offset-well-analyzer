@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "common.schema.json",
+  "title": "TASK-025 common schema definitions",
+  "$comment": "Canonical JSON: UTF-8 without BOM, LF line endings, sorted object keys, two-space indentation, exactly one trailing LF. Timestamps are UTC ISO-8601 with Z and millisecond precision; schema pattern checks the shape and the offline validator parses calendar values with datetime. Arrays use REQ-009 stable sort keys: requests (started_at, request_id); definition parts (item_id, path); source nodes (item_id, parent_id, source_type, source_id), null parent first; ACL entries (scope_type, scope_id, principal_type, principal_id, role, inheritance_path); transitions (observed_at, state); redactions/unavailable fields (json_path, marker_type, reason_code); reviews (reviewed_at, reviewer_id). Hashes cover exact canonical bytes; an artifact hash is kept detached to avoid self-reference. JSON Schema cannot enforce arbitrary array sort order or distinct Operation.sequence values; the offline validator does. Public strings are bounded syntax constraints, not proof that the content is non-sensitive; excluded values must use typed markers and receive independent content review.",
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^[^\\u0000-\\u001F\\u007F]+$"
+    },
+    "safePublicString": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9 _.,:/()+=-]{0,127}$"
+    },
+    "normalizedUri": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048,
+      "format": "uri",
+      "pattern": "^[A-Za-z][A-Za-z0-9+.-]*://[^/?#@]+(?:/[^?#]*)?$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "minLength": 64,
+      "maxLength": 64
+    },
+    "utcTimestamp": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])T([01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d\\.\\d{3}Z$"
+    },
+    "approvalRecordLocation": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "oneOf": [
+        { "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.?(/|$))[A-Za-z0-9._/-]+$" },
+        { "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.?(/|$))[A-Za-z0-9._/-]+#[A-Za-z0-9._:-]+$" }
+      ]
+    },
+    "unavailableMarker": {
+      "type": "object",
+      "properties": {
+        "marker_type": {
+          "const": "UNAVAILABLE"
+        },
+        "reason_code": {
+          "enum": [
+            "NOT_EXPOSED_BY_SUPPORTED_INTERFACE",
+            "NOT_DOCUMENTED",
+            "NOT_AUTHORIZED",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "source_reference": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/nonEmptyString"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "marker_type",
+        "reason_code",
+        "source_reference"
+      ],
+      "additionalProperties": false
+    },
+    "redactedMarker": {
+      "type": "object",
+      "properties": {
+        "marker_type": {
+          "const": "REDACTED"
+        },
+        "reason_code": {
+          "enum": [
+            "SECRET",
+            "HIDDEN_INSTRUCTION",
+            "RESTRICTED_PAYLOAD",
+            "PERSONAL_DATA_MINIMIZATION",
+            "CAPABILITY_TOKEN"
+          ]
+        },
+        "correlation_sha256": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/sha256"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "marker_type",
+        "reason_code",
+        "correlation_sha256"
+      ],
+      "additionalProperties": false
+    },
+    "identityRef": {
+      "type": "object",
+      "properties": {
+        "principal_type": {
+          "$ref": "./common.schema.json#/$defs/nonEmptyString"
+        },
+        "tenant_id": {
+          "$ref": "./common.schema.json#/$defs/nonEmptyString"
+        },
+        "object_id": {
+          "$ref": "./common.schema.json#/$defs/nonEmptyString"
+        },
+        "application_id": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/nonEmptyString"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "display_name": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/safePublicString"
+            },
+            {
+              "$ref": "./common.schema.json#/$defs/unavailableMarker"
+            },
+            {
+              "$ref": "./common.schema.json#/$defs/redactedMarker"
+            }
+          ]
+        }
+      },
+      "required": [
+        "principal_type",
+        "tenant_id",
+        "object_id",
+        "application_id",
+        "display_name"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataAgent",
+    "displayName": "da_drillrun_summary",
+    "description": "Data Agent definition v1.0.1. Calibration-only agent for synthetic historical summaries from sm_drillrun_summary, with source-controlled draft and published configurations; remains unshared."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "08a5cb66-0f4d-534a-9cfe-036e85e30bcb"
+  }
+}

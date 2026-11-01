@@ -1,0 +1,116 @@
+{
+  "evidence_schema_version": "1.0.0",
+  "evidence_type": "fabric_data_agent_calibration_failure_and_rollback",
+  "recorded_at_utc": "2026-10-25T00:58:30Z",
+  "classification": "Internal - Synthetic POC; sanitized evidence only",
+  "architecture_status": "CONDITIONAL PASS",
+  "fabric_modified_by_this_repository_change": false,
+  "agent": {
+    "name": "da_drillrun_summary",
+    "id": "961c0db2-e7c4-42f8-887c-039085290338",
+    "publication_status": "SUCCEEDED",
+    "postpublication_q1_q5_status": "PASS",
+    "current_lifecycle_state": "deleted_after_calibration_failure",
+    "shared": false
+  },
+  "calibration_run": {
+    "run_id": "20261025T004054Z-b79eede4",
+    "started_at_utc": "2026-10-25T00:40:54.748215Z",
+    "result": "FAIL_ROLLBACK_REQUIRED",
+    "milestone_passed": false,
+    "attempts_recorded": 65,
+    "cases_reached": 22,
+    "successful_attempts": 64,
+    "terminal_failure": {
+      "case_id": "summary-v1.0.0-C10",
+      "attempt": 2,
+      "occurred_at_utc": "2026-10-25T00:58:04.375033Z",
+      "gate": "synthetic_label",
+      "reason": "missing_synthetic_label",
+      "hard_gate_failure": true,
+      "response_body_persisted": false,
+      "secret_or_security_failure_indicated": false
+    },
+    "execution_stopped_immediately": true,
+    "further_attempts_ran": false,
+    "further_cases_ran": false,
+    "prior_successes_reusable_for_future_pass": false,
+    "prior_successes_may_be_combined_with_later_run": false
+  },
+  "rollback": {
+    "action": "DELETE_AGENT",
+    "executed_at_utc": "2026-10-25T00:58:30Z",
+    "request_id": "9ddea39f-7684-4725-8af5-fba5eb820441",
+    "post_delete_data_agents_list_count": 0,
+    "post_delete_verification": "PASS"
+  },
+  "evidence_handling": {
+    "local_run_evidence_retained": true,
+    "local_retention_days": 90,
+    "local_run_evidence_committed_to_repository": false,
+    "raw_response_text_in_this_record": false,
+    "failing_response_body_available": false,
+    "credentials_or_secrets_in_this_record": false
+  },
+  "remediation_required": {
+    "independent_instruction_revision": true,
+    "new_agent_creation_required": true,
+    "source_review_required": true,
+    "acl_review_required": true,
+    "publication_review_required": true,
+    "preflight_required": true,
+    "full_calibration_rerun_from_scratch": true,
+    "required_case_count": 36,
+    "required_attempts_per_case": 3,
+    "independent_review_required": true
+  },
+  "second_remediation_status": {
+    "failure_evidence_commit": "c99a85ac96f1096508f26f9eb93b5b53c4afabc3",
+    "label_remediation_commits": [
+      "d368402ffd41eff3b970678d4f59d3f65c6cfd59",
+      "f4062d4f4704a154e02970fd49244c7c309aa116"
+    ],
+    "review_status": "APPROVE",
+    "tests_passed": 136,
+    "subtests_passed": 51,
+    "tom_validation": "PASS",
+    "security_review": "PASS",
+    "new_draft_agent_id": "a23346c3-1ce7-4203-8ecf-9b9982c82a03",
+    "new_draft_definition_version": "v1.0.1",
+    "new_draft_creation_operation_id": "a305cd2a-e750-4ca0-b315-b08ed0735bf4",
+    "new_draft_creation_operation_status": "SUCCEEDED",
+    "new_draft_published": false,
+    "new_draft_shared": false,
+    "source_id_rebinding_commit": "0dc114817bce6402c40c456e1557e0a16a7ffcab",
+    "source_id_rebinding_authorizes_publication_or_calibration": false,
+    "prepublication_evidence": "evidence/data-agent-replacement-prepublication-v1.0.1.json",
+    "prepublication_gates": "PASS",
+    "publication_authorized_now": false,
+    "publication_authorized_agent_id": "a23346c3-1ce7-4203-8ecf-9b9982c82a03",
+    "calibration_authorized_now": false,
+    "questions_authorized_now": false,
+    "authorization_superseded_by": "evidence/data-agent-calibration-failure-v1.0.1.json"
+  },
+  "authorization": {
+    "publication_authorized_now": false,
+    "calibration_authorized_now": false,
+    "questions_authorized_now": false,
+    "reason": "The calibration hard gate failed and the agent was deleted. Remediation and independent review are required before any new publication or calibration authorization."
+  },
+  "approved_state_preserved": {
+    "data_layer": "APPROVED",
+    "semantic_model": "APPROVED",
+    "evaluation": "APPROVED",
+    "architecture": "CONDITIONAL PASS"
+  },
+  "related_evidence": [
+    "evidence/data-agent-postpublication-v1.0.0.json",
+    "evidence/data-agent-replacement-prepublication-v1.0.0.json",
+    "evidence/data-agent-remediation-recreation-v1.0.0.json",
+    "evidence/data-agent-remediation-recreation-v1.0.1.json",
+    "evidence/data-agent-replacement-prepublication-v1.0.1.json",
+    "evidence/fabric-data-agent-creation-v1.0.0.json",
+    "evidence/data-agent-calibration-failure-v1.0.1.json"
+  ],
+  "repository_change_modified_fabric_or_source": false
+}

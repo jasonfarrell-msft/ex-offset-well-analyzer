@@ -1,0 +1,4 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/dataAgent/definition/publishInfo/1.0.0/schema.json",
+  "description": "SYNTHETIC DATA \u2022 v1.1.0 \u2022 DEVELOPMENT / OFFSET COMPARISON ONLY \u2014 public-service read-only Lakehouse SQL historical+offset summary agent."
+}

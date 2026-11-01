@@ -1,0 +1,49 @@
+{
+  "aggregate_source_fingerprint": {
+    "algorithm": "sha256",
+    "canonicalization": "length-prefixed-path-and-content-v1",
+    "format_version": 1,
+    "included_paths": [
+      "config/generator_config.json",
+      "config/generator_config_v1.1.0.json",
+      "generate_dataset.py",
+      "src/drillrun_synth/__init__.py",
+      "src/drillrun_synth/cli.py",
+      "src/drillrun_synth/config.py",
+      "src/drillrun_synth/generator.py"
+    ],
+    "value": "197d65dd19ff59c6ba9ab93fdb1f5cce7020836bec9f6e80550ff07a328b893f"
+  },
+  "file_hash_algorithm": "sha256",
+  "files": [
+    {
+      "path": "config/generator_config.json",
+      "sha256": "534d296858a2eb573d148343ef3be630c6863d1c8fca6dcc22418f0b5c4455b4"
+    },
+    {
+      "path": "config/generator_config_v1.1.0.json",
+      "sha256": "429ec55747c0ef10d3dcfd62e0b3c16cbe18532396a8bd432be6b291afeda8da"
+    },
+    {
+      "path": "generate_dataset.py",
+      "sha256": "ba8da294fbc552b8082e688edcc31dc55dbea0f0fab581de849eb1c774790f95"
+    },
+    {
+      "path": "src/drillrun_synth/__init__.py",
+      "sha256": "c711d253a545e99edf0fd7cd13094948201d3e2d05e9fdc284f93a78a84d523f"
+    },
+    {
+      "path": "src/drillrun_synth/cli.py",
+      "sha256": "d8d07fba8cd842d7496df9f4136b7dcd6455b8893fa1b57cabf24548a033a020"
+    },
+    {
+      "path": "src/drillrun_synth/config.py",
+      "sha256": "4cff4dcee1574e59b805620c139b6d162d941ae5332bfa37bc3273ef8d517024"
+    },
+    {
+      "path": "src/drillrun_synth/generator.py",
+      "sha256": "bb54308c96bb4ebba27dcc7ec6e066dab8cfcdd0c2468e225ba0ba05adf799bd"
+    }
+  ],
+  "format_version": 1
+}

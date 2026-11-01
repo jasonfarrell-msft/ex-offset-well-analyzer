@@ -1,0 +1,162 @@
+{
+  "evidence_schema_version": "1.0.0",
+  "evidence_type": "fabric_summary_transformation_and_publication",
+  "recorded_at_utc": "2026-10-24T02:11:22Z",
+  "classification": "Internal - Synthetic POC",
+  "labels": [
+    "synthetic",
+    "summary-only",
+    "development-only"
+  ],
+  "scope": {
+    "environment": "development",
+    "dataset_version": "v1.0.0",
+    "contains_real_operator_data": false,
+    "summary_only": true,
+    "prediction_in_scope": false,
+    "similarity_in_scope": false,
+    "agents_in_scope": false,
+    "user_interface_in_scope": false
+  },
+  "fabric_resources": {
+    "capacity": {
+      "name": "fabricwelladvisorcusmx01",
+      "id": "137a8cdc-ae73-4239-b40a-04aee386ca5f",
+      "sku": "F8",
+      "region": "Central US"
+    },
+    "workspace": {
+      "name": "ws-welladvisor-drillrunhistory-poc-dev",
+      "id": "4e1977a8-d7ff-487e-b42d-c4b3bc118f3d"
+    },
+    "lakehouse": {
+      "name": "lh_drillrun_summary",
+      "id": "964afbf5-6a33-46dc-98c1-be726d0f4999"
+    },
+    "sql_analytics_endpoint": {
+      "id": "7d5ceff0-e27e-4459-9ca7-37043dd3e91c"
+    },
+    "transformation_notebook": {
+      "name": "nb_10_build_drillrun_summary",
+      "source_path": "fabric/nb_10_build_drillrun_summary.Notebook"
+    }
+  },
+  "executions": [
+    {
+      "purpose": "full_transformation_and_publication",
+      "job_id": "a8268bc5-fe2b-4476-89e3-68c3e8f6d6bd",
+      "status": "SUCCEEDED",
+      "started_at_utc": "2026-10-24T01:49:01.5960737Z",
+      "ended_at_utc": "2026-10-24T01:54:58.7758628Z",
+      "publication_attempt_status": "SUCCEEDED",
+      "evidence_row": {
+        "complete": true,
+        "evidence_schema_version": "1.0.0",
+        "payload_sha256": "a91d53e98922c49d071b9c38ed4f9ab6021c04b07002694011d7e922ad9e7db0"
+      }
+    },
+    {
+      "purpose": "idempotent_rerun",
+      "job_id": "1cc048c8-97ca-4c18-b334-073c24265558",
+      "status": "SUCCEEDED",
+      "started_at_utc": "2026-10-24T01:55:34.3815469Z",
+      "ended_at_utc": "2026-10-24T02:00:04.6703569Z",
+      "publication_attempt_status": "SUCCEEDED",
+      "evidence_row": {
+        "complete": true,
+        "evidence_schema_version": "1.0.0",
+        "payload_sha256": "bf4341ddc55038bda78c71558ed8985448cffeab64e0d079f54ea03cf4c257b5"
+      }
+    }
+  ],
+  "active_release": {
+    "release_id": "v1.0.0:f27ad627a06a2b554ae359e9aceb682944f1a4becb2de330f5ece629d407fed9",
+    "dataset_version": "v1.0.0",
+    "manifest_sha256": "f27ad627a06a2b554ae359e9aceb682944f1a4becb2de330f5ece629d407fed9",
+    "registry_status": "READY"
+  },
+  "publication_control": {
+    "attempt_count": 2,
+    "successful_attempt_count": 2,
+    "all_attempts_status": "SUCCEEDED",
+    "lock_released": true,
+    "lock_owner_fields": null,
+    "complete_evidence_rows": 2
+  },
+  "row_counts": {
+    "raw": {
+      "wells": 100,
+      "sections": 274,
+      "drilling_runs": 937,
+      "quality_issues": 20,
+      "rejected_records": 0
+    },
+    "curated": {
+      "wells": 100,
+      "sections": 274,
+      "drilling_runs": 932,
+      "drilling_run_quarantine": 5,
+      "quality_issues": 20,
+      "rejected_records": 0
+    },
+    "serving": {
+      "well_summary": 100,
+      "dataset_summary": 1,
+      "quality_summary": 4,
+      "category_summary": 19
+    }
+  },
+  "sql_serving": {
+    "endpoint_synchronized": true,
+    "deployment_status": "SUCCEEDED",
+    "source_script": "fabric/sql/create_active_release_views.sql",
+    "source_commit": "c37bb53",
+    "public_view_count": 17,
+    "inventory_status": "PRESENT",
+    "views": [
+      "raw.well",
+      "raw.section",
+      "raw.drilling_run",
+      "raw.quality_issue",
+      "raw.split_assignment",
+      "raw.rejected_record",
+      "curated.well",
+      "curated.section",
+      "curated.drilling_run",
+      "curated.drilling_run_quarantine",
+      "curated.quality_issue",
+      "curated.split_assignment",
+      "curated.rejected_record",
+      "serving.well_summary",
+      "serving.dataset_summary",
+      "serving.quality_summary",
+      "serving.category_summary"
+    ],
+    "release_aware_verification": {
+      "status": "MATCH",
+      "all_counts_match": true
+    }
+  },
+  "source_control": {
+    "runtime_compatibility_fix_commit": "4393d2f",
+    "sql_views_commit": "c37bb53",
+    "publication_controls": "final_approved_controls_present",
+    "local_test_count": 43,
+    "local_test_suite_status": "PASS"
+  },
+  "prior_failures_and_cleanup": {
+    "failed_full_jobs_before_publication": 2,
+    "tables_created_by_failed_jobs": false,
+    "temporary_diagnostics_cleaned": true
+  },
+  "limitations": [
+    "Evidence covers a synthetic, summary-only development transformation and its SQL serving views.",
+    "No Power BI semantic model is claimed or evidenced.",
+    "No Fabric Data Agent, Foundry agent, or other agent is claimed or evidenced.",
+    "No user interface is claimed or evidenced.",
+    "No prediction, similarity scoring, real operator data, production readiness, or business-performance claim is included.",
+    "Numerical summary answer-quality acceptance thresholds remain pending.",
+    "No remote Git repository or Fabric Git integration is configured."
+  ],
+  "architecture_status": "CONDITIONAL PASS"
+}

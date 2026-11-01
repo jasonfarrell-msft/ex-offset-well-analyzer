@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "redaction-entry.schema.json",
+  "title": "TASK-025 redaction entry",
+  "$comment": "Canonical JSON: UTF-8 without BOM, LF line endings, sorted object keys, two-space indentation, exactly one trailing LF. Timestamps are UTC ISO-8601 with Z and millisecond precision. Arrays use REQ-009 stable sort keys: requests (started_at, request_id); definition parts (item_id, path); source nodes (item_id, parent_id, source_type, source_id), null parent first; ACL entries (scope_type, scope_id, principal_type, principal_id, role, inheritance_path); transitions (observed_at, state); redactions/unavailable fields (json_path, marker_type, reason_code); reviews (reviewed_at, reviewer_id). Hashes cover exact canonical bytes; an artifact hash is kept detached to avoid self-reference. JSON Schema cannot enforce arbitrary array sort order or distinct Operation.sequence values. This is the path-qualified array-entry form of the exact REQ-009 REDACTED marker. A null correlation_sha256 is allowed only as explicitly specified by REQ-009.",
+  "type": "object",
+  "properties": {
+    "json_path": {
+      "$ref": "./common.schema.json#/$defs/nonEmptyString"
+    },
+    "marker_type": {
+      "const": "REDACTED"
+    },
+    "reason_code": {
+      "enum": [
+        "SECRET",
+        "HIDDEN_INSTRUCTION",
+        "RESTRICTED_PAYLOAD",
+        "PERSONAL_DATA_MINIMIZATION",
+        "CAPABILITY_TOKEN"
+      ]
+    },
+    "correlation_sha256": {
+      "oneOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/sha256"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "json_path",
+    "marker_type",
+    "reason_code",
+    "correlation_sha256"
+  ],
+  "additionalProperties": false
+}

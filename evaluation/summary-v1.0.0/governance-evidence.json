@@ -1,0 +1,214 @@
+{
+  "catalog_version": "1.0.0",
+  "excerpt_path": "evaluation/summary-v1.0.0/governance-evidence.md",
+  "excerpt_sha256": "a08916476cc9f48ad784556d0487ea0e5e939290c3fe79449805f2274afe13d3",
+  "reference_prefix": "governance:",
+  "authorized_reference_types": [
+    "sql",
+    "dax",
+    "governance"
+  ],
+  "claim_construction": "verbatim source excerpts joined in listed order with two newline characters",
+  "entries": {
+    "GOV-SCOPE-001": {
+      "heading": "GOV-SCOPE-001 — Historical summary milestone boundary",
+      "claim_kinds": [
+        "historical-summary",
+        "prediction",
+        "similarity",
+        "comparable-run-retrieval"
+      ],
+      "claim": "Milestone one is limited to grounded summarization of synthetic historical drilling data in Microsoft Fabric. It includes the data contract, deterministic generator, Fabric ingestion and transformation, governed semantic definitions, summary-question evaluation, citations, synthetic-data disclosure, and a curated activity receipt. Comparable-run retrieval, similarity scoring, and prediction are deferred to later milestones and must not be introduced into milestone-one scope.",
+      "claim_sha256": "31f1cb2046c3f2fb2680e2802143e3b7b355f7cd869ed6cc35ab765f479df106",
+      "source_excerpts": [
+        {
+          "path": ".squad/decisions.md",
+          "heading": "2026-10-23T14:16:49.015-04:00: Make historical summarization the first milestone",
+          "text": "Milestone one is limited to grounded summarization of synthetic historical drilling data in Microsoft Fabric. It includes the data contract, deterministic generator, Fabric ingestion and transformation, governed semantic definitions, summary-question evaluation, citations, synthetic-data disclosure, and a curated activity receipt. Comparable-run retrieval, similarity scoring, and prediction are deferred to later milestones and must not be introduced into milestone-one scope.",
+          "sha256": "31f1cb2046c3f2fb2680e2802143e3b7b355f7cd869ed6cc35ab765f479df106"
+        }
+      ]
+    },
+    "GOV-SYNTHETIC-LIMITS-001": {
+      "heading": "GOV-SYNTHETIC-LIMITS-001 — Synthetic evidence limitations",
+      "claim_kinds": [
+        "synthetic-evidence",
+        "operational-recommendations",
+        "production-readiness",
+        "real-world-claims"
+      ],
+      "claim": "Synthetic data may demonstrate workflow behavior, reproducibility, data-quality controls, and recovery of specified simulated relationships. It does not establish real-well predictive accuracy, operational recommendations, production readiness, safety, cost savings, or regulatory compliance.",
+      "claim_sha256": "ca39df66cb63a759c72f4ee277fb896300c74425237fb79213ed1e976af60f55",
+      "source_excerpts": [
+        {
+          "path": ".squad/team.md",
+          "heading": "Project Context",
+          "text": "Synthetic data may demonstrate workflow behavior, reproducibility, data-quality controls, and recovery of specified simulated relationships. It does not establish real-well predictive accuracy, operational recommendations, production readiness, safety, cost savings, or regulatory compliance.",
+          "sha256": "ca39df66cb63a759c72f4ee277fb896300c74425237fb79213ed1e976af60f55"
+        }
+      ]
+    },
+    "GOV-DATA-ACCESS-001": {
+      "heading": "GOV-DATA-ACCESS-001 — Verified serving-source boundary",
+      "claim_kinds": [
+        "verified-serving-sources",
+        "read-only-access",
+        "unverified-sources",
+        "published-data-mutation"
+      ],
+      "claim": "The model may use only the verified active-release `serving` SQL analytics endpoint views in endpoint `7d5ceff0-e27e-4459-9ca7-37043dd3e91c`, as evidenced by `evidence/fabric-summary-publication-v1.0.0.json`.\n\nUse only read access to the verified `serving` views for development and validation. This authorization does not permit mutation of published Lakehouse data or expansion to unverified sources.",
+      "claim_sha256": "5491d11957c9af9f95a4b30d5ced3e48f39c332eea6da8589448396857d4410f",
+      "source_excerpts": [
+        {
+          "path": ".squad/decisions.md",
+          "heading": "2026-10-24T17:51:05Z: Authorize one governed summary semantic model and evaluation proposal",
+          "text": "The model may use only the verified active-release `serving` SQL analytics endpoint views in endpoint `7d5ceff0-e27e-4459-9ca7-37043dd3e91c`, as evidenced by `evidence/fabric-summary-publication-v1.0.0.json`.",
+          "sha256": "bed1323ceb0f8be23b4c21126144d6a0fb1bf0a7ee32ed9d57a45e0e40b5eed3"
+        },
+        {
+          "path": ".squad/decisions.md",
+          "heading": "2026-10-24T17:51:05Z: Authorize one governed summary semantic model and evaluation proposal",
+          "text": "Use only read access to the verified `serving` views for development and validation. This authorization does not permit mutation of published Lakehouse data or expansion to unverified sources.",
+          "sha256": "d72f071575fe4bc85489cff285d0acade3a7385e83afc1e0cb7205f022aef303"
+        }
+      ]
+    },
+    "GOV-EXPORT-001": {
+      "heading": "GOV-EXPORT-001 — Sharing and export controls",
+      "claim_kinds": [
+        "external-sharing",
+        "export-administration"
+      ],
+      "claim": "The existing governance controls remain binding: Central US residency; classification `Internal — Synthetic POC; no real operator data`; indefinite retention for reuse; external sharing disabled; exports restricted to project administrators; and no secrets.",
+      "claim_sha256": "67aeafb7901b6a2830e665a1e07281b1c1ccbb03063768f2eda057608bf2abd0",
+      "source_excerpts": [
+        {
+          "path": ".squad/decisions.md",
+          "heading": "2026-10-24T17:51:05Z: Authorize one governed summary semantic model and evaluation proposal",
+          "text": "The existing governance controls remain binding: Central US residency; classification `Internal — Synthetic POC; no real operator data`; indefinite retention for reuse; external sharing disabled; exports restricted to project administrators; and no secrets.",
+          "sha256": "67aeafb7901b6a2830e665a1e07281b1c1ccbb03063768f2eda057608bf2abd0"
+        }
+      ]
+    },
+    "GOV-SECRETS-001": {
+      "heading": "GOV-SECRETS-001 — Explicit credential and secret controls",
+      "claim_kinds": [
+        "credential-exposure",
+        "secrets-in-code",
+        "secrets-in-configuration",
+        "hardcoded-credentials",
+        "environment-defaults",
+        "config-templates"
+      ],
+      "claim": "Define the correlation identifiers and safe field mapping between them without exposing hidden prompts, credentials, sensitive telemetry, or internal reasoning.\n\nManaged identity is the default. Secrets are prohibited in code and configuration; Key Vault is used only when identity-based access is unavailable.\n\nHardcoded API keys, tokens, passwords, connection strings\n\nSecrets in environment variable defaults or config templates",
+      "claim_sha256": "fe5b1077831aa935a3ef60f3f90450fd1465ee68fdeb2c1b6dbd433628da5407",
+      "source_excerpts": [
+        {
+          "path": ".squad/decisions.md",
+          "heading": "2026-10-23T13:58:26.155-04:00: Separate the user-visible activity receipt from restricted operational traces",
+          "text": "Define the correlation identifiers and safe field mapping between them without exposing hidden prompts, credentials, sensitive telemetry, or internal reasoning.",
+          "sha256": "4506177aab6a6ccf45302bf5bb53fcaf16146f90d1b303983f151192a5203d3f"
+        },
+        {
+          "path": ".squad/agents/thomas-andre/charter.md",
+          "heading": "Boundaries",
+          "text": "Managed identity is the default. Secrets are prohibited in code and configuration; Key Vault is used only when identity-based access is unavailable.",
+          "sha256": "a02ea4a7b19a4f54c980603f2509803a4c0a37794a87828b3bed906c07c21217"
+        },
+        {
+          "path": ".squad/rai/policy.md",
+          "heading": "Credentials & Secrets",
+          "text": "Hardcoded API keys, tokens, passwords, connection strings",
+          "sha256": "31c598cca809f4a66826fb0d8a4d9de2611ed193ed9597b461f65b1fcc243ecf"
+        },
+        {
+          "path": ".squad/rai/policy.md",
+          "heading": "Credentials & Secrets",
+          "text": "Secrets in environment variable defaults or config templates",
+          "sha256": "d9d412c8aaf8ea41e44afd9b03edc13b7d5b4be7b7003269f3b2c6dc98e8ab84"
+        }
+      ]
+    },
+    "GOV-PROMPT-001": {
+      "heading": "GOV-PROMPT-001 — Safety-bypass instructions",
+      "claim_kinds": [
+        "safety-bypass",
+        "content-filter-bypass"
+      ],
+      "claim": "Instructions that bypass AI safety guidelines or content filters",
+      "claim_sha256": "7d604d5ae92e9d86cc3e0bf30895216de2c20c8fb33149b3c4e282d21603941f",
+      "source_excerpts": [
+        {
+          "path": ".squad/rai/policy.md",
+          "heading": "Deceptive Patterns",
+          "text": "Instructions that bypass AI safety guidelines or content filters",
+          "sha256": "7d604d5ae92e9d86cc3e0bf30895216de2c20c8fb33149b3c4e282d21603941f"
+        }
+      ]
+    },
+    "GOV-FABRIC-001": {
+      "heading": "GOV-FABRIC-001 — Authorized Fabric verification boundary",
+      "claim_kinds": [
+        "read-only-verification",
+        "metadata-validation",
+        "published-data-mutation",
+        "unverified-sources",
+        "privilege-escalation",
+        "resource-changes"
+      ],
+      "claim": "Read-only verification queries, model refresh testing, and metadata validation are authorized.\n\nUse only read access to the verified `serving` views for development and validation. This authorization does not permit mutation of published Lakehouse data or expansion to unverified sources.\n\nThis authorization does not permit a Fabric Data Agent, Foundry agents, custom UI, prediction, similarity, a validation workspace, real data, external sharing, new capacity, production-readiness or business-performance claims, or public release.\n\nUser identity and authorization must survive each service boundary without shared credentials, privilege expansion, or loss of row-level policy context.",
+      "claim_sha256": "af94be8bdc79f212f56bedad90ca0cac483ceeac2608d160877964dfb9158270",
+      "source_excerpts": [
+        {
+          "path": ".squad/decisions.md",
+          "heading": "2026-10-24T17:51:05Z: Authorize one governed summary semantic model and evaluation proposal",
+          "text": "Read-only verification queries, model refresh testing, and metadata validation are authorized.",
+          "sha256": "172e5838425b81b555009572313e982d697a309a065d6c7805442d9fa5691844"
+        },
+        {
+          "path": ".squad/decisions.md",
+          "heading": "2026-10-24T17:51:05Z: Authorize one governed summary semantic model and evaluation proposal",
+          "text": "Use only read access to the verified `serving` views for development and validation. This authorization does not permit mutation of published Lakehouse data or expansion to unverified sources.",
+          "sha256": "d72f071575fe4bc85489cff285d0acade3a7385e83afc1e0cb7205f022aef303"
+        },
+        {
+          "path": ".squad/decisions.md",
+          "heading": "2026-10-24T17:51:05Z: Authorize one governed summary semantic model and evaluation proposal",
+          "text": "This authorization does not permit a Fabric Data Agent, Foundry agents, custom UI, prediction, similarity, a validation workspace, real data, external sharing, new capacity, production-readiness or business-performance claims, or public release.",
+          "sha256": "7d33445d6c0d7606ca7c4227b02927f81abc5b0b70cbe99d0be763659c9bee77"
+        },
+        {
+          "path": ".squad/decisions.md",
+          "heading": "2026-10-23T13:58:26.155-04:00: Define delegated identity, OBO, and RLS",
+          "text": "User identity and authorization must survive each service boundary without shared credentials, privilege expansion, or loss of row-level policy context.",
+          "sha256": "be63c5fe38006d3dfe10b948b39c960351a177254daab7f4efe6c68fe852b8f0"
+        }
+      ]
+    },
+    "GOV-AUTHORIZATION-001": {
+      "heading": "GOV-AUTHORIZATION-001 — Explicitly approved authorization",
+      "claim_kinds": [
+        "explicit-authorization",
+        "summary-model",
+        "verified-serving-sources",
+        "read-only-verification"
+      ],
+      "claim": "After the approved Fabric summary publication was recorded, the user explicitly instructed the team to proceed to the next step and specified the authorized and prohibited scope captured below.\n\nAuthorize local, source-controlled development of one summary-only semantic model and deployment of that single model to the existing Fabric development workspace `ws-welladvisor-drillrunhistory-poc-dev` (`4e1977a8-d7ff-487e-b42d-c4b3bc118f3d`). The model may use only the verified active-release `serving` SQL analytics endpoint views in endpoint `7d5ceff0-e27e-4459-9ca7-37043dd3e91c`, as evidenced by `evidence/fabric-summary-publication-v1.0.0.json`. Read-only verification queries, model refresh testing, and metadata validation are authorized. Drafting an objective summary-answer question set and proposed numerical evaluation thresholds is also authorized.",
+      "claim_sha256": "e163e6c45478f63f3ccfaf40d0c339865c26e555ddb2accf9ce4a84208f60f99",
+      "source_excerpts": [
+        {
+          "path": ".squad/decisions.md",
+          "heading": "2026-10-24T17:51:05Z: Authorize one governed summary semantic model and evaluation proposal",
+          "text": "After the approved Fabric summary publication was recorded, the user explicitly instructed the team to proceed to the next step and specified the authorized and prohibited scope captured below.",
+          "sha256": "923fdf275339e8b833f5661a8dd9e1302e22c5c4b3b297a052292ca179d810b0"
+        },
+        {
+          "path": ".squad/decisions.md",
+          "heading": "2026-10-24T17:51:05Z: Authorize one governed summary semantic model and evaluation proposal",
+          "text": "Authorize local, source-controlled development of one summary-only semantic model and deployment of that single model to the existing Fabric development workspace `ws-welladvisor-drillrunhistory-poc-dev` (`4e1977a8-d7ff-487e-b42d-c4b3bc118f3d`). The model may use only the verified active-release `serving` SQL analytics endpoint views in endpoint `7d5ceff0-e27e-4459-9ca7-37043dd3e91c`, as evidenced by `evidence/fabric-summary-publication-v1.0.0.json`. Read-only verification queries, model refresh testing, and metadata validation are authorized. Drafting an objective summary-answer question set and proposed numerical evaluation thresholds is also authorized.",
+          "sha256": "40ac9e031118aed4d64a5d5d4436b754a95e3a84d70aae0ea3d2619c2f4d1c41"
+        }
+      ]
+    }
+  }
+}

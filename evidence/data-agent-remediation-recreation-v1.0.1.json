@@ -1,0 +1,156 @@
+{
+  "evidence_schema_version": "1.0.0",
+  "evidence_type": "fabric_data_agent_second_fail_closed_remediation_and_recreation",
+  "recorded_at_utc": "2026-10-25T01:23:02Z",
+  "classification": "Internal - Synthetic POC; no real operator data",
+  "architecture_status": "CONDITIONAL PASS",
+  "fabric_modified_by_this_repository_change": false,
+  "failed_agent": {
+    "name": "da_drillrun_summary",
+    "id": "961c0db2-e7c4-42f8-887c-039085290338",
+    "definition_version": "v1.0.0",
+    "calibration_run_id": "20261025T004054Z-b79eede4",
+    "calibration_result": "FAIL_ROLLBACK_REQUIRED",
+    "attempts_recorded": 65,
+    "successful_attempts": 64,
+    "cases_reached": 22,
+    "terminal_failure": {
+      "case_id": "summary-v1.0.0-C10",
+      "attempt": 2,
+      "gate": "synthetic_label",
+      "reason": "missing_synthetic_label",
+      "hard_gate_failure": true
+    },
+    "delete_rollback": {
+      "executed_at_utc": "2026-10-25T00:58:30Z",
+      "request_id": "9ddea39f-7684-4725-8af5-fba5eb820441",
+      "post_delete_data_agents_list_count": 0,
+      "post_delete_verification": "PASS"
+    },
+    "failure_evidence_commit": "c99a85ac96f1096508f26f9eb93b5b53c4afabc3",
+    "history_preserved": true,
+    "history_rewrite_prohibited": true
+  },
+  "prior_deleted_agent_history": {
+    "name": "da_drillrun_summary",
+    "id": "72a3a511-ad36-4df8-842b-d6c268b2ff8a",
+    "failure_stage": "preflight",
+    "questions_sent": 0,
+    "delete_rollback_executed_at_utc": "2026-10-25T00:08:54Z",
+    "delete_request_id": "c4f2a6c5-ee5d-48c9-b9a9-a78d01d0433d",
+    "history_preserved": true,
+    "history_rewrite_prohibited": true
+  },
+  "second_remediation": {
+    "definition_version": "v1.0.1",
+    "objective": "Require the exact synthetic-data label as the first response line and remove scoring ambiguity.",
+    "commits": [
+      {
+        "commit": "d368402ffd41eff3b970678d4f59d3f65c6cfd59",
+        "scope": "Data Agent definition, calibration metadata, documentation, and tests"
+      },
+      {
+        "commit": "f4062d4f4704a154e02970fd49244c7c309aa116",
+        "scope": "Evaluation scoring contract, documentation, and regression tests"
+      }
+    ],
+    "review_status": "APPROVE",
+    "validation": {
+      "tests_passed": 136,
+      "subtests_passed": 51,
+      "tom_validation": "PASS",
+      "bandit": "PASS",
+      "pip_audit": "PASS",
+      "security_review": "PASS"
+    }
+  },
+  "recreated_agent": {
+    "name": "da_drillrun_summary",
+    "id": "a23346c3-1ce7-4203-8ecf-9b9982c82a03",
+    "type": "DataAgent",
+    "definition_version": "v1.0.1",
+    "description": "v1.0.1",
+    "workspace_id": "4e1977a8-d7ff-487e-b42d-c4b3bc118f3d",
+    "semantic_model_id": "ee7583b6-5be7-4802-83a8-530ce7dd8351",
+    "creation_operation_id": "a305cd2a-e750-4ca0-b315-b08ed0735bf4",
+    "creation_operation_status": "SUCCEEDED",
+    "workspace_unchanged": true,
+    "model_unchanged": true,
+    "selected_tables": [
+      "Wells",
+      "Dataset Metadata",
+      "Data Quality",
+      "Categories"
+    ],
+    "selected_tables_unchanged": true,
+    "lifecycle_state": "draft",
+    "published": false,
+    "shared": false,
+    "questions_sent": 0,
+    "calibration_started": false
+  },
+  "authorization": {
+    "publication_authorized_now": false,
+    "authorized_agent_id": "a23346c3-1ce7-4203-8ecf-9b9982c82a03",
+    "calibration_authorized_now": false,
+    "questions_authorized_now": false,
+    "authorization_transfers_automatically": false,
+    "repository_source_id_rebinding": {
+      "status_at_recreation": "PENDING",
+      "subsequently_completed": true,
+      "commit": "0dc114817bce6402c40c456e1557e0a16a7ffcab",
+      "baek_review": "APPROVE",
+      "security_review": "APPROVE",
+      "authorization_effect": "Rebinding alone granted no authorization. Publication became authorized only after live definition/source/ACL verification, complete validation, and designated review."
+    },
+    "completed_before_publication_authorization": [
+      "Baek Yoonho and security approved exact-label remediation commits d368402ffd41eff3b970678d4f59d3f65c6cfd59 and f4062d4f4704a154e02970fd49244c7c309aa116 and ID-binding commit 0dc114817bce6402c40c456e1557e0a16a7ffcab.",
+      "The live draft exactly matches the approved v1.0.1 source except Fabric children normalization and contains exactly one model and four approved tables.",
+      "The exact v1.0.1 synthetic-label instructions are present.",
+      "The live Data Agent, semantic-model, and workspace ACLs contain only the approved user; the temporary Admin/model Write/ReShare exception is unchanged.",
+      "Validation passes 136 tests, 51 subtests, TOM validation, Bandit, and pip-audit.",
+      "The approved runner remediation and security lineage remain applicable."
+    ],
+    "required_before_calibration": [
+      "Publish only exact agent ID a23346c3-1ce7-4203-8ecf-9b9982c82a03, unshared, under the existing exception.",
+      "Complete fresh post-publication Q1-Q5 with PASS.",
+      "Complete fresh preflight with PASS.",
+      "Obtain designated-reviewer approval before sending any question or calibration attempt."
+    ]
+  },
+  "calibration_reset": {
+    "full_rerun_from_scratch_required": true,
+    "required_case_count": 36,
+    "required_attempts_per_case": 3,
+    "prior_successful_attempts_reusable": false,
+    "prior_attempts_may_be_combined_with_future_run": false
+  },
+  "failure_response": {
+    "conditional_pass_preserved": true,
+    "immediate_stop_on_gate_failure": true,
+    "disable_or_unpublish_if_safely_available": true,
+    "mandatory_delete_fallback": true,
+    "complete_retest_after_remediation_required": true,
+    "independent_reviewer_reapproval_required": true
+  },
+  "decision": {
+    "verdict": "CONDITIONAL PASS",
+    "recreation_completed": true,
+    "publication_authorized_now": false,
+    "authorized_agent_id": "a23346c3-1ce7-4203-8ecf-9b9982c82a03",
+    "calibration_authorized_now": false,
+    "questions_authorized_now": false,
+    "scope_statement": "The historical publication authorization was consumed and is now revoked after the completed v1.0.1 calibration failed the quality gate and the agent was deleted.",
+    "current_state_evidence": "evidence/data-agent-calibration-failure-v1.0.1.json"
+  },
+  "related_evidence": [
+    "evidence/data-agent-replacement-prepublication-v1.0.1.json",
+    "evidence/data-agent-calibration-failure-20261025.json",
+    "evidence/data-agent-remediation-recreation-v1.0.0.json",
+    "evidence/data-agent-postpublication-v1.0.0.json",
+    "evidence/data-agent-replacement-prepublication-v1.0.0.json",
+    "evidence/fabric-data-agent-creation-v1.0.0.json",
+    "evidence/data-agent-calibration-failure-v1.0.1.json"
+  ],
+  "repository_change_modified_fabric_or_source": false
+}

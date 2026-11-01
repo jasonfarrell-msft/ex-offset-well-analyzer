@@ -1,0 +1,20 @@
+relationship 7818cc74-a18b-581e-9e5d-3f3f29285338
+	fromCardinality: many
+	toCardinality: one
+	crossFilteringBehavior: oneDirection
+	fromColumn: Wells.'Dataset Version'
+	toColumn: 'Dataset Metadata'.'Dataset Version'
+
+relationship 77f296d9-35c8-5ff4-91b3-872edcfbde38
+	fromCardinality: many
+	toCardinality: one
+	crossFilteringBehavior: oneDirection
+	fromColumn: 'Data Quality'.'Dataset Version'
+	toColumn: 'Dataset Metadata'.'Dataset Version'
+
+relationship 2707238b-f951-5a36-ac5a-9e4d8445c49d
+	fromCardinality: many
+	toCardinality: one
+	crossFilteringBehavior: oneDirection
+	fromColumn: Categories.'Dataset Version'
+	toColumn: 'Dataset Metadata'.'Dataset Version'

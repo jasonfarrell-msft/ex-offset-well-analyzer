@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "DrillAdvisor_Api": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7249",
+      "launchBrowser": false
+    }
+  }
+}

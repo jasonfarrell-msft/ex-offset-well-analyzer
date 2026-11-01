@@ -1,0 +1,38 @@
+{
+  "status": 200,
+  "response": {
+    "conversationId": "resp_05af5ad70b0504b4006ae36d61db4c8196b9f2d6cb98cf66f6",
+    "message": {
+      "id": "msg_05af5ad70b0504b4006ae36dc116008196879358e9ff126ceb",
+      "role": "assistant",
+      "markdown": "SYNTHETIC DATA \u2022 v1.1.0 \u2022 DEVELOPMENT / OFFSET COMPARISON ONLY\n\nHere\u2019s a target- and section-level comparison for **SYN-TARGET-0001** between offset wells **SYN-WELL-0002** and **SYN-WELL-0019**, using **accepted-only** data.\n\n## High-level comparison by offset well\n\n| offset_well_id | accepted_run_count | accepted_footage_ft | accepted_duration_hours | penetration_rate_ft_per_hr |\n|---|---:|---:|---:|---:|\n| SYN-WELL-0002 | 7 | 8,966.0 | 123.95 | 72.34 |\n| SYN-WELL-0019 | 4 | 3,633.2 | 124.03 | 29.29 |\n\n**KPI summary**\n\n| Metric | SYN-WELL-0002 | SYN-WELL-0019 |\n|---|---:|---:|\n| Accepted run count | 7 runs | 4 runs |\n| Penetration rate | 72.34 ft/hr | 29.29 ft/hr |\n\n## Section-level support\n\n### SYN-WELL-0002\n\n| section_formation_name | accepted_run_count | accepted_footage_ft | accepted_duration_hours | penetration_rate_ft_per_hr |\n|---|---:|---:|---:|---:|\n| Synthetic Brimstone | 5 | 6,316.0 | 98.04 | 64.42 |\n| Synthetic Cobalt | 2 | 2,650.0 | 25.91 | 102.28 |\n| Total (all sections) | 7 | 8,966.0 | 123.95 | 72.34 |\n\n### SYN-WELL-0019\n\n| section_formation_name | accepted_run_count | accepted_footage_ft | accepted_duration_hours | penetration_rate_ft_per_hr |\n|---|---:|---:|---:|---:|\n| Synthetic Aster | 2 | 1,423.9 | 52.38 | 27.18 |\n| Synthetic Brimstone | 2 | 2,209.3 | 71.65 | 30.83 |\n| Total (all sections) | 4 | 3,633.2 | 124.03 | 29.29 |\n\n## Comparison readout\n\n- **SYN-WELL-0002** has more accepted runs than **SYN-WELL-0019**: **7 vs 4**.\n- **SYN-WELL-0002** also has the higher overall accepted penetration rate: **72.34 ft/hr vs 29.29 ft/hr**.\n- Section-level support shows **SYN-WELL-0002** is led by **Synthetic Brimstone** and **Synthetic Cobalt**, while **SYN-WELL-0019** is split across **Synthetic Aster** and **Synthetic Brimstone**.\n\n**Source:** Semantic-model table/result returned by Fabric Data Agent; measures include **accepted_run_count** and **penetration_rate_ft_per_hr**.",
+      "createdAtUtc": "2026-10-29T15:59:29+00:00"
+    },
+    "visuals": [],
+    "toolCalls": [
+      {
+        "type": "mcp_list_tools",
+        "id": "mcpl_05af5ad70b0504b4006ae36d61f33c8196bfdabf0d7913791d",
+        "name": null,
+        "server": "fabric-dataagent-mi-bridge",
+        "status": null,
+        "toolCount": 1
+      },
+      {
+        "type": "mcp_call",
+        "id": "mcp_05af5ad70b0504b4006ae36d62cfc081968080f34d593cf92a",
+        "name": "DataAgent_da_drillrun_public_summary",
+        "server": "fabric-dataagent-mi-bridge",
+        "status": "completed",
+        "toolCount": null
+      }
+    ],
+    "sources": [],
+    "usage": {
+      "inputTokens": 2158,
+      "outputTokens": 728,
+      "totalTokens": 2886
+    },
+    "latencyMs": 99309
+  }
+}

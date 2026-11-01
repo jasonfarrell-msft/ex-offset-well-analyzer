@@ -1,0 +1,185 @@
+{
+  "evidence_schema_version": "1.0.0",
+  "evidence_type": "fabric_data_agent_replacement_prepublication",
+  "recorded_at_utc": "2026-10-25T00:33:07Z",
+  "classification": "Internal - Synthetic POC; no real operator data",
+  "architecture_status": "CONDITIONAL PASS",
+  "fabric_modified_by_this_repository_change": false,
+  "replacement_agent": {
+    "name": "da_drillrun_summary",
+    "id": "961c0db2-e7c4-42f8-887c-039085290338",
+    "workspace_id": "4e1977a8-d7ff-487e-b42d-c4b3bc118f3d",
+    "semantic_model_id": "ee7583b6-5be7-4802-83a8-530ce7dd8351",
+    "creation_operation_id": "ccddbdd1-d002-4465-b25c-9afe2edee27a",
+    "creation_operation_status": "SUCCEEDED",
+    "lifecycle_state": "deleted_after_calibration_failure",
+    "publication_completed": true,
+    "published_at_utc": "2026-10-25T00:32:14Z",
+    "publication_request_id": "3348cf9e-642f-4995-909b-1f24a9b399bf",
+    "questions_sent": 0,
+    "calibration_started": true,
+    "calibration_attempts_recorded": 65
+  },
+  "source_and_definition": {
+    "source_runner_rebinding_commit": "2db841d68b91b87400db7715e1a87af8ec9545ee",
+    "tests_passed": 120,
+    "subtests_passed": 51,
+    "source_count": 1,
+    "workspace_id": "4e1977a8-d7ff-487e-b42d-c4b3bc118f3d",
+    "semantic_model_id": "ee7583b6-5be7-4802-83a8-530ce7dd8351",
+    "selected_tables": [
+      "Wells",
+      "Dataset Metadata",
+      "Data Quality",
+      "Categories"
+    ],
+    "live_draft_matches_approved_source": true,
+    "only_observed_difference": "Fabric normalized each table element by adding children: [].",
+    "fewshots_present": false,
+    "actions_present": false,
+    "additional_sources_present": false,
+    "definition_review": "PASS"
+  },
+  "identity_and_access": {
+    "approved_principal_id": "61a37498-9ab6-43d2-b70f-706fd58274e7",
+    "principal_type": "User",
+    "agent_acl_principal_count": 1,
+    "semantic_model_acl_principal_count": 1,
+    "workspace_acl_principal_count": 1,
+    "sole_approved_user_across_all_scopes": true,
+    "temporary_admin_write_reshare_exception_approved": true,
+    "runner_access": "read-only",
+    "broader_permissions_may_be_used_for_calibration": false,
+    "broader_permissions_may_be_granted_to_others": false,
+    "identity_review": "PASS",
+    "acl_review": "PASS"
+  },
+  "runner_and_security": {
+    "mcp_remediation_commit": "8abece2090620becf882089ad3d37b0427c9e982",
+    "hardened_runner_commit": "1578b2e4d8c23c1019484bef4ebfb50dde0d10a0",
+    "mcp_remediation_review": "APPROVE",
+    "hardened_runner_review": "APPROVE",
+    "security_review": "PASS",
+    "predecessor_questions_sent": 0,
+    "replacement_questions_sent": 0
+  },
+  "prepublication_gates": [
+    {
+      "gate": "replacement_identity",
+      "status": "PASS"
+    },
+    {
+      "gate": "source_rebinding",
+      "status": "PASS"
+    },
+    {
+      "gate": "live_definition",
+      "status": "PASS"
+    },
+    {
+      "gate": "sole_user_acl",
+      "status": "PASS"
+    },
+    {
+      "gate": "runner",
+      "status": "PASS"
+    },
+    {
+      "gate": "security",
+      "status": "PASS"
+    }
+  ],
+  "publication_exception": {
+    "existing_user_exception_transfers": true,
+    "transfer_basis": "Approved remediation and complete-retest policy.",
+    "new_scope_granted": false,
+    "authorized_agent_id": "961c0db2-e7c4-42f8-887c-039085290338",
+    "sole_user_required": true,
+    "sharing_prohibited": true,
+    "external_integrations_prohibited": true,
+    "actions_and_writes_prohibited": true,
+    "additional_sources_prohibited": true
+  },
+  "postpublication_question_gates": [
+    {
+      "id": "Q1",
+      "gate": "published_definition_diff",
+      "status": "PASS",
+      "blocks_questions": false
+    },
+    {
+      "id": "Q2",
+      "gate": "acl_reverification",
+      "status": "PASS",
+      "blocks_questions": false
+    },
+    {
+      "id": "Q3",
+      "gate": "unauthorized_wrong_token_and_current_user_auth",
+      "status": "PASS",
+      "blocks_questions": false
+    },
+    {
+      "id": "Q4",
+      "gate": "capability_inventory",
+      "status": "PASS",
+      "blocks_questions": false
+    },
+    {
+      "id": "Q5",
+      "gate": "evidence_safety",
+      "status": "PASS",
+      "blocks_questions": false
+    }
+  ],
+  "retention": {
+    "local_retention_days": 90,
+    "local_access": [
+      "calibrator",
+      "designated reviewer"
+    ],
+    "delete_after_retention": true,
+    "tokens_or_secrets_excluded": true
+  },
+  "rollback": {
+    "immediate_stop_on_gate_failure": true,
+    "disable_or_unpublish_if_safely_available": true,
+    "mandatory_delete_fallback": true,
+    "complete_retest_after_remediation_required": true,
+    "independent_reviewer_reapproval_required": true
+  },
+  "predecessor_history": {
+    "id": "72a3a511-ad36-4df8-842b-d6c268b2ff8a",
+    "deleted_after_fail_closed_preflight": true,
+    "questions_sent": 0,
+    "history_preserved": true,
+    "history_rewrite_prohibited": true
+  },
+  "decision": {
+    "verdict": "CONDITIONAL PASS",
+    "publication_authorized_now": false,
+    "publication_completed": true,
+    "calibration_authorized_now": false,
+    "questions_authorized_now": false,
+    "authorization_scope": "No current publication, calibration, or question authorization remains after the calibration hard-gate failure and deletion rollback.",
+    "remaining_gate": "Independent instruction remediation, new-agent creation, source and ACL review, publication review, preflight, and a full 36-by-3 rerun from scratch are required."
+  },
+  "related_evidence": [
+    "evidence/data-agent-remediation-recreation-v1.0.0.json",
+    "evidence/data-agent-prepublication-v1.0.0.json",
+    "evidence/data-agent-precreation-security-v1.0.0.json",
+    "evidence/fabric-data-agent-creation-v1.0.0.json",
+    "evidence/data-agent-postpublication-v1.0.0.json",
+    "evidence/data-agent-calibration-failure-20261025.json"
+  ],
+  "current_state": {
+    "as_of_utc": "2026-10-25T00:58:30Z",
+    "calibration_result": "FAIL_ROLLBACK_REQUIRED",
+    "agent_deleted": true,
+    "publication_authorized_now": false,
+    "calibration_authorized_now": false,
+    "questions_authorized_now": false
+  },
+  "observed_existing_fabric_state": true,
+  "repository_change_modified_fabric_or_source": false
+}

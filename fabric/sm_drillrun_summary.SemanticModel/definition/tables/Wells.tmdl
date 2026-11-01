@@ -1,0 +1,296 @@
+/// One row per synthetic well, containing historical section and run summary values from serving.well_summary.
+table Wells
+	lineageTag: a4c7c3dd-38d5-570e-8681-124e450c6d7e
+
+	/// Distinct number of wells in the current filter context.
+	measure 'Well Count' = DISTINCTCOUNT(Wells[Well ID])
+		formatString: #,0
+
+	/// Total number of historical hole sections for the selected wells.
+	measure 'Total Section Count' = SUM(Wells[Section Count])
+		formatString: #,0
+
+	/// Total number of source drilling runs before quality handling.
+	measure 'Total Source Run Count' = SUM(Wells[Source Run Count])
+		formatString: #,0
+
+	/// Total number of drilling runs retained in the accepted historical summaries.
+	measure 'Total Accepted Run Count' = SUM(Wells[Accepted Run Count])
+		formatString: #,0
+
+	/// Total number of drilling runs excluded from accepted summaries by quality handling.
+	measure 'Total Quarantined Run Count' = SUM(Wells[Quarantined Run Count])
+		formatString: #,0
+
+	/// Accepted historical drilled footage in feet.
+	measure 'Total Footage' = SUM(Wells[Accepted Footage])
+		formatString: #,0.00
+
+	/// Accepted historical drilled footage divided by accepted run count.
+	measure 'Average Footage per Run' = DIVIDE([Total Footage], [Total Accepted Run Count])
+		formatString: #,0.00
+
+	/// Total historical drilled footage associated with quarantined runs, in feet.
+	measure 'Total Quarantined Footage' = SUM(Wells[Quarantined Footage])
+		formatString: #,0.00
+
+	/// Accepted historical drilling duration in hours.
+	measure 'Total Duration' = SUM(Wells[Accepted Duration])
+		formatString: #,0.00
+
+	/// Accepted historical drilling hours divided by accepted run count.
+	measure 'Average Duration per Run' = DIVIDE([Total Duration], [Total Accepted Run Count])
+		formatString: #,0.00
+
+	/// Total historical duration associated with quarantined runs, in hours.
+	measure 'Total Quarantined Duration' = SUM(Wells[Quarantined Duration])
+		formatString: #,0.00
+
+	/// Distinct wells marked with at least one quality warning.
+	measure 'Wells with Quality Warnings' = CALCULATE(DISTINCTCOUNT(Wells[Well ID]), Wells[Has Quality Warning] = TRUE())
+		formatString: #,0
+
+	/// Distinct wells containing at least one quarantined run.
+	measure 'Wells with Quarantined Runs' = CALCULATE(DISTINCTCOUNT(Wells[Well ID]), Wells[Has Quarantined Run] = TRUE())
+		formatString: #,0
+
+	/// Visible warning that identifies this model as synthetic development data and displays its dataset version.
+	measure 'Synthetic Dataset Label' =
+			VAR VersionLabel =
+				MAXX(
+					FILTER(
+						ALL('Dataset Metadata'[Dataset Version]),
+						NOT ISBLANK('Dataset Metadata'[Dataset Version])
+					),
+					'Dataset Metadata'[Dataset Version]
+				)
+			VAR DisplayVersion = COALESCE(VersionLabel, "METADATA MISSING")
+			RETURN "SYNTHETIC DATA • " & DisplayVersion & " • DEVELOPMENT / HISTORICAL SUMMARY ONLY"
+
+	/// Published synthetic dataset release version used to relate the summary tables.
+	column 'Dataset Version'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: dataset_version
+
+	/// Version of the program that generated the synthetic rows.
+	column 'Generator Version'
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: generator_version
+
+	/// Audit identifier for the synthetic generation run.
+	column 'Generation Run ID'
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: generation_run_id
+
+	/// Authorized synthetic generation scenario.
+	column Scenario
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: scenario
+
+	/// Audit seed used to reproduce the synthetic release.
+	column 'Deterministic Seed'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: deterministic_seed
+
+	/// True for every row in this synthetic-only model.
+	column 'Is Synthetic'
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: is_synthetic
+
+	/// Stable technical key for a synthetic well.
+	column 'Well ID'
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: well_id
+
+	/// Human-readable fictional well name.
+	column 'Well Name'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: well_name
+
+	/// Fictional operator name assigned to the well.
+	column Operator
+		dataType: string
+		summarizeBy: none
+		sourceColumn: operator_name
+
+	/// Basin name assigned to the synthetic well.
+	column Basin
+		dataType: string
+		summarizeBy: none
+		sourceColumn: basin_name
+
+	/// Field name assigned to the synthetic well.
+	column Field
+		dataType: string
+		summarizeBy: none
+		sourceColumn: field_name
+
+	/// Historical spud date for the synthetic well.
+	column 'Spud Date'
+		dataType: dateTime
+		formatString: Short Date
+		summarizeBy: none
+		sourceColumn: spud_date
+
+	/// Historical completion date for the synthetic well.
+	column 'Completion Date'
+		dataType: dateTime
+		formatString: Short Date
+		summarizeBy: none
+		sourceColumn: completion_date
+
+	/// Deterministic development split label retained as release metadata.
+	column 'Split Assignment'
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: split_assignment
+
+	/// Number of historical hole sections for the well.
+	column 'Section Count'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: section_count
+
+	/// Number of source drilling runs for the well before quality handling.
+	column 'Source Run Count'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: source_run_count
+
+	/// Number of drilling runs retained in accepted summaries for the well.
+	column 'Accepted Run Count'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: accepted_run_count
+
+	/// Number of drilling runs quarantined for the well.
+	column 'Quarantined Run Count'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: quarantined_run_count
+
+	/// Number of sections carrying a quality warning.
+	column 'Warning Section Count'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: warning_section_count
+
+	/// Number of runs carrying a quality warning.
+	column 'Warning Run Count'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: warning_run_count
+
+	/// Number of runs carrying a quality error.
+	column 'Error Run Count'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: error_run_count
+
+	/// Number of recorded data-quality issues associated with the well.
+	column 'Issue Count'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: issue_count
+
+	/// Source drilled footage before run quality handling, in feet.
+	column 'Source Footage'
+		dataType: decimal
+		formatString: #,0.00
+		summarizeBy: none
+		sourceColumn: source_total_footage_ft
+
+	/// Drilled footage retained in accepted summaries, in feet.
+	column 'Accepted Footage'
+		dataType: decimal
+		formatString: #,0.00
+		summarizeBy: none
+		sourceColumn: accepted_footage_ft
+
+	/// Drilled footage associated with quarantined runs, in feet.
+	column 'Quarantined Footage'
+		dataType: decimal
+		formatString: #,0.00
+		summarizeBy: none
+		sourceColumn: quarantined_footage_ft
+
+	/// Source drilling duration before run quality handling, in hours.
+	column 'Source Duration'
+		dataType: decimal
+		formatString: #,0.00
+		summarizeBy: none
+		sourceColumn: source_total_duration_hours
+
+	/// Drilling duration retained in accepted summaries, in hours.
+	column 'Accepted Duration'
+		dataType: decimal
+		formatString: #,0.00
+		summarizeBy: none
+		sourceColumn: accepted_duration_hours
+
+	/// Duration associated with quarantined runs, in hours.
+	column 'Quarantined Duration'
+		dataType: decimal
+		formatString: #,0.00
+		summarizeBy: none
+		sourceColumn: quarantined_duration_hours
+
+	/// Earliest accepted run start timestamp for the well, in UTC.
+	column 'First Run Start'
+		dataType: dateTime
+		formatString: General Date
+		summarizeBy: none
+		sourceColumn: first_run_start_time_utc
+
+	/// Latest accepted run end timestamp for the well, in UTC.
+	column 'Last Run End'
+		dataType: dateTime
+		formatString: General Date
+		summarizeBy: none
+		sourceColumn: last_run_end_time_utc
+
+	/// True when the well has one or more quality warnings.
+	column 'Has Quality Warning'
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: has_quality_warning
+
+	/// True when the well has one or more quarantined runs.
+	column 'Has Quarantined Run'
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: has_quarantined_run
+
+	/// Audit version of the transformation contract that produced the row.
+	column 'Transformation Contract Version'
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: _transformation_contract_version
+
+	partition Wells = m
+		mode: directQuery
+		source =
+				let
+				    Source = Sql.Database(SqlEndpointHost, SqlEndpointDatabase),
+				    ServingView = Source{[Schema="serving", Item="well_summary"]}[Data]
+				in
+				    ServingView
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table

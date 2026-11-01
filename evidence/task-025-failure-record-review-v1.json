@@ -1,0 +1,15 @@
+{
+  "approval_record_location": "evidence/task-025-failure-record-review-v1.json",
+  "artifact_sha256": "360f1eb9ad841d019f1612e3ddac721f91a60ed21046aa515c13632becf2aeb8",
+  "review_subject_type": "historical_artifact",
+  "reviewed_at": "2026-10-28T17:29:22.932Z",
+  "reviewer_id": "baek-yoonho",
+  "reviewer_role": "independent evidence reviewer",
+  "signature_method": "This file persists the Copilot task-agent review report identified by agent ID 899da8d7-330c-49c2-b77b-6b428788913b, turn 1; it is not a cryptographic signature.",
+  "verdict": "ACCEPT",
+  "window_manifest_sha256": {
+    "marker_type": "UNAVAILABLE",
+    "reason_code": "NOT_DOCUMENTED",
+    "source_reference": "evidence/task-025-failure-record-v1.json"
+  }
+}

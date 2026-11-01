@@ -1,0 +1,125 @@
+{
+  "evidence_schema_version": "1.0.0",
+  "evidence_type": "fabric_data_agent_fail_closed_remediation_and_recreation",
+  "recorded_at_utc": "2026-10-25T00:33:07Z",
+  "classification": "Internal - Synthetic POC; no real operator data",
+  "architecture_status": "CONDITIONAL PASS",
+  "fabric_modified_by_this_repository_change": false,
+  "historical_agent": {
+    "name": "da_drillrun_summary",
+    "id": "72a3a511-ad36-4df8-842b-d6c268b2ff8a",
+    "immutable_historical_evidence": true,
+    "published_for_calibration": true,
+    "preflight": {
+      "run_id": "20261025T000831Z-fc192489",
+      "status": "STOP_REQUIRED",
+      "reason": "preflight_failure",
+      "questions_sent": 0,
+      "agent_tool_calls_sent": 0,
+      "calibration_cases_started": 0
+    },
+    "delete_rollback": {
+      "approved": true,
+      "executed_at_utc": "2026-10-25T00:08:54Z",
+      "request_id": "c4f2a6c5-ee5d-48c9-b9a9-a78d01d0433d",
+      "post_delete_list_agent_count": 0
+    },
+    "history_rewrite_prohibited": true
+  },
+  "root_cause": {
+    "component": "local MCP calibration runner",
+    "wire_field": "inputSchema",
+    "python_sdk_attribute": "input_schema",
+    "failure": "The validator read only inputSchema and rejected an otherwise valid tool inventory.",
+    "teardown_behavior": "The underlying failure was wrapped in an ExceptionGroup during transport teardown.",
+    "fabric_or_source_defect_identified": false
+  },
+  "remediation": {
+    "commit": "8abece2090620becf882089ad3d37b0427c9e982",
+    "independent_review": "APPROVE",
+    "validation": {
+      "tests_passed": 120,
+      "subtests_passed": 51,
+      "bandit_passed": true,
+      "pip_audit_passed": true
+    }
+  },
+  "replacement_agent": {
+    "name": "da_drillrun_summary",
+    "id": "961c0db2-e7c4-42f8-887c-039085290338",
+    "type": "DataAgent",
+    "workspace_id": "4e1977a8-d7ff-487e-b42d-c4b3bc118f3d",
+    "semantic_model_id": "ee7583b6-5be7-4802-83a8-530ce7dd8351",
+    "creation_operation_id": "ccddbdd1-d002-4465-b25c-9afe2edee27a",
+    "creation_operation_status": "SUCCEEDED",
+    "definition_basis": "Same approved draft definition as the historical agent.",
+    "workspace_unchanged": true,
+    "model_unchanged": true,
+    "intended_source_selection_unchanged": true,
+    "description": "calibration-only",
+    "lifecycle_state": "deleted_after_calibration_failure",
+    "published": true,
+    "published_at_utc": "2026-10-25T00:32:14Z",
+    "publication_request_id": "3348cf9e-642f-4995-909b-1f24a9b399bf",
+    "shared": false,
+    "questions_sent": 0,
+    "calibration_started": true,
+    "calibration_attempts_recorded": 65
+  },
+  "authorization_reset": {
+    "publication_authorized_now": false,
+    "calibration_authorized_now": false,
+    "questions_authorized_now": false,
+    "authorization_transfers_automatically": false,
+    "authorization_transferred_after_approved_remediation_and_retest": true,
+    "publication_preconditions_completed": [
+      "Repository source and runner identifiers were rebound to replacement agent ID 961c0db2-e7c4-42f8-887c-039085290338 at commit 2db841d68b91b87400db7715e1a87af8ec9545ee.",
+      "The replacement live draft definition and exact semantic-model source were reverified.",
+      "Data Agent item, workspace, and semantic-model ACLs were reverified as sole approved user.",
+      "All applicable identity, source, ACL, definition, runner, and security hard gates passed.",
+      "The retained evidence received the required reviews."
+    ],
+    "required_before_calibration": [
+      "Replacement publication gates completed.",
+      "Post-publication Q1-Q5 completed with PASS.",
+      "Send no question until designated reviewers approve."
+    ]
+  },
+  "failure_response": {
+    "immediate_stop_required": true,
+    "disable_or_unpublish_if_safely_available": true,
+    "mandatory_delete_fallback": true,
+    "fallback_changed_by_remediation": false,
+    "complete_retest_after_remediation_required": true,
+    "independent_reviewer_reapproval_required": true
+  },
+  "decision": {
+    "verdict": "CONDITIONAL PASS",
+    "replacement_creation_completed": true,
+    "replacement_publication_authorized_now": false,
+    "replacement_publication_completed": true,
+    "replacement_calibration_authorized_now": false,
+    "scope_statement": "The recreated item was published and Q1-Q5 passed, but its first calibration failed a hard gate and it was deleted. No current publication, calibration, question, sharing, broader-access, write/action, real-data, or production authorization remains."
+  },
+  "related_evidence": [
+    "evidence/fabric-data-agent-creation-v1.0.0.json",
+    "evidence/data-agent-prepublication-v1.0.0.json",
+    "evidence/data-agent-replacement-prepublication-v1.0.0.json",
+    "evidence/data-agent-precreation-security-v1.0.0.json",
+    "evidence/data-agent-postpublication-v1.0.0.json",
+    "evidence/data-agent-calibration-failure-20261025.json",
+    "evidence/data-agent-remediation-recreation-v1.0.1.json"
+  ],
+  "successor_remediation": {
+    "reason": "The replacement agent later failed the synthetic-label hard gate during calibration and was deleted.",
+    "evidence": "evidence/data-agent-remediation-recreation-v1.0.1.json",
+    "current_draft_agent_id": "a23346c3-1ce7-4203-8ecf-9b9982c82a03",
+    "current_definition_version": "v1.0.1",
+    "current_prepublication_evidence": "evidence/data-agent-replacement-prepublication-v1.0.1.json",
+    "publication_authorized_now": false,
+    "calibration_authorized_now": false,
+    "questions_authorized_now": false,
+    "current_state_evidence": "evidence/data-agent-calibration-failure-v1.0.1.json"
+  },
+  "repository_change_modified_fabric_or_source": false
+}

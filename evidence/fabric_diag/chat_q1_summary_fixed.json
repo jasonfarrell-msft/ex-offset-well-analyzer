@@ -1,0 +1,23 @@
+{
+  "markdown": "SYNTHETIC DATA • v1.1.0 • DEVELOPMENT / OFFSET COMPARISON ONLY\n\nI don’t have accessible data in the permitted synthetic summary objects to answer this question. I can’t infer or reconstruct these counts or footage totals without those records.\n\nSource: fabric synthetic lakehouse summary objects; no matching measure returned",
+  "toolCalls": [
+    {
+      "type": "mcp_list_tools",
+      "id": "mcpl_0a9a33e8e0e7e453006ae368ba2a4481909a6f30b1ad4ea6c4",
+      "name": null,
+      "server": "fabric-dataagent-mi-bridge",
+      "status": null,
+      "toolCount": 1
+    },
+    {
+      "type": "mcp_call",
+      "id": "mcp_0a9a33e8e0e7e453006ae368bafa8c8190b65727c6f4f6005f",
+      "name": "DataAgent_da_drillrun_public_summary",
+      "server": "fabric-dataagent-mi-bridge",
+      "status": "completed",
+      "toolCount": null
+    }
+  ],
+  "sourceCount": 0,
+  "latencyMs": 78895
+}

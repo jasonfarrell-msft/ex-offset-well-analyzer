@@ -1,0 +1,461 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.48.1.52935",
+      "templateHash": "14950610418892215849"
+    }
+  },
+  "parameters": {
+    "location": {
+      "type": "string",
+      "metadata": {
+        "description": "Azure region for all regional resources."
+      }
+    },
+    "containerRegistryName": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 50,
+      "metadata": {
+        "description": "Name of the existing Azure Container Registry created by the registry stage."
+      }
+    },
+    "logAnalyticsWorkspaceName": {
+      "type": "string",
+      "minLength": 4,
+      "maxLength": 63,
+      "metadata": {
+        "description": "Log Analytics workspace name."
+      }
+    },
+    "managedEnvironmentName": {
+      "type": "string",
+      "metadata": {
+        "description": "Container Apps managed environment name."
+      }
+    },
+    "containerAppName": {
+      "type": "string",
+      "metadata": {
+        "description": "Container App name."
+      }
+    },
+    "containerImage": {
+      "type": "string",
+      "minLength": 1,
+      "metadata": {
+        "description": "Required immutable ACR image reference in <login-server>/<repository>@sha256:<digest> format."
+      }
+    },
+    "managedIdentityResourceId": {
+      "type": "string",
+      "metadata": {
+        "description": "Full resource ID of the existing user-assigned managed identity."
+      }
+    },
+    "managedIdentityPrincipalId": {
+      "type": "string",
+      "metadata": {
+        "description": "Object ID (principal ID) of the existing user-assigned managed identity."
+      }
+    },
+    "entraTenantId": {
+      "type": "string",
+      "metadata": {
+        "description": "Microsoft Entra tenant ID used by the application."
+      }
+    },
+    "managedIdentityClientId": {
+      "type": "string",
+      "metadata": {
+        "description": "Client ID of the existing user-assigned managed identity."
+      }
+    },
+    "fabricAppClientId": {
+      "type": "string",
+      "metadata": {
+        "description": "Client ID of the Microsoft Fabric application."
+      }
+    },
+    "foundryProjectPrincipalId": {
+      "type": "string",
+      "metadata": {
+        "description": "Object ID of the Azure AI Foundry project principal."
+      }
+    },
+    "foundryProjectClientId": {
+      "type": "string",
+      "metadata": {
+        "description": "Client ID of the Azure AI Foundry project."
+      }
+    },
+    "mcpAudience": {
+      "type": "string",
+      "metadata": {
+        "description": "Microsoft Entra application ID URI accepted as the MCP audience."
+      }
+    },
+    "foundryProjectEndpoint": {
+      "type": "string",
+      "metadata": {
+        "description": "Azure AI Foundry project endpoint."
+      }
+    },
+    "foundryAgentName": {
+      "type": "string",
+      "metadata": {
+        "description": "Azure AI Foundry agent name."
+      }
+    },
+    "fabricDataAgentMcpEndpoint": {
+      "type": "string",
+      "metadata": {
+        "description": "Microsoft Fabric Data Agent MCP endpoint."
+      }
+    },
+    "fabricTokenScope": {
+      "type": "string",
+      "metadata": {
+        "description": "Microsoft Fabric token scope."
+      }
+    },
+    "publicChatEnabled": {
+      "type": "string",
+      "allowedValues": [
+        "true",
+        "false"
+      ],
+      "metadata": {
+        "description": "Whether the public chat feature is enabled."
+      }
+    },
+    "tags": {
+      "type": "object",
+      "metadata": {
+        "description": "Tags applied to all resources that support tags."
+      }
+    }
+  },
+  "variables": {
+    "acrPullRoleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '7f951dda-4ed3-4680-a7ca-43fe172d538d')]",
+    "containerRegistryLoginServer": "[format('{0}.azurecr.io', parameters('containerRegistryName'))]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2022-04-01",
+      "scope": "[resourceId('Microsoft.ContainerRegistry/registries', parameters('containerRegistryName'))]",
+      "name": "[guid(resourceId('Microsoft.ContainerRegistry/registries', parameters('containerRegistryName')), parameters('managedIdentityPrincipalId'), variables('acrPullRoleDefinitionId'))]",
+      "properties": {
+        "principalId": "[parameters('managedIdentityPrincipalId')]",
+        "principalType": "ServicePrincipal",
+        "roleDefinitionId": "[variables('acrPullRoleDefinitionId')]"
+      }
+    },
+    {
+      "type": "Microsoft.OperationalInsights/workspaces",
+      "apiVersion": "2025-07-01",
+      "name": "[parameters('logAnalyticsWorkspaceName')]",
+      "location": "[parameters('location')]",
+      "tags": "[parameters('tags')]",
+      "properties": {
+        "features": {
+          "disableLocalAuth": true,
+          "enableLogAccessUsingOnlyResourcePermissions": true,
+          "immediatePurgeDataOn30Days": true
+        },
+        "publicNetworkAccessForIngestion": "Enabled",
+        "publicNetworkAccessForQuery": "Enabled",
+        "retentionInDays": 30,
+        "sku": {
+          "name": "PerGB2018"
+        },
+        "workspaceCapping": {
+          "dailyQuotaGb": 1
+        }
+      }
+    },
+    {
+      "type": "Microsoft.App/managedEnvironments",
+      "apiVersion": "2026-01-01",
+      "name": "[parameters('managedEnvironmentName')]",
+      "location": "[parameters('location')]",
+      "tags": "[parameters('tags')]",
+      "properties": {
+        "appLogsConfiguration": {
+          "destination": "azure-monitor"
+        },
+        "peerAuthentication": {
+          "mtls": {
+            "enabled": false
+          }
+        },
+        "peerTrafficConfiguration": {
+          "encryption": {
+            "enabled": false
+          }
+        },
+        "publicNetworkAccess": "Enabled",
+        "workloadProfiles": [
+          {
+            "name": "Consumption",
+            "workloadProfileType": "Consumption"
+          }
+        ],
+        "zoneRedundant": false
+      }
+    },
+    {
+      "type": "microsoft.insights/diagnosticSettings",
+      "apiVersion": "2016-09-01",
+      "scope": "[resourceId('Microsoft.App/managedEnvironments', parameters('managedEnvironmentName'))]",
+      "name": "service",
+      "location": "[parameters('location')]",
+      "properties": {
+        "workspaceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('logAnalyticsWorkspaceName'))]",
+        "logs": [
+          {
+            "category": "ContainerAppConsoleLogs",
+            "enabled": true,
+            "retentionPolicy": {
+              "days": 0,
+              "enabled": false
+            }
+          },
+          {
+            "category": "ContainerAppSystemLogs",
+            "enabled": true,
+            "retentionPolicy": {
+              "days": 0,
+              "enabled": false
+            }
+          },
+          {
+            "category": "ContainerAppHTTPLogs",
+            "enabled": false,
+            "retentionPolicy": {
+              "days": 0,
+              "enabled": false
+            }
+          },
+          {
+            "category": "AppEnvSpringAppConsoleLogs",
+            "enabled": false,
+            "retentionPolicy": {
+              "days": 0,
+              "enabled": false
+            }
+          },
+          {
+            "category": "AppEnvSessionConsoleLogs",
+            "enabled": false,
+            "retentionPolicy": {
+              "days": 0,
+              "enabled": false
+            }
+          },
+          {
+            "category": "AppEnvSessionPoolEventLogs",
+            "enabled": false,
+            "retentionPolicy": {
+              "days": 0,
+              "enabled": false
+            }
+          },
+          {
+            "category": "AppEnvSessionLifeCycleLogs",
+            "enabled": false,
+            "retentionPolicy": {
+              "days": 0,
+              "enabled": false
+            }
+          }
+        ],
+        "metrics": [
+          {
+            "category": "AllMetrics",
+            "enabled": false,
+            "retentionPolicy": {
+              "days": 0,
+              "enabled": false
+            },
+            "timeGrain": "PT1M"
+          }
+        ]
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('logAnalyticsWorkspaceName'))]",
+        "[resourceId('Microsoft.App/managedEnvironments', parameters('managedEnvironmentName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.App/containerApps",
+      "apiVersion": "2026-01-01",
+      "name": "[parameters('containerAppName')]",
+      "location": "[parameters('location')]",
+      "tags": "[parameters('tags')]",
+      "identity": {
+        "type": "UserAssigned",
+        "userAssignedIdentities": {
+          "[format('{0}', parameters('managedIdentityResourceId'))]": {}
+        }
+      },
+      "properties": {
+        "environmentId": "[resourceId('Microsoft.App/managedEnvironments', parameters('managedEnvironmentName'))]",
+        "workloadProfileName": "Consumption",
+        "configuration": {
+          "activeRevisionsMode": "Single",
+          "identitySettings": [
+            {
+              "identity": "[parameters('managedIdentityResourceId')]",
+              "lifecycle": "All"
+            }
+          ],
+          "ingress": {
+            "external": true,
+            "allowInsecure": false,
+            "exposedPort": 0,
+            "targetPort": 8080,
+            "transport": "auto",
+            "traffic": [
+              {
+                "latestRevision": true,
+                "weight": 100
+              }
+            ]
+          },
+          "registries": [
+            {
+              "server": "[variables('containerRegistryLoginServer')]",
+              "identity": "[parameters('managedIdentityResourceId')]"
+            }
+          ]
+        },
+        "template": {
+          "containers": [
+            {
+              "name": "drill-advisor",
+              "image": "[parameters('containerImage')]",
+              "env": [
+                {
+                  "name": "ENTRA_TENANT_ID",
+                  "value": "[parameters('entraTenantId')]"
+                },
+                {
+                  "name": "MANAGED_IDENTITY_CLIENT_ID",
+                  "value": "[parameters('managedIdentityClientId')]"
+                },
+                {
+                  "name": "FABRIC_APP_CLIENT_ID",
+                  "value": "[parameters('fabricAppClientId')]"
+                },
+                {
+                  "name": "FOUNDRY_PROJECT_PRINCIPAL_ID",
+                  "value": "[parameters('foundryProjectPrincipalId')]"
+                },
+                {
+                  "name": "FOUNDRY_PROJECT_CLIENT_ID",
+                  "value": "[parameters('foundryProjectClientId')]"
+                },
+                {
+                  "name": "MCP_AUDIENCE",
+                  "value": "[parameters('mcpAudience')]"
+                },
+                {
+                  "name": "FOUNDRY_PROJECT_ENDPOINT",
+                  "value": "[parameters('foundryProjectEndpoint')]"
+                },
+                {
+                  "name": "FOUNDRY_AGENT_NAME",
+                  "value": "[parameters('foundryAgentName')]"
+                },
+                {
+                  "name": "FABRIC_DATA_AGENT_MCP_ENDPOINT",
+                  "value": "[parameters('fabricDataAgentMcpEndpoint')]"
+                },
+                {
+                  "name": "FABRIC_TOKEN_SCOPE",
+                  "value": "[parameters('fabricTokenScope')]"
+                },
+                {
+                  "name": "PUBLIC_CHAT_ENABLED",
+                  "value": "[parameters('publicChatEnabled')]"
+                }
+              ],
+              "probes": [
+                {
+                  "type": "Liveness",
+                  "httpGet": {
+                    "path": "/healthz",
+                    "port": 8080,
+                    "scheme": "HTTP"
+                  },
+                  "initialDelaySeconds": 10,
+                  "periodSeconds": 30,
+                  "timeoutSeconds": 5,
+                  "failureThreshold": 3
+                },
+                {
+                  "type": "Readiness",
+                  "httpGet": {
+                    "path": "/readyz",
+                    "port": 8080,
+                    "scheme": "HTTP"
+                  },
+                  "initialDelaySeconds": 5,
+                  "periodSeconds": 10,
+                  "timeoutSeconds": 5,
+                  "failureThreshold": 3,
+                  "successThreshold": 1
+                }
+              ],
+              "resources": {
+                "cpu": "[json('0.5')]",
+                "memory": "1Gi"
+              }
+            }
+          ],
+          "scale": {
+            "cooldownPeriod": 300,
+            "minReplicas": 0,
+            "maxReplicas": 1,
+            "pollingInterval": 30
+          }
+        }
+      },
+      "dependsOn": [
+        "[extensionResourceId(resourceId('Microsoft.ContainerRegistry/registries', parameters('containerRegistryName')), 'Microsoft.Authorization/roleAssignments', guid(resourceId('Microsoft.ContainerRegistry/registries', parameters('containerRegistryName')), parameters('managedIdentityPrincipalId'), variables('acrPullRoleDefinitionId')))]",
+        "[resourceId('Microsoft.App/managedEnvironments', parameters('managedEnvironmentName'))]"
+      ]
+    }
+  ],
+  "outputs": {
+    "containerRegistryId": {
+      "type": "string",
+      "value": "[resourceId('Microsoft.ContainerRegistry/registries', parameters('containerRegistryName'))]"
+    },
+    "containerRegistryLoginServer": {
+      "type": "string",
+      "value": "[reference(resourceId('Microsoft.ContainerRegistry/registries', parameters('containerRegistryName')), '2025-11-01').loginServer]"
+    },
+    "logAnalyticsWorkspaceId": {
+      "type": "string",
+      "value": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('logAnalyticsWorkspaceName'))]"
+    },
+    "managedEnvironmentId": {
+      "type": "string",
+      "value": "[resourceId('Microsoft.App/managedEnvironments', parameters('managedEnvironmentName'))]"
+    },
+    "containerAppId": {
+      "type": "string",
+      "value": "[resourceId('Microsoft.App/containerApps', parameters('containerAppName'))]"
+    },
+    "containerAppFqdn": {
+      "type": "string",
+      "value": "[reference(resourceId('Microsoft.App/containerApps', parameters('containerAppName')), '2026-01-01').configuration.ingress.fqdn]"
+    }
+  }
+}

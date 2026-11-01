@@ -1,0 +1,565 @@
+{
+  "artifact_type": "TASK-025_FAILURE_RECORD",
+  "facts": [
+    {
+      "id": "baseline-status",
+      "provenance": {
+        "observation_timestamp": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "operator_identifier": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "raw_evidence_location": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "request_id": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_payload": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_sha256": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+      },
+      "statement": "No accepted TASK-025 baseline was written.",
+      "status": "OBSERVATION_UNACCEPTED"
+    },
+    {
+      "id": "capacity-window",
+      "provenance": {
+        "observation_timestamp": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "operator_identifier": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "raw_evidence_location": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "request_id": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_payload": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_sha256": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+      },
+      "statement": "F8 was resumed only for a bounded read-only window; final Paused/Succeeded state was independently verified.",
+      "status": "OBSERVATION_UNACCEPTED"
+    },
+    {
+      "id": "data-agent-definition-responses",
+      "provenance": {
+        "observation_timestamp": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "operator_identifier": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "raw_evidence_location": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "request_id": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_payload": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_sha256": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+      },
+      "statement": "Two observed Data Agent getDefinition responses were 198 bytes each and contained zero definition parts.",
+      "status": "OBSERVATION_UNACCEPTED"
+    },
+    {
+      "id": "data-agent-items",
+      "provenance": {
+        "observation_timestamp": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "operator_identifier": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "raw_evidence_location": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "request_id": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_payload": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_sha256": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+      },
+      "statement": "Two live Data Agent items were observed.",
+      "status": "OBSERVATION_UNACCEPTED"
+    },
+    {
+      "id": "data-agent-source-and-publication-details",
+      "provenance": {
+        "observation_timestamp": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "operator_identifier": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "raw_evidence_location": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "request_id": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_payload": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_sha256": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+      },
+      "statement": "No source IDs/types, selection tree, part hashes, or publish_info could be established from the observed responses.",
+      "status": "UNKNOWN"
+    },
+    {
+      "id": "foundry-definition-hash-and-version",
+      "provenance": {
+        "observation_timestamp": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "operator_identifier": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "raw_evidence_location": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "request_id": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_payload": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_sha256": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+      },
+      "statement": "The Foundry definition was safely hashed in the operator report, but no safe version label was detected; the digest value is not included in this record.",
+      "status": "OBSERVATION_UNACCEPTED"
+    },
+    {
+      "id": "foundry-identity-assignment",
+      "provenance": {
+        "observation_timestamp": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "operator_identifier": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "raw_evidence_location": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "request_id": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_payload": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_sha256": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+      },
+      "statement": "Foundry project/runtime identities had no direct workspace assignment.",
+      "status": "OBSERVATION_UNACCEPTED"
+    },
+    {
+      "id": "identity-chain",
+      "provenance": {
+        "observation_timestamp": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "operator_identifier": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "raw_evidence_location": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "request_id": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_payload": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_sha256": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+      },
+      "statement": "Foundry v7 was observed bound to a fixed protected ACA relay; ACA managed-identity token exchange resulted in upstream Fabric service principal Drill Advisor Fabric POC.",
+      "status": "OBSERVATION_UNACCEPTED"
+    },
+    {
+      "id": "no-data-query-or-change",
+      "provenance": {
+        "observation_timestamp": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "operator_identifier": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "raw_evidence_location": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "request_id": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_payload": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_sha256": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+      },
+      "statement": "No query, staging, definition/source edit, publication, permission change, or TASK-026 occurred.",
+      "status": "OBSERVATION_UNACCEPTED"
+    },
+    {
+      "id": "thomas-stop-confirmation",
+      "provenance": {
+        "observation_timestamp": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "operator_identifier": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "raw_evidence_location": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "request_id": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_payload": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_sha256": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+      },
+      "statement": "The TASK-025 result records Thomas Andre's stop verdict: broad permissions do not prove access or breach, and absence from the definition response is missing evidence rather than proof that no source exists. This is a traceable review observation, not a durable accepted verdict.",
+      "status": "OBSERVATION_UNACCEPTED"
+    },
+    {
+      "id": "window-manifest-availability",
+      "provenance": {
+        "observation_timestamp": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "operator_identifier": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "raw_evidence_location": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "request_id": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_payload": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_sha256": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+      },
+      "statement": "No hash-bound manifest was captured for the historic bounded M1/M2-authorized window.",
+      "status": "UNKNOWN"
+    }
+  ],
+  "generated_at": "2026-10-28T17:06:14.463Z",
+  "permission_assessment": [
+    {
+      "category": "demonstrated_breach",
+      "provenance": {
+        "observation_timestamp": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "operator_identifier": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "raw_evidence_location": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "request_id": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_payload": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_sha256": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+      },
+      "statement": "A demonstrated breach was not established by the supplied evidence; this is not proof that no breach occurred.",
+      "status": "UNKNOWN"
+    },
+    {
+      "category": "observed_permissions",
+      "provenance": {
+        "observation_timestamp": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "operator_identifier": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "raw_evidence_location": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "request_id": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_payload": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_sha256": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+      },
+      "statement": "Observed permissions for the upstream Fabric service principal were workspace Contributor; Lakehouse Read, Write, Execute, ReadAll, ViewOutput, and SubscribeOneLakeEvents; and Read, Write, and ReadAll on each of the two observed Data Agent items.",
+      "status": "OBSERVATION_UNACCEPTED"
+    },
+    {
+      "category": "proven_effective_access",
+      "provenance": {
+        "observation_timestamp": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "operator_identifier": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "raw_evidence_location": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "request_id": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_payload": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "response_sha256": {
+          "marker_type": "UNAVAILABLE",
+          "reason_code": "NOT_DOCUMENTED",
+          "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+        },
+        "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+      },
+      "statement": "Proven effective access was not established by the supplied evidence.",
+      "status": "UNKNOWN"
+    }
+  ],
+  "record_schema": {
+    "name": "task-025-failure-record",
+    "version": "1"
+  },
+  "record_scope": {
+    "statement": "This artifact is a sanitized failure record, not an accepted baseline.",
+    "status": "OBSERVATION_UNACCEPTED"
+  },
+  "references": [
+    {
+      "path": ".squad/decisions.md#2026-10-28t09:35:53-04:00-approve-offset-well-analysis-milestones-m1-and-m2",
+      "role": "approval_decision_record",
+      "status": "HISTORICAL_ACCEPTED"
+    },
+    {
+      "path": "plan/process-task-025-remediation-reverification-1.md",
+      "role": "current_plan_context",
+      "status": "NOT_APPROVED"
+    }
+  ],
+  "window_manifest_sha256": {
+    "marker_type": "UNAVAILABLE",
+    "reason_code": "NOT_DOCUMENTED",
+    "source_reference": "agent_id=c29ed123-2837-405e-a13f-156803a1e966; turn=1"
+  }
+}

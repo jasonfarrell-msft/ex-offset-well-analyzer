@@ -1,0 +1,715 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "diagnostic-capture.schema.json",
+  "title": "TASK-025 diagnostic capture",
+  "$comment": "Canonical JSON: UTF-8 without BOM, LF line endings, sorted object keys, two-space indentation, exactly one trailing LF. Timestamps are UTC ISO-8601 with Z and millisecond precision. Arrays use REQ-009 stable sort keys: requests (started_at, request_id); definition parts (item_id, path); source nodes (item_id, parent_id, source_type, source_id), null parent first; ACL entries (scope_type, scope_id, principal_type, principal_id, role, inheritance_path); transitions (observed_at, state); redactions/unavailable fields (json_path, marker_type, reason_code); reviews (reviewed_at, reviewer_id). The offline validator parses calendar-valid timestamps, checks those orders, and verifies all nested window_manifest_sha256 values equal the artifact's required top-level hash. This is sanitized control-plane evidence only: never include response bodies, unrestricted definitions, hidden prompts, tokens, credentials, or restricted payloads. Public scalar strings are length- and character-bounded, but schema validation cannot establish that their content is safe; use typed REDACTED markers for excluded values and independent review. Missing/unavailable observations must use the typed marker; a failed/blocked diagnosis remains representable without omitting required fields.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "$ref": "./common.schema.json#/$defs/nonEmptyString"
+    },
+    "artifact_type": {
+      "const": "TASK-025_DIAGNOSTIC_CAPTURE"
+    },
+    "window_id": {
+      "$ref": "./common.schema.json#/$defs/nonEmptyString"
+    },
+    "window_manifest_sha256": {
+      "$ref": "./common.schema.json#/$defs/sha256"
+    },
+    "captured_at": {
+      "$ref": "./common.schema.json#/$defs/utcTimestamp"
+    },
+    "diagnosis_status": {
+      "enum": [
+        "DIAGNOSIS_COMPLETE",
+        "DIAGNOSIS_BLOCKED_DOCUMENTATION",
+        "DIAGNOSIS_FAILED_REPRODUCIBLY"
+      ]
+    },
+    "request": {
+      "type": "object",
+      "properties": {
+        "request_method": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/nonEmptyString"
+            },
+            {
+              "$ref": "./common.schema.json#/$defs/unavailableMarker"
+            }
+          ]
+        },
+        "normalized_uri": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/normalizedUri"
+            },
+            {
+              "$ref": "./common.schema.json#/$defs/unavailableMarker"
+            }
+          ]
+        },
+        "safe_request_header_names": {
+          "type": "array",
+          "items": {
+            "$ref": "./common.schema.json#/$defs/nonEmptyString"
+          }
+        },
+        "response_status": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 100,
+              "maximum": 599
+            },
+            {
+              "$ref": "./common.schema.json#/$defs/unavailableMarker"
+            }
+          ]
+        },
+        "response_header_names": {
+          "type": "array",
+          "items": {
+            "$ref": "./common.schema.json#/$defs/nonEmptyString"
+          }
+        },
+        "response_body_length_bytes": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "$ref": "./common.schema.json#/$defs/unavailableMarker"
+            }
+          ]
+        },
+        "response_content_type": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/nonEmptyString"
+            },
+            {
+              "$ref": "./common.schema.json#/$defs/unavailableMarker"
+            }
+          ]
+        },
+        "response_body_sha256": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/sha256"
+            },
+            {
+              "$ref": "./common.schema.json#/$defs/unavailableMarker"
+            }
+          ]
+        }
+      },
+      "required": [
+        "request_method",
+        "normalized_uri",
+        "safe_request_header_names",
+        "response_status",
+        "response_header_names",
+        "response_body_length_bytes",
+        "response_content_type",
+        "response_body_sha256"
+      ],
+      "additionalProperties": false
+    },
+    "operation_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "./common.schema.json#/$defs/nonEmptyString"
+      }
+    },
+    "lro_timeline": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "window_id": {
+            "$ref": "./common.schema.json#/$defs/nonEmptyString"
+          },
+          "window_manifest_sha256": {
+            "$ref": "./common.schema.json#/$defs/sha256"
+          },
+          "observed_at": {
+            "$ref": "./common.schema.json#/$defs/utcTimestamp"
+          },
+          "event_type": {
+            "$ref": "./common.schema.json#/$defs/nonEmptyString"
+          },
+          "operation_id": {
+            "oneOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              {
+                "$ref": "./common.schema.json#/$defs/unavailableMarker"
+              }
+            ]
+          },
+          "http_status": {
+            "oneOf": [
+              {
+                "type": "integer",
+                "minimum": 100,
+                "maximum": 599
+              },
+              {
+                "$ref": "./common.schema.json#/$defs/unavailableMarker"
+              }
+            ]
+          },
+          "location_header_present": {
+            "type": "boolean"
+          },
+          "retry_after_seconds": {
+            "oneOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "./common.schema.json#/$defs/unavailableMarker"
+              }
+            ]
+          }
+        },
+        "required": [
+          "window_id",
+          "window_manifest_sha256",
+          "observed_at",
+          "event_type",
+          "operation_id",
+          "http_status",
+          "location_header_present",
+          "retry_after_seconds"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "envelope_classification": {
+      "oneOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/nonEmptyString"
+        },
+        {
+          "$ref": "./common.schema.json#/$defs/unavailableMarker"
+        }
+      ]
+    },
+    "part_manifest": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item_id": {
+            "oneOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              {
+                "$ref": "./common.schema.json#/$defs/unavailableMarker"
+              }
+            ]
+          },
+          "path": {
+            "oneOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              {
+                "$ref": "./common.schema.json#/$defs/unavailableMarker"
+              }
+            ]
+          },
+          "payload_type": {
+            "oneOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              {
+                "$ref": "./common.schema.json#/$defs/unavailableMarker"
+              }
+            ]
+          },
+          "decoded_byte_length": {
+            "oneOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "./common.schema.json#/$defs/unavailableMarker"
+              }
+            ]
+          },
+          "sha256": {
+            "oneOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/sha256"
+              },
+              {
+                "$ref": "./common.schema.json#/$defs/unavailableMarker"
+              }
+            ]
+          },
+          "media_classification": {
+            "oneOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              {
+                "$ref": "./common.schema.json#/$defs/unavailableMarker"
+              }
+            ]
+          },
+          "decode_status": {
+            "enum": [
+              "NOT_ATTEMPTED",
+              "SUCCEEDED",
+              "FAILED"
+            ]
+          }
+        },
+        "required": [
+          "item_id",
+          "path",
+          "payload_type",
+          "decoded_byte_length",
+          "sha256",
+          "media_classification",
+          "decode_status"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "decode_status": {
+      "enum": [
+        "NOT_ATTEMPTED",
+        "SUCCEEDED",
+        "FAILED"
+      ]
+    },
+    "source_tree_completeness": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "COMPLETE",
+            "INCOMPLETE",
+            "NOT_ATTEMPTED",
+            "UNKNOWN"
+          ]
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "window_id": {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              "window_manifest_sha256": {
+                "$ref": "./common.schema.json#/$defs/sha256"
+              },
+              "item_id": {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              "parent_id": {
+                "oneOf": [
+                  {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  {
+                    "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                  }
+                ]
+              },
+              "source_type": {
+                "oneOf": [
+                  {
+                    "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                  },
+                  {
+                    "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                  }
+                ]
+              },
+              "source_id": {
+                "oneOf": [
+                  {
+                    "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                  },
+                  {
+                    "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                  }
+                ]
+              },
+              "selected": {
+                "oneOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                  }
+                ]
+              },
+              "public_fields": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "field_name": {
+                      "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                    },
+                    "value": {
+                      "oneOf": [
+                        {
+                          "$ref": "./common.schema.json#/$defs/safePublicString"
+                        },
+                        {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        {
+                          "type": "boolean"
+                        },
+                        {
+                          "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                        },
+                        {
+                          "$ref": "./common.schema.json#/$defs/redactedMarker"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "field_name",
+                    "value"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "window_id",
+              "window_manifest_sha256",
+              "item_id",
+              "parent_id",
+              "source_type",
+              "source_id",
+              "selected",
+              "public_fields"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "continuation_state": {
+          "enum": [
+            "COMPLETE",
+            "CONTINUATION_PRESENT",
+            "NOT_ATTEMPTED",
+            "UNKNOWN"
+          ]
+        }
+      },
+      "required": [
+        "status",
+        "nodes",
+        "continuation_state"
+      ],
+      "additionalProperties": false
+    },
+    "pagination_state": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "COMPLETE",
+            "INCOMPLETE",
+            "NOT_ATTEMPTED",
+            "UNKNOWN"
+          ]
+        },
+        "page_count": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "$ref": "./common.schema.json#/$defs/unavailableMarker"
+            }
+          ]
+        },
+        "continuation_present": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "./common.schema.json#/$defs/unavailableMarker"
+            }
+          ]
+        }
+      },
+      "required": [
+        "status",
+        "page_count",
+        "continuation_present"
+      ],
+      "additionalProperties": false
+    },
+    "acl_evidence": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "COMPLETE",
+            "INCOMPLETE",
+            "NOT_AUTHORIZED",
+            "NOT_ATTEMPTED",
+            "UNKNOWN"
+          ]
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "window_id": {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              "window_manifest_sha256": {
+                "$ref": "./common.schema.json#/$defs/sha256"
+              },
+              "scope_type": {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              "scope_id": {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              "principal_type": {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              "principal_id": {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              "role": {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              "grant_type": {
+                "enum": [
+                  "DIRECT",
+                  "INHERITED"
+                ]
+              },
+              "inheritance_path": {
+                "type": "array",
+                "items": {
+                  "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                }
+              },
+              "evidence_reference": {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              "group_expansion": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "COMPLETE",
+                      "INCOMPLETE",
+                      "NOT_AUTHORIZED",
+                      "NOT_APPLICABLE"
+                    ]
+                  },
+                  "expanded_principal_ids": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                    }
+                  },
+                  "evidence_reference": {
+                    "oneOf": [
+                      {
+                        "$ref": "./common.schema.json#/$defs/normalizedUri"
+                      },
+                      {
+                        "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "status",
+                  "expanded_principal_ids",
+                  "evidence_reference"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "window_id",
+              "window_manifest_sha256",
+              "scope_type",
+              "scope_id",
+              "principal_type",
+              "principal_id",
+              "role",
+              "grant_type",
+              "inheritance_path",
+              "evidence_reference",
+              "group_expansion"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "documented_permission_requirements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "window_id": {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              "window_manifest_sha256": {
+                "$ref": "./common.schema.json#/$defs/sha256"
+              },
+              "operation": {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              "required_permission": {
+                "oneOf": [
+                  {
+                    "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                  },
+                  {
+                    "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                  }
+                ]
+              },
+              "source_reference": {
+                "oneOf": [
+                  {
+                    "$ref": "./common.schema.json#/$defs/nonEmptyString"
+                  },
+                  {
+                    "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "window_id",
+              "window_manifest_sha256",
+              "operation",
+              "required_permission",
+              "source_reference"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "status",
+        "entries",
+        "documented_permission_requirements"
+      ],
+      "additionalProperties": false
+    },
+    "capacity_transitions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "window_id": {
+            "$ref": "./common.schema.json#/$defs/nonEmptyString"
+          },
+          "window_manifest_sha256": {
+            "$ref": "./common.schema.json#/$defs/sha256"
+          },
+          "observed_at": {
+            "$ref": "./common.schema.json#/$defs/utcTimestamp"
+          },
+          "state": {
+            "$ref": "./common.schema.json#/$defs/nonEmptyString"
+          },
+          "evidence_reference": {
+            "oneOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/nonEmptyString"
+              },
+              {
+                "$ref": "./common.schema.json#/$defs/unavailableMarker"
+              }
+            ]
+          }
+        },
+        "required": [
+          "window_id",
+          "window_manifest_sha256",
+          "observed_at",
+          "state",
+          "evidence_reference"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "redactions": {
+      "type": "array",
+      "items": {
+        "$ref": "./redaction-entry.schema.json"
+      }
+    },
+    "unavailable_fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "json_path": {
+            "$ref": "./common.schema.json#/$defs/nonEmptyString"
+          },
+          "marker": {
+            "$ref": "./common.schema.json#/$defs/unavailableMarker"
+          }
+        },
+        "required": [
+          "json_path",
+          "marker"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "artifact_type",
+    "window_id",
+    "window_manifest_sha256",
+    "captured_at",
+    "diagnosis_status",
+    "request",
+    "operation_ids",
+    "lro_timeline",
+    "envelope_classification",
+    "part_manifest",
+    "decode_status",
+    "source_tree_completeness",
+    "pagination_state",
+    "acl_evidence",
+    "capacity_transitions",
+    "redactions",
+    "unavailable_fields"
+  ],
+  "additionalProperties": false
+}

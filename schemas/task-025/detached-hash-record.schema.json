@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "detached-hash-record.schema.json",
+  "title": "TASK-025 detached hash record",
+  "$comment": "Canonical JSON: UTF-8 without BOM, LF line endings, sorted object keys, two-space indentation, exactly one trailing LF. Timestamps are UTC ISO-8601 with Z and millisecond precision. This follows the approved detached-record contract: artifact_path, artifact_sha256, canonicalization_version, computed_at, and computed_by. A historical detached record need not invent a window_manifest_sha256 when no hash-bound manifest existed. Actual future live evidence remains bound to its required window manifest in the containing live record and artifact schema. computed_by is an IdentityRef when known or a typed UNAVAILABLE marker when intentionally unavailable; do not substitute free-form actor text. artifact_sha256 covers the complete target artifact bytes, including all fields; hash this record separately only when packaged in a package manifest.",
+  "type": "object",
+  "properties": {
+    "artifact_path": {
+      "$ref": "./common.schema.json#/$defs/nonEmptyString"
+    },
+    "artifact_sha256": {
+      "$ref": "./common.schema.json#/$defs/sha256"
+    },
+    "canonicalization_version": {
+      "$ref": "./common.schema.json#/$defs/nonEmptyString"
+    },
+    "computed_at": {
+      "$ref": "./common.schema.json#/$defs/utcTimestamp"
+    },
+    "computed_by": {
+      "oneOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/identityRef"
+        },
+        {
+          "$ref": "./common.schema.json#/$defs/unavailableMarker"
+        }
+      ]
+    }
+  },
+  "required": [
+    "artifact_path",
+    "artifact_sha256",
+    "canonicalization_version",
+    "computed_at",
+    "computed_by"
+  ],
+  "additionalProperties": false
+}

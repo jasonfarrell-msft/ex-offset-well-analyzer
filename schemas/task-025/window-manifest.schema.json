@@ -1,0 +1,183 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "window-manifest.schema.json",
+  "title": "TASK-025 canonical window manifest",
+  "$comment": "Canonical JSON: UTF-8 without BOM, LF line endings, sorted object keys, two-space indentation, exactly one trailing LF. Timestamps are UTC ISO-8601 with Z and millisecond precision. Arrays use REQ-009 stable sort keys: requests (started_at, request_id); definition parts (item_id, path); source nodes (item_id, parent_id, source_type, source_id), null parent first; ACL entries (scope_type, scope_id, principal_type, principal_id, role, inheritance_path); transitions (observed_at, state); redactions/unavailable fields (json_path, marker_type, reason_code); reviews (reviewed_at, reviewer_id). Hashes cover exact canonical bytes; an artifact hash is kept detached to avoid self-reference. JSON Schema cannot enforce arbitrary array sort order or distinct Operation.sequence values. resource_ids are lexicographically ordered; caller_identities are ordered by (principal_type, tenant_id, object_id, application_id); operations preserve approved execution order and sequence is unique and ascending (enforce uniqueness in the local validation script); success_criteria and stop_criteria are lexicographically ordered. cost_ceiling_decimal is a nonnegative decimal string, never a JSON number. No defaults imply authorization or invent missing limits.",
+  "type": "object",
+  "properties": {
+    "manifest_schema_version": {
+      "$ref": "./common.schema.json#/$defs/nonEmptyString"
+    },
+    "window_id": {
+      "$ref": "./common.schema.json#/$defs/nonEmptyString"
+    },
+    "purpose": {
+      "$ref": "./common.schema.json#/$defs/nonEmptyString"
+    },
+    "workspace_id": {
+      "$ref": "./common.schema.json#/$defs/nonEmptyString"
+    },
+    "resource_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "./common.schema.json#/$defs/nonEmptyString"
+      },
+      "minItems": 1
+    },
+    "caller_identities": {
+      "type": "array",
+      "items": {
+        "$ref": "./common.schema.json#/$defs/identityRef"
+      },
+      "minItems": 1
+    },
+    "operations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sequence": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "method_or_action": {
+            "$ref": "./common.schema.json#/$defs/nonEmptyString"
+          },
+          "endpoint_or_portal_procedure": {
+            "$ref": "./common.schema.json#/$defs/nonEmptyString"
+          },
+          "resource_id": {
+            "$ref": "./common.schema.json#/$defs/nonEmptyString"
+          },
+          "expected_status_or_result": {
+            "type": "array",
+            "items": {
+              "$ref": "./common.schema.json#/$defs/nonEmptyString"
+            },
+            "minItems": 1
+          },
+          "required_permission": {
+            "$ref": "./common.schema.json#/$defs/nonEmptyString"
+          },
+          "max_response_bytes": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "polling_allowed": {
+            "type": "boolean"
+          },
+          "retry_allowed": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "sequence",
+          "method_or_action",
+          "endpoint_or_portal_procedure",
+          "resource_id",
+          "expected_status_or_result",
+          "required_permission",
+          "max_response_bytes",
+          "polling_allowed",
+          "retry_allowed"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "max_calls": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "max_response_output_bytes": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "max_active_duration_seconds": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "max_poll_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "poll_interval_seconds": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "max_retry_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "retry_policy": {
+      "$ref": "./common.schema.json#/$defs/nonEmptyString"
+    },
+    "cost_ceiling_decimal": {
+      "type": "string",
+      "maxLength": 64,
+      "pattern": "^(0|[1-9][0-9]*)(\\.[0-9]+)?$"
+    },
+    "cost_currency": {
+      "$ref": "./common.schema.json#/$defs/nonEmptyString"
+    },
+    "evidence_destination": {
+      "$ref": "./common.schema.json#/$defs/nonEmptyString"
+    },
+    "operator": {
+      "$ref": "./common.schema.json#/$defs/identityRef"
+    },
+    "reviewers": {
+      "type": "array",
+      "items": {
+        "$ref": "./common.schema.json#/$defs/identityRef"
+      },
+      "minItems": 1
+    },
+    "rollback_or_no_change": {
+      "$ref": "./common.schema.json#/$defs/nonEmptyString"
+    },
+    "success_criteria": {
+      "type": "array",
+      "items": {
+        "$ref": "./common.schema.json#/$defs/nonEmptyString"
+      },
+      "minItems": 1
+    },
+    "stop_criteria": {
+      "type": "array",
+      "items": {
+        "$ref": "./common.schema.json#/$defs/nonEmptyString"
+      },
+      "minItems": 1
+    },
+    "pause_deadline": {
+      "$ref": "./common.schema.json#/$defs/utcTimestamp"
+    }
+  },
+  "required": [
+    "manifest_schema_version",
+    "window_id",
+    "purpose",
+    "workspace_id",
+    "resource_ids",
+    "caller_identities",
+    "operations",
+    "max_calls",
+    "max_response_output_bytes",
+    "max_active_duration_seconds",
+    "max_poll_count",
+    "poll_interval_seconds",
+    "max_retry_count",
+    "retry_policy",
+    "cost_ceiling_decimal",
+    "cost_currency",
+    "evidence_destination",
+    "operator",
+    "reviewers",
+    "rollback_or_no_change",
+    "success_criteria",
+    "stop_criteria",
+    "pause_deadline"
+  ],
+  "additionalProperties": false
+}

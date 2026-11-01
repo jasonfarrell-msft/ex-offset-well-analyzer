@@ -1,0 +1,38 @@
+{
+  "status": 200,
+  "response": {
+    "conversationId": "resp_08ec5a78e7993484006ae36e1ded788190a004e4db659d2604",
+    "message": {
+      "id": "msg_08ec5a78e7993484006ae36e4f26d8819087c86ed78704ee9a",
+      "role": "assistant",
+      "markdown": "SYNTHETIC DATA \u2022 v1.1.0 \u2022 DEVELOPMENT / OFFSET COMPARISON ONLY\n\nI tried to query the lakehouse summary data for the accepted historical drilling footage for **Synthetic Cobalt** and **Synthetic Driftwood** within the same synthetic historical release we used earlier, but the tool returned **no matching rows** for that request under the required filter `_publication_state = 'STAGED'`.\n\nBecause of that:\n\n- I cannot retrieve `accepted_footage_ft` for Synthetic Cobalt and Synthetic Driftwood in that historical release.\n- I also cannot safely infer or approximate those values from other tables or from prior context.\n\nSo I have to stop here: the specific metrics you asked for are not available from the permitted summary tables under the constraints we must use.\n\nSource: summary model result from Fabric Data Agent (`accepted_footage_ft`)",
+      "createdAtUtc": "2026-10-29T16:02:37+00:00"
+    },
+    "visuals": [],
+    "toolCalls": [
+      {
+        "type": "mcp_list_tools",
+        "id": "mcpl_08ec5a78e7993484006ae36e1e073481909bac793b713cc942",
+        "name": null,
+        "server": "fabric-dataagent-mi-bridge",
+        "status": null,
+        "toolCount": 1
+      },
+      {
+        "type": "mcp_call",
+        "id": "mcp_08ec5a78e7993484006ae36e1ee5248190b76a17cb9bc4f7f9",
+        "name": "DataAgent_da_drillrun_public_summary",
+        "server": "fabric-dataagent-mi-bridge",
+        "status": "completed",
+        "toolCount": null
+      }
+    ],
+    "sources": [],
+    "usage": {
+      "inputTokens": 1163,
+      "outputTokens": 233,
+      "totalTokens": 1396
+    },
+    "latencyMs": 50948
+  }
+}

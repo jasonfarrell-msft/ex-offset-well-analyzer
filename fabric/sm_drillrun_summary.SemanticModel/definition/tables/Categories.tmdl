@@ -1,0 +1,71 @@
+/// Source-history counts from serving.category_summary. Formation counts derive from raw sections, bit and BHA counts derive from raw runs, and those source sets may include quarantined runs; the table also contains split-assignment and cross-entity quality-status families.
+table Categories
+	lineageTag: dcfa190d-28b4-5367-bbfe-784b5d336219
+
+	/// Source-record count for one selected category family; returns blank when the filter context mixes category families with different grains.
+	measure 'Selected Category Record Count' = IF(HASONEVALUE(Categories[Category Name]), SUM(Categories[Record Count]), BLANK())
+		formatString: #,0
+
+	/// Published synthetic dataset release version used to relate the summary tables.
+	column 'Dataset Version'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: dataset_version
+
+	/// Audit identifier for the synthetic generation run.
+	column 'Generation Run ID'
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: generation_run_id
+
+	/// Authorized synthetic generation scenario.
+	column Scenario
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: scenario
+
+	/// True for every row in this synthetic-only model.
+	column 'Is Synthetic'
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: is_synthetic
+
+	/// Category family: formation, BHA type, bit type, split assignment, or entity quality status.
+	column 'Category Name'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: category_name
+
+	/// Historical descriptive value within the category family.
+	column 'Category Value'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: category_value
+
+	/// Source-record count for the category group at its family-specific grain; it is not Total Accepted Run Count, and raw-section or raw-run families may include quarantined runs.
+	column 'Record Count'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: record_count
+
+	/// Audit version of the transformation contract that produced the row.
+	column 'Transformation Contract Version'
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: _transformation_contract_version
+
+	partition Categories = m
+		mode: directQuery
+		source =
+				let
+				    Source = Sql.Database(SqlEndpointHost, SqlEndpointDatabase),
+				    ServingView = Source{[Schema="serving", Item="category_summary"]}[Data]
+				in
+				    ServingView
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table

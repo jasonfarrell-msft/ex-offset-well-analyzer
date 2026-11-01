@@ -1,0 +1,81 @@
+{
+  "agents": {
+    "sung-jinwoo": {
+      "persistent_name": "Sung Jinwoo",
+      "universe": "Solo Leveling",
+      "created_at": "2026-10-23T09:33:40.483-04:00",
+      "legacy_named": false,
+      "status": "active"
+    },
+    "go-gunhee": {
+      "persistent_name": "Go Gunhee",
+      "universe": "Solo Leveling",
+      "created_at": "2026-10-23T13:50:58.101-04:00",
+      "legacy_named": false,
+      "status": "active"
+    },
+    "woo-jinchul": {
+      "persistent_name": "Woo Jinchul",
+      "universe": "Solo Leveling",
+      "created_at": "2026-10-23T09:33:40.483-04:00",
+      "legacy_named": false,
+      "status": "active"
+    },
+    "min-byung-gyu": {
+      "persistent_name": "Min Byung-Gyu",
+      "universe": "Solo Leveling",
+      "created_at": "2026-10-29T16:02:46.651-04:00",
+      "legacy_named": false,
+      "status": "active"
+    },
+    "choi-jong-in": {
+      "persistent_name": "Choi Jong-In",
+      "universe": "Solo Leveling",
+      "created_at": "2026-10-23T09:33:40.483-04:00",
+      "legacy_named": false,
+      "status": "inactive"
+    },
+    "cha-hae-in": {
+      "persistent_name": "Cha Hae-In",
+      "universe": "Solo Leveling",
+      "created_at": "2026-10-23T09:33:40.483-04:00",
+      "legacy_named": false,
+      "status": "active"
+    },
+    "yoo-jinho": {
+      "persistent_name": "Yoo Jinho",
+      "universe": "Solo Leveling",
+      "created_at": "2026-10-23T09:33:40.483-04:00",
+      "legacy_named": false,
+      "status": "active"
+    },
+    "baek-yoonho": {
+      "persistent_name": "Baek Yoonho",
+      "universe": "Solo Leveling",
+      "created_at": "2026-10-23T09:33:40.483-04:00",
+      "legacy_named": false,
+      "status": "active"
+    },
+    "thomas-andre": {
+      "persistent_name": "Thomas Andre",
+      "universe": "Solo Leveling",
+      "created_at": "2026-10-23T13:58:26.155-04:00",
+      "legacy_named": false,
+      "status": "active"
+    },
+    "beru": {
+      "persistent_name": "Beru",
+      "universe": "Solo Leveling",
+      "created_at": "2026-10-23T13:58:26.155-04:00",
+      "legacy_named": false,
+      "status": "active"
+    },
+    "igris": {
+      "persistent_name": "Igris",
+      "universe": "Solo Leveling",
+      "created_at": "2026-10-23T13:58:26.155-04:00",
+      "legacy_named": false,
+      "status": "active"
+    }
+  }
+}

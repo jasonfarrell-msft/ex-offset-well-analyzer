@@ -1,0 +1,83 @@
+{
+  "status": 200,
+  "response": {
+    "conversationId": "resp_00bab94dc40f4670006ae36d0b155c819687d1fdf4c402bf6c",
+    "message": {
+      "id": "msg_00bab94dc40f4670006ae36d28708c8196970a45c7c177ef62",
+      "role": "assistant",
+      "markdown": "SYNTHETIC DATA \u2022 v1.1.0 \u2022 DEVELOPMENT / OFFSET COMPARISON ONLY\n\n| Metric | Value | Unit |\n|---|---:|---|\n| Historical wells | **200** | wells |\n\nAccepted historical drilling footage by formation:\n\n| Formation | Accepted footage |\n|---|---:|\n| Synthetic Cobalt | 247,512.3 ft |\n| Synthetic Driftwood | 170,381.6 ft |\n| Synthetic Ember | 155,004.5 ft |\n| Synthetic Flint | 122,470.5 ft |\n| Synthetic Aster | 99,778.1 ft |\n| Synthetic Brimstone | 99,453.0 ft |\n| Unspecified / blank formation name | 14,410.2 ft |\n\nSource: Semantic-model measure returned by Fabric Data Agent: historical wells count; accepted historical drilling footage by formation.\n\n",
+      "createdAtUtc": "2026-10-29T15:58:03+00:00"
+    },
+    "visuals": [
+      {
+        "type": "data-table",
+        "title": "Accepted historical drilling footage by formation",
+        "columns": [
+          {
+            "key": "formation",
+            "label": "Formation"
+          },
+          {
+            "key": "footage",
+            "label": "Accepted footage"
+          }
+        ],
+        "rows": [
+          {
+            "formation": "Synthetic Cobalt",
+            "footage": "247,512.3 ft"
+          },
+          {
+            "formation": "Synthetic Driftwood",
+            "footage": "170,381.6 ft"
+          },
+          {
+            "formation": "Synthetic Ember",
+            "footage": "155,004.5 ft"
+          },
+          {
+            "formation": "Synthetic Flint",
+            "footage": "122,470.5 ft"
+          },
+          {
+            "formation": "Synthetic Aster",
+            "footage": "99,778.1 ft"
+          },
+          {
+            "formation": "Synthetic Brimstone",
+            "footage": "99,453.0 ft"
+          },
+          {
+            "formation": "Unspecified / blank formation name",
+            "footage": "14,410.2 ft"
+          }
+        ]
+      }
+    ],
+    "toolCalls": [
+      {
+        "type": "mcp_list_tools",
+        "id": "mcpl_00bab94dc40f4670006ae36d0b325081969871f9c3abecd940",
+        "name": null,
+        "server": "fabric-dataagent-mi-bridge",
+        "status": null,
+        "toolCount": 1
+      },
+      {
+        "type": "mcp_call",
+        "id": "mcp_00bab94dc40f4670006ae36d0ec2948196af28c015905a80d3",
+        "name": "DataAgent_da_drillrun_public_summary",
+        "server": "fabric-dataagent-mi-bridge",
+        "status": "completed",
+        "toolCount": null
+      }
+    ],
+    "sources": [],
+    "usage": {
+      "inputTokens": 1166,
+      "outputTokens": 399,
+      "totalTokens": 1565
+    },
+    "latencyMs": 38045
+  }
+}

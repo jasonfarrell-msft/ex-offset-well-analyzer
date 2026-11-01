@@ -1,0 +1,24 @@
+{
+  "conversationId": "resp_03699ddef3ccabdf006ae366c65b10819694224bd3b934c969",
+  "markdown": "SYNTHETIC DATA • v1.1.0 • DEVELOPMENT / OFFSET COMPARISON ONLY\n\n| KPI | Value | Unit |\n|---|---:|---|\n| Historical wells | **100** | wells |\n\nAccepted historical drilling footage by formation:\n\n| Formation | Accepted footage |\n|---|---:|\n| Synthetic Driftwood | 1,818,020.4 ft |\n| Synthetic Brimstone | 1,818,020.4 ft |\n| Synthetic Aster | 909,010.2 ft |\n| Synthetic Cobalt | 2,727,030.6 ft |\n| Synthetic Ember | 909,010.2 ft |\n| Synthetic Flint | 2,727,030.6 ft |\n\n\n\nSource: semantic-model table/measure returned by Fabric Data Agent for historical wells count and accepted historical drilling footage by formation.",
+  "toolCalls": [
+    {
+      "type": "mcp_list_tools",
+      "id": "mcpl_03699ddef3ccabdf006ae366c673088196aaebe004294b8581",
+      "name": null,
+      "server": "fabric-dataagent-mi-bridge",
+      "status": null,
+      "toolCount": 1
+    },
+    {
+      "type": "mcp_call",
+      "id": "mcp_03699ddef3ccabdf006ae366cb3aec8196a8a355e426d785e5",
+      "name": "DataAgent_da_drillrun_public_summary",
+      "server": "fabric-dataagent-mi-bridge",
+      "status": "completed",
+      "toolCount": null
+    }
+  ],
+  "sourceCount": 0,
+  "latencyMs": 46120
+}

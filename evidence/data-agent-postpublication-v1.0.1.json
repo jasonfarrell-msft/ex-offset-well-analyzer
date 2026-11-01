@@ -1,0 +1,182 @@
+{
+  "evidence_schema_version": "1.0.0",
+  "evidence_type": "fabric_data_agent_v1_0_1_postpublication",
+  "recorded_at_utc": "2026-10-25T01:33:56Z",
+  "classification": "Internal - Synthetic POC; no real operator data",
+  "architecture_status": "CONDITIONAL PASS",
+  "fabric_modified_by_this_repository_change": false,
+  "publication": {
+    "agent_name": "da_drillrun_summary",
+    "agent_id": "a23346c3-1ce7-4203-8ecf-9b9982c82a03",
+    "definition_version": "v1.0.1",
+    "status": "SUCCEEDED",
+    "published_at_utc": "2026-10-25T01:26:55Z",
+    "request_id": "f5663fae-bd87-4846-808d-30f11028a3f8",
+    "description": "calibration-only",
+    "shared": false,
+    "questions_sent": 0,
+    "calibration_started": false
+  },
+  "postpublication_gates": [
+    {
+      "id": "Q1",
+      "gate": "published_definition_diff",
+      "status": "PASS",
+      "evidence": {
+        "live_published_definition_matches_approved_v1_0_1_source": true,
+        "normalization_only_difference": "Fabric normalized table elements with children: [].",
+        "source_count": 1,
+        "semantic_model_id": "ee7583b6-5be7-4802-83a8-530ce7dd8351",
+        "selected_tables": [
+          "Wells",
+          "Dataset Metadata",
+          "Data Quality",
+          "Categories"
+        ],
+        "exact_first_line_label_instructions_present": true,
+        "required_first_line": "SYNTHETIC DATA • v1.0.0 • DEVELOPMENT / HISTORICAL SUMMARY ONLY",
+        "fewshots_present": false,
+        "actions_present": false,
+        "additional_sources_present": false
+      }
+    },
+    {
+      "id": "Q2",
+      "gate": "acl_reverification",
+      "status": "PASS",
+      "evidence": {
+        "approved_principal_display_name": "Project requester",
+        "approved_principal_id": "61a37498-9ab6-43d2-b70f-706fd58274e7",
+        "principal_type": "User",
+        "agent_principal_count": 1,
+        "semantic_model_principal_count": 1,
+        "workspace_principal_count": 1,
+        "sole_approved_user_across_all_scopes": true,
+        "other_principals_present": false
+      }
+    },
+    {
+      "id": "Q3",
+      "gate": "unauthorized_wrong_token_and_current_user_auth",
+      "status": "PASS",
+      "evidence": {
+        "preflight_run_id": "20261025T012704Z-6a32549a",
+        "unauthenticated_status": 401,
+        "wrong_token_status": 401,
+        "current_delegated_user_authenticated_handshake": "PASS"
+      }
+    },
+    {
+      "id": "Q4",
+      "gate": "capability_inventory",
+      "status": "PASS",
+      "evidence": {
+        "mcp_tool_count": 1,
+        "tool_type": "question",
+        "tools_called_during_preflight": 0,
+        "questions_sent_during_preflight": 0,
+        "actions_exposed": false,
+        "admin_capability_exposed": false,
+        "write_capability_exposed": false
+      }
+    },
+    {
+      "id": "Q5",
+      "gate": "evidence_safety_and_cleanup",
+      "status": "PASS",
+      "evidence": {
+        "credentials_persisted": false,
+        "raw_response_bodies_persisted": false,
+        "identity_cleanup": "PASS",
+        "sessions_cleaned_up": true
+      }
+    }
+  ],
+  "preflight": {
+    "run_id": "20261025T012704Z-6a32549a",
+    "status": "PASS",
+    "unauthenticated_status": 401,
+    "wrong_token_status": 401,
+    "delegated_user_handshake": "PASS",
+    "mcp_tool_count": 1,
+    "sessions_cleaned_up": true,
+    "questions_sent": 0,
+    "agent_tool_calls_sent": 0,
+    "calibration_cases_started": 0,
+    "credentials_persisted": false,
+    "raw_response_bodies_persisted": false
+  },
+  "calibration": {
+    "v1_0_1_started": false,
+    "prior_runs_count_toward_v1_0_1": false,
+    "prior_successful_attempts_reusable": false,
+    "full_rerun_from_scratch_required": true,
+    "required_case_count": 36,
+    "required_attempts_per_case": 3,
+    "authorized_evaluation_commit": "d07d3edd04f634aed680d71cd565760457549efc"
+  },
+  "designated_reviewer": {
+    "reviewer": "Baek Yoonho",
+    "verdict": "APPROVE",
+    "reviewed_commit": "d07d3edd04f634aed680d71cd565760457549efc",
+    "scope": "Full fresh v1.0.1 evaluation: 36 cases with 3 attempts per case from scratch.",
+    "q1_q5_required_to_remain_pass": true
+  },
+  "security_review": {
+    "reviewer": "Thomas Andre",
+    "result": "APPROVED",
+    "substantive_final_confirmation": true,
+    "reviewed_commit": "d13acd17978199b1a36e558f8d8b34c610e6b126",
+    "confirmed_at_utc": "2026-10-25T01:33:56Z",
+    "final_confirmation_after_state_update_required": true,
+    "final_confirmation_status": "APPROVED",
+    "questions_sent_at_approval": 0
+  },
+  "retention": {
+    "local_evidence_retention_days": 90,
+    "local_access": [
+      "calibrator",
+      "designated reviewer"
+    ],
+    "delete_after_retention": true
+  },
+  "constraints": {
+    "sharing_prohibited": true,
+    "additional_sources_prohibited": true,
+    "actions_and_writes_prohibited": true,
+    "external_integrations_prohibited": true,
+    "real_data_prohibited": true,
+    "production_claims_prohibited": true
+  },
+  "rollback": {
+    "immediate_stop_on_gate_failure": true,
+    "disable_or_unpublish_if_safely_available": true,
+    "mandatory_delete_fallback": true,
+    "complete_retest_after_remediation_required": true,
+    "independent_reviewer_reapproval_required": true
+  },
+  "decision": {
+    "verdict": "CONDITIONAL PASS",
+    "publication_completed": true,
+    "q1_q5_status": "PASS",
+    "designated_reviewer_approval": "APPROVED",
+    "final_security_confirmation": "APPROVED",
+    "all_gates_complete": true,
+    "publication_authorized_now": false,
+    "calibration_authorized_now": false,
+    "questions_authorized_now": false,
+    "authorization_scope": "The completed v1.0.1 calibration failed the quality gate and the agent was deleted. No publication, calibration, or question authorization remains.",
+    "questions_sent_at_approval": 0,
+    "remaining_gate": "Root-cause analysis and explicit approval of v1.0.2 remediation or a conversational architecture change.",
+    "current_state_evidence": "evidence/data-agent-calibration-failure-v1.0.1.json"
+  },
+  "related_evidence": [
+    "evidence/data-agent-replacement-prepublication-v1.0.1.json",
+    "evidence/data-agent-remediation-recreation-v1.0.1.json",
+    "evidence/data-agent-calibration-failure-20261025.json",
+    "evidence/data-agent-postpublication-v1.0.0.json",
+    "evidence/data-agent-calibration-failure-v1.0.1.json"
+  ],
+  "observed_existing_fabric_state": true,
+  "repository_change_modified_fabric_or_source": false
+}

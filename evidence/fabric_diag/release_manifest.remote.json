@@ -1,0 +1,240 @@
+{
+  "contains_confidential_source_data": false,
+  "coordinate_reference": {
+    "axes": {
+      "x": "Abstract local axis X; no east/west or geodetic orientation is asserted.",
+      "y": "Abstract local axis Y; no north/south or geodetic orientation is asserted."
+    },
+    "bounds_ft": {
+      "x_max": 1000000,
+      "x_min": -1000000,
+      "y_max": 1000000,
+      "y_min": -1000000
+    },
+    "coordinate_semantics": "SYNTHETIC_SURFACE_WELLHEAD",
+    "frame_id": "SYN-LOCAL-FT-V1",
+    "not_geographic_crs": true,
+    "origin": "Arbitrary fictional origin for this generated dataset; not tied to a survey monument, datum, or real-world location.",
+    "precision_ft": 1,
+    "proximity_caveat": "Surface proximity is a candidate filter only and does not establish subsurface proximity, stratigraphic equivalence, or geological similarity.",
+    "units": "ft"
+  },
+  "dataset_version": "v1.1.0",
+  "deterministic_seed": 20261023,
+  "generated_at_utc": "2026-10-27T18:36:12Z",
+  "generation_run_id": "13188ed2-899a-5335-ab49-939dbdc961e0",
+  "generator_version": "1.1.0",
+  "git_baseline_required_after_first_load": true,
+  "git_commit": null,
+  "historical_attribute_changes": {
+    "preserved_from_v1_0_0": [
+      "well_id",
+      "well_name",
+      "operator_name",
+      "spud_date",
+      "completion_date",
+      "section_id",
+      "run_id",
+      "trajectory_profile",
+      "depths",
+      "footage",
+      "duration",
+      "bit_and_bha_attributes",
+      "quality_issue_placements",
+      "split_assignment"
+    ],
+    "reassigned_to_make_v1_1_clusters_coherent": [
+      "basin_name",
+      "field_name",
+      "formation_name",
+      "formation_name_raw"
+    ],
+    "v1_0_0_artifacts_mutated": false
+  },
+  "intentional_issue_counts": {
+    "INCONSISTENT_FORMATION_LABEL": 5,
+    "MISSING_BIT_IADC_CODE": 5,
+    "MISSING_FORMATION": 5,
+    "NON_POSITIVE_DURATION": 5
+  },
+  "interval": {
+    "end_date_exclusive": "2026-01-01",
+    "start_date_inclusive": "2016-01-01",
+    "years": 10
+  },
+  "is_synthetic": true,
+  "planned_target_policy": {
+    "contains_realized_outcomes": false,
+    "historical_summary_includes_targets": false,
+    "included_in_quality_issues": false,
+    "included_in_split_assignments": false,
+    "planned_target_count": 12,
+    "record_kind": "PLANNED_TARGET"
+  },
+  "post_first_load_gate": {
+    "required_before": [
+      "further_transformations",
+      "agent_development",
+      "ui_development"
+    ],
+    "status": "blocked_pending_git_baseline"
+  },
+  "proximity_caveat": "Surface proximity is a candidate filter only and does not establish subsurface proximity, stratigraphic equivalence, or geological similarity.",
+  "reference_release": {
+    "dataset_version": "v1.0.0",
+    "manifest_sha256": "f27ad627a06a2b554ae359e9aceb682944f1a4becb2de330f5ece629d407fed9"
+  },
+  "release_status": "generated_unpublished",
+  "row_counts": {
+    "drilling_runs.csv": 937,
+    "planned_targets.csv": 12,
+    "quality_issues.csv": 20,
+    "sections.csv": 274,
+    "split_assignments.csv": 100,
+    "wells.csv": 100
+  },
+  "scenario": "synthetic-proximity-planning-v1",
+  "scope": "Historical synthetic wells, sections, and drilling runs plus a separate planning-only target artifact; no telemetry or prediction fields.",
+  "sha256": {
+    "data_dictionary.md": "26379a95847b03f03dfbe5fa345416bac1ddeacad671d1b9dae3bd5b3ea32227",
+    "drilling_runs.csv": "bfba06568fd047a7c3cf48a67c1cb6f436f7c85506644684692995d1825da953",
+    "generator_config.json": "e4b2174d0e731ce0e171a0d24fb82e33724f89e75ea0d05fd36a11b6fc4cbf41",
+    "planned_targets.csv": "b7baa0d1ee87fabed43d8954aa801ab0970ba7be0a1aca1713982bc9350ad711",
+    "quality_issues.csv": "03567a8ea3f39807a0ca8361370045aff8a2e9758f0d22c2beffc46929a1b2c2",
+    "schema.json": "f71c196449c17ab20894448fb8622ec6e96016d74f09dce7885dad90076e1aca",
+    "sections.csv": "93346220960a8d0b6475f12dc97ce2d1485a76c877c258bb937a7e709a20515a",
+    "source_fingerprint_inventory.json": "e50b76b80d6229a7f26bb719a6c937ac83e94762aeb056f3341de8b5014d6dd0",
+    "split_assignments.csv": "13bf5e4073c952c4c23010eff697c5b0cc5db75d779830fc73c7c816127fdec9",
+    "wells.csv": "43f84a20f7769fdc97e51ad3273b35171ae12ed29507175578bf374560774ce1"
+  },
+  "source_control_status": "working_tree",
+  "source_fingerprint": {
+    "algorithm": "sha256",
+    "canonicalization": "length-prefixed-path-and-content-v1",
+    "format_version": 1,
+    "included_paths": [
+      "config/generator_config.json",
+      "config/generator_config_v1.1.0.json",
+      "generate_dataset.py",
+      "src/drillrun_synth/__init__.py",
+      "src/drillrun_synth/cli.py",
+      "src/drillrun_synth/config.py",
+      "src/drillrun_synth/generator.py"
+    ],
+    "value": "197d65dd19ff59c6ba9ab93fdb1f5cce7020836bec9f6e80550ff07a328b893f"
+  },
+  "source_fingerprint_inventory": {
+    "artifact": "source_fingerprint_inventory.json",
+    "sha256": "e50b76b80d6229a7f26bb719a6c937ac83e94762aeb056f3341de8b5014d6dd0"
+  },
+  "spatial_clusters": [
+    {
+      "basin_name": "Synthetic North Basin",
+      "center_x_ft": -700000,
+      "center_y_ft": -600000,
+      "field_name": "Fictional Aurora Field",
+      "formation_names": [
+        "Synthetic Aster",
+        "Synthetic Brimstone",
+        "Synthetic Cobalt"
+      ]
+    },
+    {
+      "basin_name": "Synthetic North Basin",
+      "center_x_ft": -680000,
+      "center_y_ft": -600000,
+      "field_name": "Fictional Borealis Field",
+      "formation_names": [
+        "Synthetic Aster",
+        "Synthetic Cobalt",
+        "Synthetic Driftwood"
+      ]
+    },
+    {
+      "basin_name": "Synthetic Central Basin",
+      "center_x_ft": -100000,
+      "center_y_ft": 100000,
+      "field_name": "Fictional Comet Field",
+      "formation_names": [
+        "Synthetic Brimstone",
+        "Synthetic Cobalt",
+        "Synthetic Driftwood"
+      ]
+    },
+    {
+      "basin_name": "Synthetic Central Basin",
+      "center_x_ft": -80000,
+      "center_y_ft": 100000,
+      "field_name": "Fictional Delta Field",
+      "formation_names": [
+        "Synthetic Cobalt",
+        "Synthetic Driftwood",
+        "Synthetic Ember"
+      ]
+    },
+    {
+      "basin_name": "Synthetic South Basin",
+      "center_x_ft": 500000,
+      "center_y_ft": 600000,
+      "field_name": "Fictional Ember Field",
+      "formation_names": [
+        "Synthetic Driftwood",
+        "Synthetic Ember",
+        "Synthetic Flint"
+      ]
+    },
+    {
+      "basin_name": "Synthetic South Basin",
+      "center_x_ft": 520000,
+      "center_y_ft": 600000,
+      "field_name": "Fictional Flint Field",
+      "formation_names": [
+        "Synthetic Cobalt",
+        "Synthetic Ember",
+        "Synthetic Flint"
+      ]
+    }
+  ],
+  "summary": {
+    "bha_type_counts": {
+      "MOTOR": 311,
+      "ROTARY": 301,
+      "RSS": 325
+    },
+    "bit_type_counts": {
+      "HYBRID": 313,
+      "PDC": 308,
+      "TRICONE": 316
+    },
+    "formation_counts": {
+      "(missing)": 5,
+      "Synthetic Aster": 27,
+      "Synthetic Brimstone": 28,
+      "Synthetic Cobalt": 76,
+      "Synthetic Driftwood": 56,
+      "Synthetic Ember": 45,
+      "Synthetic Flint": 37
+    },
+    "quality_reason_counts": {
+      "INCONSISTENT_FORMATION_LABEL": 5,
+      "MISSING_BIT_IADC_CODE": 5,
+      "MISSING_FORMATION": 5,
+      "NON_POSITIVE_DURATION": 5
+    },
+    "quality_status_counts": {
+      "ERROR": 5,
+      "PASS": 1276,
+      "WARNING": 30
+    },
+    "run_count": 937,
+    "section_count": 274,
+    "split_counts": {
+      "TEST": 15,
+      "TRAIN": 70,
+      "VALIDATION": 15
+    },
+    "total_duration_hours": 22358.76,
+    "total_footage_ft": 914297.6,
+    "well_count": 100
+  }
+}

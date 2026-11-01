@@ -1,0 +1,107 @@
+/// Historical data-quality counts grouped by reason and severity from serving.quality_summary.
+table 'Data Quality'
+	lineageTag: 86607c13-8de7-54d3-86bc-22a336740c6f
+
+	/// Number of recorded data-quality issues in the current reason and severity context.
+	measure 'Data Quality Issue Count' = SUM('Data Quality'[Issue Count])
+		formatString: #,0
+
+	/// Distinct affected wells within the selected reason-and-severity quality group; returns blank across multiple groups because the same well can occur in more than one group.
+	measure 'Selected Group Affected Well Count' = IF(COUNTROWS('Data Quality') = 1, MAX('Data Quality'[Affected Well Count]), BLANK())
+		formatString: #,0
+
+	/// Distinct affected sections within the selected reason-and-severity quality group; returns blank across multiple groups because the same section can occur in more than one group.
+	measure 'Selected Group Affected Section Count' = IF(COUNTROWS('Data Quality') = 1, MAX('Data Quality'[Affected Section Count]), BLANK())
+		formatString: #,0
+
+	/// Distinct affected runs within the selected reason-and-severity quality group; returns blank across multiple groups because the same run can occur in more than one group.
+	measure 'Selected Group Affected Run Count' = IF(COUNTROWS('Data Quality') = 1, MAX('Data Quality'[Affected Run Count]), BLANK())
+		formatString: #,0
+
+	/// Published synthetic dataset release version used to relate the summary tables.
+	column 'Dataset Version'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: dataset_version
+
+	/// Audit identifier for the synthetic generation run.
+	column 'Generation Run ID'
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: generation_run_id
+
+	/// Authorized synthetic generation scenario.
+	column Scenario
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: scenario
+
+	/// True for every row in this synthetic-only model.
+	column 'Is Synthetic'
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: is_synthetic
+
+	/// Stable code identifying the quality rule that was triggered.
+	column 'Reason Code'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: reason_code
+
+	/// Severity assigned to the quality issue group.
+	column Severity
+		dataType: string
+		summarizeBy: none
+		sourceColumn: severity
+
+	/// Number of quality issues in the reason and severity group.
+	column 'Issue Count'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: issue_count
+
+	/// Distinct affected wells within the quality group.
+	column 'Affected Well Count'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: affected_well_count
+
+	/// Distinct affected sections within the quality group.
+	column 'Affected Section Count'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: affected_section_count
+
+	/// Distinct affected runs within the quality group.
+	column 'Affected Run Count'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: affected_run_count
+
+	/// Historical quality-handling outcome applied to the issue group.
+	column Handling
+		dataType: string
+		summarizeBy: none
+		sourceColumn: handling_text
+
+	/// Audit version of the transformation contract that produced the row.
+	column 'Transformation Contract Version'
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: _transformation_contract_version
+
+	partition 'Data Quality' = m
+		mode: directQuery
+		source =
+				let
+				    Source = Sql.Database(SqlEndpointHost, SqlEndpointDatabase),
+				    ServingView = Source{[Schema="serving", Item="quality_summary"]}[Data]
+				in
+				    ServingView
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table

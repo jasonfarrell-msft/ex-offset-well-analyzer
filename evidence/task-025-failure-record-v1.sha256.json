@@ -1,0 +1,11 @@
+{
+  "artifact_path": "evidence/task-025-failure-record-v1.json",
+  "artifact_sha256": "360f1eb9ad841d019f1612e3ddac721f91a60ed21046aa515c13632becf2aeb8",
+  "canonicalization_version": "TASK-025-REQ-009",
+  "computed_at": "2026-10-28T17:20:44.011Z",
+  "computed_by": {
+    "marker_type": "UNAVAILABLE",
+    "reason_code": "NOT_DOCUMENTED",
+    "source_reference": "evidence/task-025-failure-record-v1.json"
+  }
+}

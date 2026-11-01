@@ -1,0 +1,27 @@
+{
+  "conversationId": "resp_018bca484845b8f4006ae369df810c819589a2baac3a687b08",
+  "message": {
+    "id": "msg_018bca484845b8f4006ae36a14f6d081959348765bbb3fe549",
+    "role": "assistant",
+    "markdown": "SYNTHETIC DATA \u2022 v1.1.0 \u2022 DEVELOPMENT / OFFSET COMPARISON ONLY\n\nNo data is available in the `__offset_section_summary_release_data` summary object for:\n\n- target: `SYN-TARGET-0001`\n- offset wells: `SYN-WELL-0002` and `SYN-WELL-0019`\n\nunder the requested criteria (accepted run count, penetration rate, section-level detail).\n\nBecause the tool returned no rows, I cannot compute or infer:\n- overall per-well accepted run counts vs. the target, or\n- section-by-section penetration rate comparisons between `SYN-WELL-0002` and `SYN-WELL-0019`.\n\nThis likely means the wells are not registered as offsets for `SYN-TARGET-0001` in the active publication, or the section-level offset summaries were not generated/released.\n\nSource: `__offset_section_summary_release_data` (no rows returned)",
+    "createdAtUtc": "2026-10-29T15:44:31+00:00"
+  },
+  "visuals": [],
+  "toolCalls": [
+    {
+      "type": "mcp_call",
+      "id": "mcp_018bca484845b8f4006ae369e0ae28819586ae245e68bfc783",
+      "name": "DataAgent_da_drillrun_public_summary",
+      "server": "fabric-dataagent-mi-bridge",
+      "status": "completed",
+      "toolCount": null
+    }
+  ],
+  "sources": [],
+  "usage": {
+    "inputTokens": 1626,
+    "outputTokens": 272,
+    "totalTokens": 1898
+  },
+  "latencyMs": 55215
+}

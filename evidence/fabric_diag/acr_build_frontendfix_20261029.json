@@ -1,0 +1,281 @@
+2026/10/29 16:15:23 Downloading source code...
+2026/10/29 16:15:31 Finished downloading source code
+2026/10/29 16:15:31 Using acb_vol_ed348d1e-02e8-4a16-b53b-a02247bdd993 as the home volume
+2026/10/29 16:15:31 Setting up Docker configuration...
+2026/10/29 16:15:32 Successfully set up Docker configuration
+2026/10/29 16:15:32 Logging in to registry: acrdrilladvisormx01.azurecr.io
+2026/10/29 16:15:33 Successfully logged into acrdrilladvisormx01.azurecr.io
+2026/10/29 16:15:33 Executing step ID: build. Timeout(sec): 28800, Working directory: '', Network: ''
+2026/10/29 16:15:33 Scanning for dependencies...
+2026/10/29 16:15:33 Successfully scanned dependencies
+2026/10/29 16:15:33 Launching container with name: build
+Sending build context to Docker daemon  965.1kB
+Step 1/23 : FROM node:24-alpine AS client-build
+24-alpine: Pulling from library/node
+7b229517ed22: Pulling fs layer
+522ca12b284b: Pulling fs layer
+ef0ad2fdf0fd: Pulling fs layer
+c728384fb906: Pulling fs layer
+c728384fb906: Waiting
+ef0ad2fdf0fd: Verifying Checksum
+ef0ad2fdf0fd: Download complete
+7b229517ed22: Verifying Checksum
+7b229517ed22: Download complete
+c728384fb906: Verifying Checksum
+c728384fb906: Download complete
+7b229517ed22: Pull complete
+522ca12b284b: Verifying Checksum
+522ca12b284b: Download complete
+522ca12b284b: Pull complete
+ef0ad2fdf0fd: Pull complete
+c728384fb906: Pull complete
+Digest: sha256:8a32c8cf649a49915a66e81e7a609223c708d0adabf288ee3f4077d765542f85
+Status: Downloaded newer image for node:24-alpine
+ ---> 349727db7d6c
+Step 2/23 : WORKDIR /src/client
+ ---> Running in cac1f95afc9b
+Removing intermediate container cac1f95afc9b
+ ---> a907fab9f04e
+Step 3/23 : COPY client/package.json client/package-lock.json ./
+ ---> 7cd8c74bc9f1
+Step 4/23 : RUN npm ci
+ ---> Running in 36a083a23623
+npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+
+added 376 packages, and audited 377 packages in 11s
+
+151 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+npm warn install-scripts 1 package has install scripts not yet covered by allowScripts:
+npm warn install-scripts   esbuild@0.28.2 (postinstall: node install.js)
+npm warn install-scripts
+npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+npm notice
+npm notice New major version of npm available! 11.19.1 -> 12.2.1
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.1
+npm notice To update run: npm install -g npm@12.2.1
+npm notice
+Removing intermediate container 36a083a23623
+ ---> c7a04c142dfe
+Step 5/23 : COPY client/ ./
+ ---> 194babbbe211
+Step 6/23 : ARG VITE_ENABLE_OFFSET_PREVIEW=false
+ ---> Running in 66a0156cb06e
+Removing intermediate container 66a0156cb06e
+ ---> d62c98166352
+Step 7/23 : RUN VITE_ENABLE_OFFSET_PREVIEW="$VITE_ENABLE_OFFSET_PREVIEW" npm run build
+ ---> Running in 08a40e293364
+
+> drill-advisor-client@1.0.0 build
+> tsc -b && vite build
+
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 301 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                     0.72 kB │ gzip:  0.39 kB
+dist/assets/index-R_nFpGk6.css     30.42 kB │ gzip:  7.55 kB
+dist/assets/index-DEiA0-JL.js      40.76 kB │ gzip: 12.24 kB │ map: 129.13 kB
+dist/assets/markdown-CPmYdECA.js  158.42 kB │ gzip: 48.20 kB │ map: 973.98 kB
+dist/assets/react-CfcuB4oP.js     192.50 kB │ gzip: 60.36 kB │ map: 909.38 kB
+✓ built in 4.04s
+Removing intermediate container 08a40e293364
+ ---> 0cedc57e82ad
+Step 8/23 : FROM mcr.microsoft.com/dotnet/sdk:10.0-noble AS server-build
+10.0-noble: Pulling from dotnet/sdk
+7a48b8f0e5c7: Pulling fs layer
+aa37eb26c52c: Pulling fs layer
+1f8c14bc5847: Pulling fs layer
+d12f340d58c7: Pulling fs layer
+f3c239e1a838: Pulling fs layer
+017220401ab5: Pulling fs layer
+7ed664a3150a: Pulling fs layer
+cb09e947f848: Pulling fs layer
+7a3f8cedb109: Pulling fs layer
+463481a04bb2: Pulling fs layer
+3465c8a1b95f: Pulling fs layer
+d12f340d58c7: Waiting
+f3c239e1a838: Waiting
+017220401ab5: Waiting
+7ed664a3150a: Waiting
+cb09e947f848: Waiting
+7a3f8cedb109: Waiting
+463481a04bb2: Waiting
+3465c8a1b95f: Waiting
+1f8c14bc5847: Verifying Checksum
+1f8c14bc5847: Download complete
+aa37eb26c52c: Verifying Checksum
+aa37eb26c52c: Download complete
+7a48b8f0e5c7: Verifying Checksum
+7a48b8f0e5c7: Download complete
+f3c239e1a838: Verifying Checksum
+f3c239e1a838: Download complete
+d12f340d58c7: Verifying Checksum
+d12f340d58c7: Download complete
+017220401ab5: Verifying Checksum
+017220401ab5: Download complete
+7ed664a3150a: Verifying Checksum
+7ed664a3150a: Download complete
+7a48b8f0e5c7: Pull complete
+aa37eb26c52c: Pull complete
+1f8c14bc5847: Pull complete
+d12f340d58c7: Pull complete
+f3c239e1a838: Pull complete
+017220401ab5: Pull complete
+463481a04bb2: Verifying Checksum
+463481a04bb2: Download complete
+7a3f8cedb109: Verifying Checksum
+7a3f8cedb109: Download complete
+3465c8a1b95f: Verifying Checksum
+3465c8a1b95f: Download complete
+7ed664a3150a: Pull complete
+cb09e947f848: Verifying Checksum
+cb09e947f848: Download complete
+cb09e947f848: Pull complete
+7a3f8cedb109: Pull complete
+463481a04bb2: Pull complete
+3465c8a1b95f: Pull complete
+Digest: sha256:de4fe90a98845d75910b9769662465c84de1a934665c431279d1382b2bddc02b
+Status: Downloaded newer image for mcr.microsoft.com/dotnet/sdk:10.0-noble
+ ---> 3192b8163619
+Step 9/23 : ARG NUGET_SOURCE=https://api.nuget.org/v3/index.json
+ ---> Running in 8da3ca9d94fd
+Removing intermediate container 8da3ca9d94fd
+ ---> ab62ae6c3069
+Step 10/23 : WORKDIR /src
+ ---> Running in 3585a19ddd37
+Removing intermediate container 3585a19ddd37
+ ---> f9c706b1a52b
+Step 11/23 : COPY api/ ./api/
+ ---> 80916eda6f25
+Step 12/23 : COPY server/ ./server/
+ ---> cbec12e4e352
+Step 13/23 : RUN dotnet restore server/DrillAdvisor.Web.Tests/DrillAdvisor.Web.Tests.csproj     --source "$NUGET_SOURCE"
+ ---> Running in 296bc6da7715
+  Determining projects to restore...
+  Restored /src/server/DrillAdvisor.Web/DrillAdvisor.Web.csproj (in 4.01 sec).
+  Restored /src/server/DrillAdvisor.Web.Tests/DrillAdvisor.Web.Tests.csproj (in 4.16 sec).
+Removing intermediate container 296bc6da7715
+ ---> 8726bb1c7e50
+Step 14/23 : RUN dotnet test server/DrillAdvisor.Web.Tests/DrillAdvisor.Web.Tests.csproj     --configuration Release     --no-restore
+ ---> Running in b008879a1efe
+  DrillAdvisor.Web -> /src/server/DrillAdvisor.Web/bin/Release/net10.0/DrillAdvisor.Web.dll
+  DrillAdvisor.Web.Tests -> /src/server/DrillAdvisor.Web.Tests/bin/Release/net10.0/DrillAdvisor.Web.Tests.dll
+Test run for /src/server/DrillAdvisor.Web.Tests/bin/Release/net10.0/DrillAdvisor.Web.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+
+Passed!  - Failed:     0, Passed:    30, Skipped:     0, Total:    30, Duration: 5 s - DrillAdvisor.Web.Tests.dll (net10.0)
+Removing intermediate container b008879a1efe
+ ---> bb1bc757dc15
+Step 15/23 : COPY --from=client-build /src/client/dist/ ./server/DrillAdvisor.Web/wwwroot/
+ ---> ccd443fde79b
+Step 16/23 : RUN dotnet publish server/DrillAdvisor.Web/DrillAdvisor.Web.csproj     --configuration Release     --no-restore     --output /app/publish     /p:UseAppHost=false
+ ---> Running in 8918708d4f25
+  DrillAdvisor.Web -> /src/server/DrillAdvisor.Web/bin/Release/net10.0/DrillAdvisor.Web.dll
+  DrillAdvisor.Web -> /app/publish/
+Removing intermediate container 8918708d4f25
+ ---> 22d1e803a59d
+Step 17/23 : FROM mcr.microsoft.com/dotnet/aspnet:10.0-noble-chiseled-extra AS final
+10.0-noble-chiseled-extra: Pulling from dotnet/aspnet
+5362391c61e9: Pulling fs layer
+7f43fd7e5338: Pulling fs layer
+c962eca18a31: Pulling fs layer
+c038e50d05e1: Pulling fs layer
+733efc670ca6: Pulling fs layer
+c038e50d05e1: Waiting
+733efc670ca6: Waiting
+7f43fd7e5338: Verifying Checksum
+7f43fd7e5338: Download complete
+c038e50d05e1: Verifying Checksum
+c038e50d05e1: Download complete
+5362391c61e9: Verifying Checksum
+5362391c61e9: Download complete
+c962eca18a31: Verifying Checksum
+c962eca18a31: Download complete
+5362391c61e9: Pull complete
+7f43fd7e5338: Pull complete
+c962eca18a31: Pull complete
+c038e50d05e1: Pull complete
+733efc670ca6: Verifying Checksum
+733efc670ca6: Download complete
+733efc670ca6: Pull complete
+Digest: sha256:9b755ea799ae649141a073e30d8b62d8095a5465af2b7694d17866e8c05131d8
+Status: Downloaded newer image for mcr.microsoft.com/dotnet/aspnet:10.0-noble-chiseled-extra
+ ---> 7e55a10c1f95
+Step 18/23 : WORKDIR /app
+ ---> Running in e763aff01eb3
+Removing intermediate container e763aff01eb3
+ ---> 916ae78811f5
+Step 19/23 : ENV ASPNETCORE_HTTP_PORTS=8080     DOTNET_EnableDiagnostics=0
+ ---> Running in d2ec76a86b8c
+Removing intermediate container d2ec76a86b8c
+ ---> 2a6b1f337161
+Step 20/23 : EXPOSE 8080
+ ---> Running in e4442cf6760d
+Removing intermediate container e4442cf6760d
+ ---> 00cb3991f46d
+Step 21/23 : COPY --from=server-build --chown=$APP_UID:$APP_UID /app/publish/ ./
+ ---> 64c442b483aa
+Step 22/23 : USER $APP_UID
+ ---> Running in 9da51132cba9
+Removing intermediate container 9da51132cba9
+ ---> fca9e07a73be
+Step 23/23 : ENTRYPOINT ["dotnet", "DrillAdvisor.Web.dll"]
+ ---> Running in abadfd7fc5b7
+Removing intermediate container abadfd7fc5b7
+ ---> 972565ea61d1
+Successfully built 972565ea61d1
+Successfully tagged acrdrilladvisormx01.azurecr.io/drill-advisor:frontendfix-20261029-121345
+2026/10/29 16:17:29 Successfully executed container: build
+2026/10/29 16:17:29 Executing step ID: push. Timeout(sec): 3600, Working directory: '', Network: ''
+2026/10/29 16:17:29 Pushing image: acrdrilladvisormx01.azurecr.io/drill-advisor:frontendfix-20261029-121345, attempt 1
+The push refers to repository [acrdrilladvisormx01.azurecr.io/drill-advisor]
+d57b2d6adea7: Preparing
+a3c1ee3e090b: Preparing
+446feb6c753c: Preparing
+7d0ae5a03ae6: Preparing
+b4f56aa548c3: Preparing
+0d12f8f57c5e: Preparing
+4277994bfa32: Preparing
+0d12f8f57c5e: Waiting
+4277994bfa32: Waiting
+a3c1ee3e090b: Pushed
+7d0ae5a03ae6: Pushed
+d57b2d6adea7: Pushed
+446feb6c753c: Pushed
+0d12f8f57c5e: Pushed
+b4f56aa548c3: Pushed
+4277994bfa32: Pushed
+frontendfix-20261029-121345: digest: sha256:220cf57b89e14413a7c2221668e6d93fce68e8d02a53e4a0ef256a27265fa3a2 size: 1784
+2026/10/29 16:17:36 Successfully pushed image: acrdrilladvisormx01.azurecr.io/drill-advisor:frontendfix-20261029-121345
+2026/10/29 16:17:36 Step ID: build marked as successful (elapsed time in seconds: 116.225263)
+2026/10/29 16:17:36 Populating digests for step ID: build...
+2026/10/29 16:17:39 Successfully populated digests for step ID: build
+2026/10/29 16:17:39 Step ID: push marked as successful (elapsed time in seconds: 7.609248)
+2026/10/29 16:17:39 The following dependencies were found:
+2026/10/29 16:17:39 
+- image:
+    registry: acrdrilladvisormx01.azurecr.io
+    repository: drill-advisor
+    tag: frontendfix-20261029-121345
+    digest: sha256:220cf57b89e14413a7c2221668e6d93fce68e8d02a53e4a0ef256a27265fa3a2
+  runtime-dependency:
+    registry: mcr.microsoft.com
+    repository: dotnet/aspnet
+    tag: 10.0-noble-chiseled-extra
+    digest: sha256:9b755ea799ae649141a073e30d8b62d8095a5465af2b7694d17866e8c05131d8
+  buildtime-dependency:
+  - registry: registry.hub.docker.com
+    repository: library/node
+    tag: 24-alpine
+    digest: sha256:8a32c8cf649a49915a66e81e7a609223c708d0adabf288ee3f4077d765542f85
+  - registry: mcr.microsoft.com
+    repository: dotnet/sdk
+    tag: 10.0-noble
+    digest: sha256:de4fe90a98845d75910b9769662465c84de1a934665c431279d1382b2bddc02b
+  git: {}
+
+Run ID: cj7 was successful after 2m16s

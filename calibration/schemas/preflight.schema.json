@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Fabric Data Agent MCP preflight evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "run_id", "status", "checks", "failure", "cleanup", "credentials_persisted", "raw_response_bodies_persisted"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "run_id": {"type": "string", "pattern": "^[0-9TZ-]+[a-f0-9]{8}$"},
+    "status": {"enum": ["PASS", "FAIL"]},
+    "checks": {
+      "type": "array",
+      "maxItems": 10,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["check", "status"],
+        "properties": {
+          "check": {"enum": ["endpoint_validation", "delegated_identity", "unauthenticated", "wrong_token", "authenticated_handshake", "tool_inventory", "transport_cleanup"]},
+          "status": {"const": "PASS"},
+          "http_status": {"enum": [401, 403]},
+          "claims_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        }
+      }
+    },
+    "failure": {"$ref": "#/$defs/nullableFailure"},
+    "cleanup": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["stage", "status"],
+          "properties": {"stage": {"const": "identity_cleanup"}, "status": {"const": "PASS"}}
+        },
+        {
+          "allOf": [
+            {"$ref": "#/$defs/failure"},
+            {"type": "object", "required": ["status"], "properties": {"status": {"const": "FAIL"}}}
+          ]
+        }
+      ]
+    },
+    "credentials_persisted": {"const": false},
+    "raw_response_bodies_persisted": {"const": false}
+  },
+  "$defs": {
+    "nullableFailure": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/failure"}]},
+    "failure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stage", "category", "message", "leaf_types"],
+      "properties": {
+        "stage": {"enum": ["endpoint_validation", "identity_verification", "unauthenticated", "wrong_token", "authenticated_handshake", "tool_inventory", "transport_cleanup", "identity_cleanup"]},
+        "category": {"type": "string", "pattern": "^[a-z0-9_]{1,80}$"},
+        "message": {"enum": ["The fixed endpoint validation failed", "Delegated identity verification failed", "The unauthenticated request was not rejected as required", "The invalid-token request was not rejected as required", "The authenticated MCP handshake failed", "The authenticated MCP tool inventory check failed", "The MCP transport cleanup failed", "Delegated identity cleanup failed", "The MCP transport or protocol failed"]},
+        "leaf_types": {
+          "type": "array",
+          "maxItems": 16,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_]{0,99}$"}
+        },
+        "status": {"const": "FAIL"}
+      }
+    }
+  }
+}

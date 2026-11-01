@@ -1,0 +1,183 @@
+{
+  "evidence_schema_version": "1.0.0",
+  "evidence_type": "fabric_data_agent_v1_0_1_replacement_prepublication",
+  "recorded_at_utc": "2026-10-25T01:23:02Z",
+  "classification": "Internal - Synthetic POC; no real operator data",
+  "architecture_status": "CONDITIONAL PASS",
+  "fabric_modified_by_this_repository_change": false,
+  "replacement_agent": {
+    "name": "da_drillrun_summary",
+    "id": "a23346c3-1ce7-4203-8ecf-9b9982c82a03",
+    "type": "DataAgent",
+    "definition_version": "v1.0.1",
+    "description": "v1.0.1",
+    "workspace_id": "4e1977a8-d7ff-487e-b42d-c4b3bc118f3d",
+    "semantic_model_id": "ee7583b6-5be7-4802-83a8-530ce7dd8351",
+    "creation_operation_id": "a305cd2a-e750-4ca0-b315-b08ed0735bf4",
+    "creation_operation_status": "SUCCEEDED",
+    "lifecycle_state": "draft",
+    "published": false,
+    "shared": false,
+    "questions_sent": 0,
+    "calibration_started": false
+  },
+  "approved_remediation_and_binding": {
+    "label_remediation_commits": [
+      "d368402ffd41eff3b970678d4f59d3f65c6cfd59",
+      "f4062d4f4704a154e02970fd49244c7c309aa116"
+    ],
+    "source_and_runner_id_binding_commit": "0dc114817bce6402c40c456e1557e0a16a7ffcab",
+    "baek_review": "APPROVE",
+    "security_review": "APPROVE",
+    "validation": {
+      "tests_passed": 136,
+      "subtests_passed": 51,
+      "tom_validation": "PASS",
+      "bandit": "PASS",
+      "pip_audit": "PASS"
+    }
+  },
+  "source_and_definition": {
+    "source_count": 1,
+    "workspace_id": "4e1977a8-d7ff-487e-b42d-c4b3bc118f3d",
+    "semantic_model_id": "ee7583b6-5be7-4802-83a8-530ce7dd8351",
+    "selected_tables": [
+      "Wells",
+      "Dataset Metadata",
+      "Data Quality",
+      "Categories"
+    ],
+    "live_draft_matches_approved_source": true,
+    "only_observed_difference": "Fabric normalized each table element by adding children: [].",
+    "exact_v1_0_1_synthetic_label_instructions_present": true,
+    "fewshots_present": false,
+    "actions_present": false,
+    "additional_sources_present": false,
+    "definition_review": "PASS"
+  },
+  "identity_and_access": {
+    "approved_user": {
+      "display_name": "Project requester",
+      "principal_id": "61a37498-9ab6-43d2-b70f-706fd58274e7",
+      "principal_type": "User"
+    },
+    "agent_acl_principal_count": 1,
+    "semantic_model_acl_principal_count": 1,
+    "workspace_acl_principal_count": 1,
+    "sole_approved_user_across_all_scopes": true,
+    "temporary_admin_write_reshare_exception_unchanged": true,
+    "runner_access": "read-only",
+    "broader_permissions_may_be_used_for_calibration": false,
+    "broader_permissions_may_be_granted_to_others": false,
+    "identity_review": "PASS",
+    "acl_review": "PASS"
+  },
+  "runner_and_security_lineage": {
+    "mcp_remediation_commit": "8abece2090620becf882089ad3d37b0427c9e982",
+    "hardened_runner_commit": "1578b2e4d8c23c1019484bef4ebfb50dde0d10a0",
+    "lineage_review": "APPROVE",
+    "same_publish_exception_applies": true,
+    "same_remediation_and_complete_retest_policy_applies": true,
+    "new_scope_granted": false
+  },
+  "prepublication_gates": [
+    {
+      "gate": "exact_agent_identity_binding",
+      "status": "PASS"
+    },
+    {
+      "gate": "approved_exact_label_remediation",
+      "status": "PASS"
+    },
+    {
+      "gate": "live_definition_and_source",
+      "status": "PASS"
+    },
+    {
+      "gate": "sole_user_acl",
+      "status": "PASS"
+    },
+    {
+      "gate": "runner_lineage",
+      "status": "PASS"
+    },
+    {
+      "gate": "security",
+      "status": "PASS"
+    },
+    {
+      "gate": "evidence_validation",
+      "status": "PASS"
+    }
+  ],
+  "publication_exception": {
+    "existing_user_exception_transfers": true,
+    "transfer_basis": "Approved exact-label remediation, exact new-ID binding, live definition/source/ACL verification, complete validation, and designated reviews.",
+    "authorized_agent_id": "a23346c3-1ce7-4203-8ecf-9b9982c82a03",
+    "authorized_action": "Publish the exact draft agent unshared.",
+    "sole_user_required": true,
+    "sharing_prohibited": true,
+    "external_integrations_prohibited": true,
+    "actions_and_writes_prohibited": true,
+    "additional_sources_prohibited": true,
+    "calibration_not_authorized_by_publication": true
+  },
+  "postpublication_requirements": {
+    "fresh_q1_q5_required": true,
+    "preflight_required": true,
+    "designated_review_required": true,
+    "questions_blocked_until_complete": true,
+    "calibration_blocked_until_complete": true
+  },
+  "predecessor_histories": [
+    {
+      "id": "72a3a511-ad36-4df8-842b-d6c268b2ff8a",
+      "failure_stage": "preflight",
+      "deleted": true,
+      "history_preserved": true,
+      "history_rewrite_prohibited": true
+    },
+    {
+      "id": "961c0db2-e7c4-42f8-887c-039085290338",
+      "failure_stage": "calibration",
+      "successful_attempts_before_failure": 64,
+      "deleted": true,
+      "history_preserved": true,
+      "history_rewrite_prohibited": true
+    }
+  ],
+  "calibration_reset": {
+    "full_rerun_from_scratch_required": true,
+    "required_case_count": 36,
+    "required_attempts_per_case": 3,
+    "predecessor_attempts_reusable": false,
+    "predecessor_attempts_may_be_combined_with_future_run": false
+  },
+  "rollback": {
+    "immediate_stop_on_gate_failure": true,
+    "disable_or_unpublish_if_safely_available": true,
+    "mandatory_delete_fallback": true,
+    "complete_retest_after_remediation_required": true,
+    "independent_reviewer_reapproval_required": true
+  },
+  "decision": {
+    "verdict": "CONDITIONAL PASS",
+    "publication_authorized_now": false,
+    "authorized_agent_id": "a23346c3-1ce7-4203-8ecf-9b9982c82a03",
+    "calibration_authorized_now": false,
+    "questions_authorized_now": false,
+    "authorization_scope": "The historical publication authorization was consumed and is now revoked after the completed v1.0.1 calibration failed the quality gate and the agent was deleted.",
+    "remaining_gate": "Root-cause analysis and explicit approval of v1.0.2 remediation or a conversational architecture change.",
+    "current_state_evidence": "evidence/data-agent-calibration-failure-v1.0.1.json"
+  },
+  "related_evidence": [
+    "evidence/data-agent-remediation-recreation-v1.0.1.json",
+    "evidence/data-agent-calibration-failure-20261025.json",
+    "evidence/data-agent-remediation-recreation-v1.0.0.json",
+    "evidence/data-agent-postpublication-v1.0.0.json",
+    "evidence/data-agent-replacement-prepublication-v1.0.0.json",
+    "evidence/fabric-data-agent-creation-v1.0.0.json",
+    "evidence/data-agent-calibration-failure-v1.0.1.json"
+  ],
+  "repository_change_modified_fabric_or_source": false
+}

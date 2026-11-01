@@ -1,0 +1,83 @@
+{
+  "status": 200,
+  "response": {
+    "conversationId": "resp_01b5d04c354f8272006ae36e5c151081939d68e523862b8e0f",
+    "message": {
+      "id": "msg_01b5d04c354f8272006ae36e7696d08193996b7441ac5eea0f",
+      "role": "assistant",
+      "markdown": "SYNTHETIC DATA \u2022 v1.1.0 \u2022 DEVELOPMENT / OFFSET COMPARISON ONLY\n\nAccepted historical drilling footage by formation for this synthetic staged release  \n(using canonical `target_id = SYN-TARGET-0001` and `accepted_footage_ft`):\n\n| Formation | Accepted footage |\n|---|---:|\n| (Unassigned / blank formation) | 14,410.2 ft |\n| Synthetic Aster | 99,778.1 ft |\n| Synthetic Brimstone | 99,453.0 ft |\n| Synthetic Cobalt | 247,512.3 ft |\n| Synthetic Driftwood | 170,381.6 ft |\n| Synthetic Ember | 155,004.5 ft |\n| Synthetic Flint | 122,470.5 ft |\n\nSource: semantic-model table/measure returned by Fabric Data Agent \u2014 `accepted_footage_ft`\n\n",
+      "createdAtUtc": "2026-10-29T16:03:40+00:00"
+    },
+    "visuals": [
+      {
+        "type": "data-table",
+        "title": "Accepted historical drilling footage by formation",
+        "columns": [
+          {
+            "key": "formation",
+            "label": "Formation"
+          },
+          {
+            "key": "acceptedFootage",
+            "label": "Accepted footage"
+          }
+        ],
+        "rows": [
+          {
+            "formation": "(Unassigned / blank formation)",
+            "acceptedFootage": "14,410.2 ft"
+          },
+          {
+            "formation": "Synthetic Aster",
+            "acceptedFootage": "99,778.1 ft"
+          },
+          {
+            "formation": "Synthetic Brimstone",
+            "acceptedFootage": "99,453.0 ft"
+          },
+          {
+            "formation": "Synthetic Cobalt",
+            "acceptedFootage": "247,512.3 ft"
+          },
+          {
+            "formation": "Synthetic Driftwood",
+            "acceptedFootage": "170,381.6 ft"
+          },
+          {
+            "formation": "Synthetic Ember",
+            "acceptedFootage": "155,004.5 ft"
+          },
+          {
+            "formation": "Synthetic Flint",
+            "acceptedFootage": "122,470.5 ft"
+          }
+        ]
+      }
+    ],
+    "toolCalls": [
+      {
+        "type": "mcp_list_tools",
+        "id": "mcpl_01b5d04c354f8272006ae36e5c296c819395d911cdb5ec4e37",
+        "name": null,
+        "server": "fabric-dataagent-mi-bridge",
+        "status": null,
+        "toolCount": 1
+      },
+      {
+        "type": "mcp_call",
+        "id": "mcp_01b5d04c354f8272006ae36e5cf0488193b2c42e1c500d39f8",
+        "name": "DataAgent_da_drillrun_public_summary",
+        "server": "fabric-dataagent-mi-bridge",
+        "status": "completed",
+        "toolCount": null
+      }
+    ],
+    "sources": [],
+    "usage": {
+      "inputTokens": 1138,
+      "outputTokens": 403,
+      "totalTokens": 1541
+    },
+    "latencyMs": 30217
+  }
+}

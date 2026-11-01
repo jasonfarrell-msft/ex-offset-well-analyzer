@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.17.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.8" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="../../api/DrillAdvisor.Api/Configuration/FabricRelayOptions.cs" Link="Shared/Configuration/FabricRelayOptions.cs" />
+    <Compile Include="../../api/DrillAdvisor.Api/Configuration/FoundryOptions.cs" Link="Shared/Configuration/FoundryOptions.cs" />
+    <Compile Include="../../api/DrillAdvisor.Api/Configuration/OffsetAnalysisSqlOptions.cs" Link="Shared/Configuration/OffsetAnalysisSqlOptions.cs" />
+    <Compile Include="../../api/DrillAdvisor.Api/Configuration/PublicChatOptions.cs" Link="Shared/Configuration/PublicChatOptions.cs" />
+    <Compile Include="../../api/DrillAdvisor.Api/Configuration/PublicOffsetAnalysisOptions.cs" Link="Shared/Configuration/PublicOffsetAnalysisOptions.cs" />
+    <Compile Include="../../api/DrillAdvisor.Api/Configuration/ServiceIdentityOptions.cs" Link="Shared/Configuration/ServiceIdentityOptions.cs" />
+    <Compile Include="../../api/DrillAdvisor.Api/Fabric/*.cs" Link="Shared/Fabric/%(Filename)%(Extension)" />
+    <Compile Include="../../api/DrillAdvisor.Api/Foundry/*.cs" Link="Shared/Foundry/%(Filename)%(Extension)" />
+    <Compile Include="../../api/DrillAdvisor.Api/Identity/*.cs" Link="Shared/Identity/%(Filename)%(Extension)" />
+    <Compile Include="../../api/DrillAdvisor.Api/Limits/AnonymousChatGate.cs" Link="Shared/Limits/AnonymousChatGate.cs" />
+    <Compile Include="../../api/DrillAdvisor.Api/Limits/AnonymousOffsetAnalysisGate.cs" Link="Shared/Limits/AnonymousOffsetAnalysisGate.cs" />
+    <Compile Include="../../api/DrillAdvisor.Api/Limits/ClientSourceIdentifier.cs" Link="Shared/Limits/ClientSourceIdentifier.cs" />
+    <Compile Include="../../api/DrillAdvisor.Api/Models/*.cs" Link="Shared/Models/%(Filename)%(Extension)" />
+    <Compile Include="../../api/DrillAdvisor.Api/Serialization/*.cs" Link="Shared/Serialization/%(Filename)%(Extension)" />
+    <Compile Include="../../api/DrillAdvisor.Api/Offset/*.cs" Link="Shared/Offset/%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <ItemGroup Condition="Exists('../../client/dist')">
+    <Content Include="../../client/dist/**"
+             Link="wwwroot/%(RecursiveDir)%(Filename)%(Extension)"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

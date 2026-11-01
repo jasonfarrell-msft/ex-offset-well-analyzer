@@ -1,0 +1,18 @@
+{
+  "image_pre": "acrdrilladvisormx01.azurecr.io/drill-advisor@sha256:4c5951a04291d9255f25f165df652175470892e843bd4e25d618528a0944a8cb",
+  "image_post": "acrdrilladvisormx01.azurecr.io/drill-advisor@sha256:220cf57b89e14413a7c2221668e6d93fce68e8d02a53e4a0ef256a27265fa3a2",
+  "latest_revision_pre": "ca-drill-advisor-wfrd-mx01--0000006",
+  "latest_revision_post": "ca-drill-advisor-wfrd-mx01--0000007",
+  "latest_ready_post": "ca-drill-advisor-wfrd-mx01--0000007",
+  "fqdn": "ca-drill-advisor-wfrd-mx01.icytree-3fa8fc52.centralus.azurecontainerapps.io",
+  "active_revisions_mode_same": true,
+  "scale_same": true,
+  "identity_same": true,
+  "env_count_pre": 13,
+  "env_count_post": 13,
+  "env_same": true,
+  "sql_settings_present_post": [
+    "OFFSET_SQL_DATABASE",
+    "OFFSET_SQL_SERVER"
+  ]
+}

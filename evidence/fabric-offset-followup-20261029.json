@@ -1,0 +1,40 @@
+{
+  "evidence_schema_version": "1.0.0",
+  "captured_at_utc": "2026-10-29T14:13:00Z",
+  "workspace_id": "4e1977a8-d7ff-487e-b42d-c4b3bc118f3d",
+  "lakehouse_id": "964afbf5-6a33-46dc-98c1-be726d0f4999",
+  "sql_endpoint_id": "7d5ceff0-e27e-4459-9ca7-37043dd3e91c",
+  "sql_server": "ehmqx2iabzxu5od4oe3hb3rhx4-vb3rstx7257ernbnysz3yemphu.datawarehouse.fabric.microsoft.com",
+  "sql_database": "lh_drillrun_summary",
+  "root_causes": [
+    {
+      "code": "DELTA_METADATA_MISMATCH",
+      "detail": "raw/curated well physical Delta tables lacked coordinate_frame_id, location_semantics, surface_x_ft, surface_y_ft columns expected by v1.1.0 writes; Spark append failed and retained publication lock."
+    },
+    {
+      "code": "CATEGORY_RECONCILIATION_FAILED_RISK",
+      "detail": "notebook expected formation category constants were stale versus v1.1.0 source profile (Aster/Brimstone/Cobalt/Driftwood/Ember/Flint counts)."
+    }
+  ],
+  "publication_recovery": {
+    "failed_attempt_id": "e57c1954-1cd5-4aa8-96a3-b7e62288956e",
+    "failed_attempt_application_id": "application_1793281863577_0001",
+    "recovered_by_notebook": true,
+    "successful_attempt_id": "780d2be3-272e-45be-b323-994d9a7e7f66",
+    "job_instance_id": "a2dbaf9c-93e0-4943-b214-6220e33419c0",
+    "active_release_id": "v1.1.0:904a5b293fdf0654fb1c5b4d28dd79d1c9cfaaac612f71d8f297ec874f4d284d"
+  },
+  "backend_shape_checks": {
+    "planned_target_count": 12,
+    "planned_target_sha256": "E8E0812F55094A893C6F7F8A24A555C0B531FA8582CB75844F26628DBC417123",
+    "offset_section_count": 3288,
+    "offset_section_checksum": 0,
+    "sample_target_id": "SYN-TARGET-0001",
+    "sample_well_id": "SYN-WELL-0001"
+  },
+  "capacity": {
+    "name": "fabricwelladvisorcusmx01",
+    "state": "Active",
+    "kept_running": true
+  }
+}

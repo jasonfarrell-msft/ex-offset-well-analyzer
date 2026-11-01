@@ -1,0 +1,38 @@
+{
+  "status": 200,
+  "response": {
+    "conversationId": "resp_061f6decc3c36a47006ae36ec016e881959245ab4b169f3da3",
+    "message": {
+      "id": "msg_061f6decc3c36a47006ae36eea042081958c408f327851fdc4",
+      "role": "assistant",
+      "markdown": "SYNTHETIC DATA \u2022 v1.1.0 \u2022 DEVELOPMENT / OFFSET COMPARISON ONLY\n\n## Offset well comparison for target SYN-TARGET-0001\n\n### Well-level summary\n\n| Well | Accepted run count | Accepted footage | Accepted duration | Average penetration rate |\n|---|---:|---:|---:|---:|\n| SYN-WELL-0002 | 7 | 8,966 ft | 123.95 hr | 72.34 ft/hr |\n| SYN-WELL-0019 | 4 | 3,633.2 ft | 124.03 hr | 29.29 ft/hr |\n\n**KPI context:** SYN-WELL-0002 has **3 more accepted runs**, **5,332.8 ft more accepted footage**, and a **43.05 ft/hr higher average penetration rate** than SYN-WELL-0019, with essentially the same accepted duration.\n\n### Section-level support\n\n| Well | Section | Formation | Hole size | MD interval | Accepted runs | Accepted footage | Accepted duration | Penetration rate |\n|---|---|---|---:|---|---:|---:|---:|---:|\n| SYN-WELL-0002 | SYN-SEC-0002-01 | Synthetic Brimstone | 17.5 in | 0 \u2013 6,316 ft | 5 | 6,316 ft | 98.04 hr | 64.42 ft/hr |\n| SYN-WELL-0002 | SYN-SEC-0002-02 | Synthetic Cobalt | 12.25 in | 6,316 \u2013 8,966 ft | 2 | 2,650 ft | 25.91 hr | 102.28 ft/hr |\n| SYN-WELL-0019 | SYN-SEC-0019-01 | Synthetic Brimstone | 17.5 in | 0 \u2013 2,209.3 ft | 2 | 2,209.3 ft | 71.65 hr | 30.83 ft/hr |\n| SYN-WELL-0019 | SYN-SEC-0019-02 | Synthetic Aster | 12.25 in | 2,209.3 \u2013 3,633.2 ft | 2 | 1,423.9 ft | 52.38 hr | 27.18 ft/hr |\n\n### Concise comparison\n\n- **Accepted run count:** SYN-WELL-0002 is higher at **7 vs 4**\n- **Penetration rate:** SYN-WELL-0002 is higher at **72.34 vs 29.29 ft/hr**\n- **Section support:** SYN-WELL-0002 is stronger in both sections, especially:\n  - **Synthetic Cobalt:** **102.28 ft/hr**\n  - **Synthetic Brimstone:** **64.42 ft/hr**\n- **SYN-WELL-0019** shows lower section rates in both its **Synthetic Brimstone** and **Synthetic Aster** intervals\n\nSource: Fabric semantic-model summary for the synthetic drill-run dataset; measure(s) returned: accepted run count, accepted footage, accepted duration, average penetration rate.",
+      "createdAtUtc": "2026-10-29T16:05:20+00:00"
+    },
+    "visuals": [],
+    "toolCalls": [
+      {
+        "type": "mcp_list_tools",
+        "id": "mcpl_061f6decc3c36a47006ae36ec0332c8195945c2e7f11e169bd",
+        "name": null,
+        "server": "fabric-dataagent-mi-bridge",
+        "status": null,
+        "toolCount": 1
+      },
+      {
+        "type": "mcp_call",
+        "id": "mcp_061f6decc3c36a47006ae36ec11ddc8195bb19c622f0298165",
+        "name": "DataAgent_da_drillrun_public_summary",
+        "server": "fabric-dataagent-mi-bridge",
+        "status": "completed",
+        "toolCount": null
+      }
+    ],
+    "sources": [],
+    "usage": {
+      "inputTokens": 2105,
+      "outputTokens": 734,
+      "totalTokens": 2839
+    },
+    "latencyMs": 46800
+  }
+}

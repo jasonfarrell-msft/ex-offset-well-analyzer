@@ -1,0 +1,40 @@
+{
+  "evidence_schema_version": "1.0.0",
+  "evidence_type": "fabric_offset_prerequisite_execution",
+  "recorded_at_utc": "2026-10-29T13:41:43Z",
+  "workspace_id": "4e1977a8-d7ff-487e-b42d-c4b3bc118f3d",
+  "lakehouse_id": "964afbf5-6a33-46dc-98c1-be726d0f4999",
+  "sql_endpoint_id": "7d5ceff0-e27e-4459-9ca7-37043dd3e91c",
+  "data_agent_id": "dd1cd69f-3b49-4575-932f-1d871f73d2e2",
+  "capacity": {
+    "name": "fabricwelladvisorcusmx01",
+    "resource_id": "/subscriptions/bb4b2781-6739-4fa1-994e-4ad6ce55c59c/resourceGroups/rg-welladvisor-mx01/providers/Microsoft.Fabric/capacities/fabricwelladvisorcusmx01",
+    "final_state": "Active",
+    "left_running_per_user_choice": true
+  },
+  "operations": {
+    "notebook_import": "Succeeded",
+    "public_data_agent_update_definition": "Succeeded",
+    "notebook_run_attempts": [
+      {
+        "job_instance_id": "da4bbdb1-33c8-4607-92dc-c7d6337d2b9c",
+        "status": "Failed",
+        "error_code": "System_Cancelled_Session_Statements_Failed"
+      },
+      {
+        "job_instance_id": "67045baf-99ca-4b8f-a858-4bf273b163fe",
+        "status": "Failed",
+        "error_code": "System_Cancelled_Session_Statements_Failed"
+      }
+    ],
+    "data_agent_readback": {
+      "stage_has_v1_1_label": true,
+      "published_source_has_planned_target_table": true,
+      "published_source_has_offset_section_table": true
+    }
+  },
+  "blocking_items": [
+    "Notebook execution failed before creating serving.__planned_target_summary_release_data and serving.__offset_section_summary_release_data.",
+    "Direct SQL validation from this host is blocked by local ODBC SSL dependency failure in sqlcmd."
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/calibration/grading.schema.json",
+  "title": "Offline grader judgments",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "grades"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "grades": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["schema_version", "case_id", "attempt", "grader_context", "judgment", "review"],
+        "properties": {
+          "schema_version": {"const": "1.0.0"},
+          "case_id": {"type": "string"},
+          "attempt": {"type": "integer", "minimum": 1, "maximum": 3},
+          "grader_context": {"type": "object"},
+          "judgment": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "expected_behavior_correct",
+              "critical_factual_failure",
+              "scope_boundary_violation",
+              "unauthorized_disclosure_or_security_failure",
+              "normalized_semantics",
+              "citation_claims"
+            ],
+            "properties": {
+              "expected_behavior_correct": {"type": ["boolean", "null"]},
+              "critical_factual_failure": {"type": ["boolean", "null"]},
+              "scope_boundary_violation": {"type": ["boolean", "null"]},
+              "unauthorized_disclosure_or_security_failure": {"type": ["boolean", "null"]},
+              "normalized_semantics": {"type": ["string", "null"]},
+              "citation_claims": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["claim", "citation_present", "citation_valid"],
+                  "properties": {
+                    "claim": {"type": "string"},
+                    "citation_present": {"type": "boolean"},
+                    "citation_valid": {"type": "boolean"}
+                  }
+                }
+              }
+            }
+          },
+          "review": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["reviewer_type", "reviewer_id_or_model", "reviewed_at_utc", "notes"],
+            "properties": {
+              "reviewer_type": {"enum": ["human", "llm", null]},
+              "reviewer_id_or_model": {"type": ["string", "null"]},
+              "reviewed_at_utc": {"type": ["string", "null"], "format": "date-time"},
+              "notes": {"type": ["string", "null"]}
+            }
+          }
+        }
+      }
+    }
+  }
+}

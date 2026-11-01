@@ -1,0 +1,178 @@
+/// One row per published synthetic release with dataset-wide historical totals and audit metadata from serving.dataset_summary.
+table 'Dataset Metadata'
+	lineageTag: ad73771d-ecae-56e0-b020-079f0eecfcfb
+
+	/// Dataset-wide total number of source records rejected before curated historical summaries were produced.
+	measure 'Total Rejected Record Count' = SUM('Dataset Metadata'[Rejected Record Count])
+		formatString: #,0
+
+	/// Dataset-wide number of warning-severity quality issues.
+	measure 'Dataset Warning Issue Count' = SUM('Dataset Metadata'[Warning Issue Count])
+		formatString: #,0
+
+	/// Dataset-wide number of error-severity quality issues.
+	measure 'Dataset Error Issue Count' = SUM('Dataset Metadata'[Error Issue Count])
+		formatString: #,0
+
+	/// Unique published synthetic dataset release version and relationship key.
+	column 'Dataset Version'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: dataset_version
+
+	/// Version of the program that generated the synthetic release.
+	column 'Generator Version'
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: generator_version
+
+	/// Audit identifier for the synthetic generation run.
+	column 'Generation Run ID'
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: generation_run_id
+
+	/// Authorized synthetic generation scenario.
+	column Scenario
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: scenario
+
+	/// Audit seed used to reproduce the synthetic release.
+	column 'Deterministic Seed'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: deterministic_seed
+
+	/// True for this synthetic-only dataset release.
+	column 'Is Synthetic'
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: is_synthetic
+
+	/// Dataset-wide number of wells.
+	column 'Well Count'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: well_count
+
+	/// Dataset-wide number of historical hole sections.
+	column 'Section Count'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: section_count
+
+	/// Dataset-wide source run count before quality handling.
+	column 'Source Run Count'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: source_run_count
+
+	/// Dataset-wide accepted run count.
+	column 'Accepted Run Count'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: accepted_run_count
+
+	/// Dataset-wide quarantined run count.
+	column 'Quarantined Run Count'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: quarantined_run_count
+
+	/// Dataset-wide rejected source-record count.
+	column 'Rejected Record Count'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: rejected_record_count
+
+	/// Dataset-wide number of recorded quality issues.
+	column 'Quality Issue Count'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: quality_issue_count
+
+	/// Dataset-wide number of warning-severity quality issues.
+	column 'Warning Issue Count'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: warning_issue_count
+
+	/// Dataset-wide number of error-severity quality issues.
+	column 'Error Issue Count'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: error_issue_count
+
+	/// Dataset-wide source footage before run quality handling, in feet.
+	column 'Source Footage'
+		dataType: decimal
+		formatString: #,0.00
+		summarizeBy: none
+		sourceColumn: source_total_footage_ft
+
+	/// Dataset-wide accepted footage, in feet.
+	column 'Accepted Footage'
+		dataType: decimal
+		formatString: #,0.00
+		summarizeBy: none
+		sourceColumn: accepted_footage_ft
+
+	/// Dataset-wide quarantined footage, in feet.
+	column 'Quarantined Footage'
+		dataType: decimal
+		formatString: #,0.00
+		summarizeBy: none
+		sourceColumn: quarantined_footage_ft
+
+	/// Dataset-wide source duration before run quality handling, in hours.
+	column 'Source Duration'
+		dataType: decimal
+		formatString: #,0.00
+		summarizeBy: none
+		sourceColumn: source_total_duration_hours
+
+	/// Dataset-wide accepted duration, in hours.
+	column 'Accepted Duration'
+		dataType: decimal
+		formatString: #,0.00
+		summarizeBy: none
+		sourceColumn: accepted_duration_hours
+
+	/// Dataset-wide quarantined duration, in hours.
+	column 'Quarantined Duration'
+		dataType: decimal
+		formatString: #,0.00
+		summarizeBy: none
+		sourceColumn: quarantined_duration_hours
+
+	/// Audit hash of the source release manifest.
+	column 'Manifest SHA-256'
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: manifest_sha256
+
+	/// Audit version of the transformation contract that produced the row.
+	column 'Transformation Contract Version'
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: _transformation_contract_version
+
+	partition 'Dataset Metadata' = m
+		mode: directQuery
+		source =
+				let
+				    Source = Sql.Database(SqlEndpointHost, SqlEndpointDatabase),
+				    ServingView = Source{[Schema="serving", Item="dataset_summary"]}[Data]
+				in
+				    ServingView
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,19 @@
+{
+  "captured_at_utc": "2026-10-29T15:33:12.294965+00:00",
+  "data_agent_id": "dd1cd69f-3b49-4575-932f-1d871f73d2e2",
+  "responses": [
+    {
+      "id": "historical_summary",
+      "question": "How many historical wells are in this synthetic dataset, and summarize accepted historical drilling footage by formation?",
+      "answer_markdown": "SYNTHETIC DATA \u2022 v1.1.0 \u2022 DEVELOPMENT / OFFSET COMPARISON ONLY\n\nThere are 100 historical wells in this synthetic dataset.\n\nAccepted historical drilling footage by section formation:\n\n- (Blank / unspecified formation): 172,922.4 ft (5 contributing wells)\n- Synthetic Aster: 1,197,337.2 ft (19 contributing wells)\n- Synthetic Brimstone: 1,193,436.0 ft (20 contributing wells)\n- Synthetic Cobalt: 2,970,147.6 ft (54 contributing wells)\n- Synthetic Driftwood: 2,044,579.2 ft (42 contributing wells)\n- Synthetic Ember: 1,860,054.0 ft (32 contributing wells)\n- Synthetic Flint: 1,469,646.0 ft (26 contributing wells)\n\nAll counts and footage values are for accepted historical footage only, with source vs quarantined metrics kept distinct in the underlying serving views.",
+      "status": "success"
+    },
+    {
+      "id": "offset_compare",
+      "question": "For target SYN-TARGET-0001, compare selected offset wells SYN-WELL-0002 and SYN-WELL-0019 using accepted run count and penetration rate context with section-level support from summary tables.",
+      "status": "error",
+      "error_type": "ExceptionGroup",
+      "error": "unhandled errors in a TaskGroup (1 sub-exception)"
+    }
+  ]
+}

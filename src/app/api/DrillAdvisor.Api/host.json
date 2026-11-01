@@ -1,0 +1,15 @@
+{
+  "version": "2.0",
+  "extensions": {
+    "http": {
+      "routePrefix": "api"
+    }
+  },
+  "logging": {
+    "logLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning",
+      "System.Net.Http.HttpClient": "Warning"
+    }
+  }
+}

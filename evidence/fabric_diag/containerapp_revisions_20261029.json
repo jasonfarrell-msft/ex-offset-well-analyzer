@@ -1,0 +1,123 @@
+[
+  {
+    "id": "/subscriptions/bb4b2781-6739-4fa1-994e-4ad6ce55c59c/resourceGroups/rg-welladvisor-mx01/providers/Microsoft.App/containerApps/ca-drill-advisor-wfrd-mx01/revisions/ca-drill-advisor-wfrd-mx01--0000006",
+    "name": "ca-drill-advisor-wfrd-mx01--0000006",
+    "properties": {
+      "active": true,
+      "createdTime": "2026-10-29T14:49:41+00:00",
+      "fqdn": "ca-drill-advisor-wfrd-mx01--0000006.icytree-3fa8fc52.centralus.azurecontainerapps.io",
+      "healthState": "Healthy",
+      "provisioningState": "Provisioned",
+      "replicas": 1,
+      "runningState": "RunningAtMaxScale",
+      "template": {
+        "containers": [
+          {
+            "env": [
+              {
+                "name": "ENTRA_TENANT_ID",
+                "value": "e90bd921-0e00-4e6f-b87c-713670ee27bf"
+              },
+              {
+                "name": "MANAGED_IDENTITY_CLIENT_ID",
+                "value": "56715a5f-8b03-47bc-9d64-787b96ba56ae"
+              },
+              {
+                "name": "FABRIC_APP_CLIENT_ID",
+                "value": "cd20994e-2072-4680-97be-1ba6ae8a911b"
+              },
+              {
+                "name": "FOUNDRY_PROJECT_PRINCIPAL_ID",
+                "value": "f9b86896-cc12-4a2f-92ff-edf9d5e570ef"
+              },
+              {
+                "name": "FOUNDRY_PROJECT_CLIENT_ID",
+                "value": "92d21e37-1914-4f61-aa00-19b5d26c8064"
+              },
+              {
+                "name": "MCP_AUDIENCE",
+                "value": "api://0e956ed5-6da6-477a-b508-3c6cdf5b2861"
+              },
+              {
+                "name": "FOUNDRY_PROJECT_ENDPOINT",
+                "value": "https://foundry-sandbox-swc-mx01.services.ai.azure.com/api/projects/drill-project"
+              },
+              {
+                "name": "FOUNDRY_AGENT_NAME",
+                "value": "welladvisor-fabric-orchestrator"
+              },
+              {
+                "name": "FABRIC_DATA_AGENT_MCP_ENDPOINT",
+                "value": "https://api.fabric.microsoft.com/v1/mcp/workspaces/4e1977a8-d7ff-487e-b42d-c4b3bc118f3d/dataagents/dd1cd69f-3b49-4575-932f-1d871f73d2e2/agent"
+              },
+              {
+                "name": "FABRIC_TOKEN_SCOPE",
+                "value": "https://api.fabric.microsoft.com/.default"
+              },
+              {
+                "name": "PUBLIC_CHAT_ENABLED",
+                "value": "true"
+              },
+              {
+                "name": "OFFSET_SQL_SERVER",
+                "value": "ehmqx2iabzxu5od4oe3hb3rhx4-vb3rstx7257ernbnysz3yemphu.datawarehouse.fabric.microsoft.com"
+              },
+              {
+                "name": "OFFSET_SQL_DATABASE",
+                "value": "lh_drillrun_summary"
+              }
+            ],
+            "image": "acrdrilladvisormx01.azurecr.io/drill-advisor@sha256:4c5951a04291d9255f25f165df652175470892e843bd4e25d618528a0944a8cb",
+            "name": "drill-advisor",
+            "probes": [
+              {
+                "failureThreshold": 3,
+                "httpGet": {
+                  "path": "/healthz",
+                  "port": 8080,
+                  "scheme": "HTTP"
+                },
+                "initialDelaySeconds": 10,
+                "periodSeconds": 30,
+                "timeoutSeconds": 5,
+                "type": "Liveness"
+              },
+              {
+                "failureThreshold": 3,
+                "httpGet": {
+                  "path": "/readyz",
+                  "port": 8080,
+                  "scheme": "HTTP"
+                },
+                "initialDelaySeconds": 5,
+                "periodSeconds": 10,
+                "successThreshold": 1,
+                "timeoutSeconds": 5,
+                "type": "Readiness"
+              }
+            ],
+            "resources": {
+              "cpu": 0.5,
+              "memory": "1Gi"
+            }
+          }
+        ],
+        "initContainers": null,
+        "revisionSuffix": null,
+        "scale": {
+          "cooldownPeriod": null,
+          "maxReplicas": 1,
+          "minReplicas": 0,
+          "pollingInterval": null,
+          "rules": null
+        },
+        "serviceBinds": null,
+        "terminationGracePeriodSeconds": null,
+        "volumes": null
+      },
+      "trafficWeight": 100
+    },
+    "resourceGroup": "rg-welladvisor-mx01",
+    "type": "Microsoft.App/containerapps/revisions"
+  }
+]

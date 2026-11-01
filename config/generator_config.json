@@ -1,0 +1,16 @@
+{
+  "dataset_version": "v1.0.0",
+  "generator_version": "1.0.0",
+  "deterministic_seed": 20261023,
+  "generated_at_utc": "2026-10-23T19:40:25Z",
+  "interval_start_date": "2016-01-01",
+  "interval_years": 10,
+  "well_count": 100,
+  "scenario": "summary-only-fabric-milestone",
+  "intentional_issue_counts": {
+    "INCONSISTENT_FORMATION_LABEL": 5,
+    "MISSING_BIT_IADC_CODE": 5,
+    "MISSING_FORMATION": 5,
+    "NON_POSITIVE_DURATION": 5
+  }
+}

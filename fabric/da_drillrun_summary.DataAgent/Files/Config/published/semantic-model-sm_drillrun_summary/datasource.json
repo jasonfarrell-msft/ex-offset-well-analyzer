@@ -1,0 +1,45 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/dataAgent/definition/dataSource/1.0.0/schema.json",
+  "artifactId": "ee7583b6-5be7-4802-83a8-530ce7dd8351",
+  "workspaceId": "4e1977a8-d7ff-487e-b42d-c4b3bc118f3d",
+  "displayName": "sm_drillrun_summary",
+  "type": "semantic_model",
+  "userDescription": "Synthetic v1.0.0 development-only historical drill-run summaries.",
+  "dataSourceInstructions": "Use only the explicitly selected Wells, Dataset Metadata, Data Quality, and Categories tables. Use named model measures for quantitative answers and do not invent calculations. Column-level selection is not a security or scope boundary for semantic models; table selection, model metadata, hidden fields, and the agent instructions define the intended scope. Dataset Metadata supplies release context. Categories contains source-history aggregates whose formation, bit, BHA, and other category counts may include quarantined source runs; disclose that limitation whenever category data is used. Do not claim access to underlying SQL views, raw or curated tables, exact run detail, deep provenance, governance files, or any unselected source.",
+  "metadata": {
+    "datasetVersion": "v1.0.0",
+    "selectionMode": "explicit",
+    "scope": "development_historical_summary_only",
+    "columnSelectionEnforced": "false"
+  },
+  "elements": [
+    {
+      "id": "a4c7c3dd-38d5-570e-8681-124e450c6d7e",
+      "is_selected": true,
+      "display_name": "Wells",
+      "type": "semantic_model.table",
+      "description": "Well-grain historical summaries and explicit measures."
+    },
+    {
+      "id": "ad73771d-ecae-56e0-b020-079f0eecfcfb",
+      "is_selected": true,
+      "display_name": "Dataset Metadata",
+      "type": "semantic_model.table",
+      "description": "Dataset release metadata and dataset-level quality measures."
+    },
+    {
+      "id": "86607c13-8de7-54d3-86bc-22a336740c6f",
+      "is_selected": true,
+      "display_name": "Data Quality",
+      "type": "semantic_model.table",
+      "description": "Historical data-quality aggregates and explicit measures."
+    },
+    {
+      "id": "dcfa190d-28b4-5367-bbfe-784b5d336219",
+      "is_selected": true,
+      "display_name": "Categories",
+      "type": "semantic_model.table",
+      "description": "Source-history category aggregates that may include quarantined source runs."
+    }
+  ]
+}

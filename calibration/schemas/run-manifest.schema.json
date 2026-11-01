@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/calibration/run-manifest.schema.json",
+  "title": "Fabric Data Agent calibration run manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "mode",
+    "status",
+    "started_at_utc",
+    "expires_at_utc",
+    "retention_days",
+    "workspace_id",
+    "data_agent_id",
+    "model_id",
+    "endpoint",
+    "versions",
+    "case_count",
+    "attempts_per_case",
+    "authentication",
+    "verified_identity",
+    "credentials_persisted",
+    "cost_usd"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^[0-9]{8}T[0-9]{6}Z-[0-9a-f]{8}$"
+    },
+    "mode": {
+      "const": "calibration"
+    },
+    "status": {
+      "enum": [
+        "RUNNING",
+        "COMPLETED_UNSCORED"
+      ]
+    },
+    "started_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "retention_days": {
+      "const": 90
+    },
+    "workspace_id": {
+      "const": "4e1977a8-d7ff-487e-b42d-c4b3bc118f3d"
+    },
+    "data_agent_id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+      "not": {
+        "const": "00000000-0000-0000-0000-000000000000"
+      }
+    },
+    "model_id": {
+      "const": "ee7583b6-5be7-4802-83a8-530ce7dd8351"
+    },
+    "endpoint": {
+      "type": "string",
+      "pattern": "^https://api\\.fabric\\.microsoft\\.com/v1/mcp/workspaces/4e1977a8-d7ff-487e-b42d-c4b3bc118f3d/dataagents/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/agent$"
+    },
+    "versions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runner",
+        "workspace",
+        "data_agent",
+        "model",
+        "evaluation"
+      ],
+      "properties": {
+        "runner": {
+          "const": "1.1.0"
+        },
+        "workspace": {
+          "const": "security-posture-v1.0.0"
+        },
+        "data_agent": {
+          "const": "da_drillrun_summary-definition-v1.0.1"
+        },
+        "model": {
+          "const": "sm_drillrun_summary-v1.0.0"
+        },
+        "evaluation": {
+          "const": "summary-v1.0.0"
+        }
+      }
+    },
+    "case_count": {
+      "const": 36
+    },
+    "attempts_per_case": {
+      "const": 3
+    },
+    "authentication": {
+      "const": "AzureCliCredential delegated user"
+    },
+    "verified_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tenant_id",
+        "user_principal_name",
+        "object_id",
+        "principal_type",
+        "claims_sha256"
+      ],
+      "properties": {
+        "tenant_id": {
+          "const": "e90bd921-0e00-4e6f-b87c-713670ee27bf"
+        },
+        "user_principal_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 254,
+          "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+          "not": {
+            "pattern": "\\s"
+          }
+        },
+        "object_id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+        },
+        "principal_type": {
+          "const": "User"
+        },
+        "claims_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "credentials_persisted": {
+      "const": false
+    },
+    "cost_usd": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "completed_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_attempts": {
+      "const": 108
+    }
+  }
+}

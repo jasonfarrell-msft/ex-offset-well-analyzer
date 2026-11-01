@@ -1,0 +1,94 @@
+# Squad: ignore runtime state (logs, inbox, sessions)
+# Note: .squad/casting/* is identity and MUST be committed to main, not ignored
+.squad/orchestration-log/
+.squad/log/
+.squad/decisions/inbox/
+.squad/sessions/
+.squad/.scratch/
+.squad/.cache/
+# Squad: SubSquad activation file (local to this machine)
+.squad-workstream
+
+# Generated immutable dataset releases and test scratch output
+/data/releases/
+/.test-artifacts/
+
+# Python environments, packaging, caches, and test output
+.venv/
+.venv*/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.hypothesis/
+.ipynb_checkpoints/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+
+# Application build outputs and local environment
+**/bin/
+**/obj/
+**/node_modules/
+**/dist/
+**/coverage/
+TestResults/
+test-results/
+playwright-report/
+blob-report/
+.playwright/
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.sample
+!**/.env.template
+**/local.settings.json
+*.pfx
+*.p12
+*.key
+*.jks
+*.keystore
+
+# Azure Developer CLI machine/environment state; keep deployment plans and evidence
+/.azure/config.json
+/.azure/*/config.json
+
+# Local Data Agent calibration evidence and isolated environment
+/calibration/runs/
+/.calibration-venv/
+
+# Editor and operating-system state; retain shareable VS Code project configuration
+.vs/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/*.code-snippets
+*.swp
+*.swo
+*~
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini

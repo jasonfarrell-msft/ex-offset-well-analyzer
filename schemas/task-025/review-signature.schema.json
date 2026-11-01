@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "review-signature.schema.json",
+  "title": "TASK-025 review signature",
+  "$comment": "Canonical JSON: UTF-8 without BOM, LF line endings, sorted object keys, two-space indentation, exactly one trailing LF. Timestamps are UTC ISO-8601 with Z and millisecond precision. review_subject_type distinguishes historical_artifact from live_window. A live_window review requires a lowercase SHA-256 manifest hash matching the containing record's approved manifest linkage. A historical_artifact review may use that hash or the exact REQ-009 UNAVAILABLE marker with reason_code NOT_DOCUMENTED when no manifest was bound; this exception does not authorize or imply a live operation. approval_record_location must be a concrete repository-relative evidence path or immutable decision-record anchor.",
+  "type": "object",
+  "properties": {
+    "reviewer_id": {
+      "$ref": "./common.schema.json#/$defs/nonEmptyString"
+    },
+    "reviewer_role": {
+      "$ref": "./common.schema.json#/$defs/nonEmptyString"
+    },
+    "review_subject_type": {
+      "type": "string",
+      "enum": [
+        "historical_artifact",
+        "live_window"
+      ]
+    },
+    "verdict": {
+      "enum": [
+        "ACCEPT",
+        "REJECT"
+      ]
+    },
+    "reviewed_at": {
+      "$ref": "./common.schema.json#/$defs/utcTimestamp"
+    },
+    "artifact_sha256": {
+      "$ref": "./common.schema.json#/$defs/sha256"
+    },
+    "window_manifest_sha256": {
+      "oneOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/sha256"
+        },
+        {
+          "$ref": "./common.schema.json#/$defs/unavailableMarker"
+        }
+      ]
+    },
+    "approval_record_location": {
+      "$ref": "./common.schema.json#/$defs/approvalRecordLocation"
+    },
+    "signature_method": {
+      "$ref": "./common.schema.json#/$defs/nonEmptyString"
+    }
+  },
+  "required": [
+    "reviewer_id",
+    "reviewer_role",
+    "review_subject_type",
+    "verdict",
+    "reviewed_at",
+    "artifact_sha256",
+    "window_manifest_sha256",
+    "approval_record_location",
+    "signature_method"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "review_subject_type": {
+            "const": "live_window"
+          }
+        },
+        "required": [
+          "review_subject_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "window_manifest_sha256": {
+            "$ref": "./common.schema.json#/$defs/sha256"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "window_manifest_sha256": {
+            "oneOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/sha256"
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "./common.schema.json#/$defs/unavailableMarker"
+                  },
+                  {
+                    "properties": {
+                      "reason_code": {
+                        "const": "NOT_DOCUMENTED"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false
+}

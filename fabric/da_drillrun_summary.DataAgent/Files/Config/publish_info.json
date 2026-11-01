@@ -1,0 +1,4 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/dataAgent/definition/publishInfo/1.0.0/schema.json",
+  "description": "Data Agent definition v1.0.1. Calibration-only publication for automated MCP evaluation using synthetic development data; unshared and not for production or operational use."
+}

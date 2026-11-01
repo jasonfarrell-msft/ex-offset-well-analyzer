@@ -1,0 +1,168 @@
+{
+  "evidence_schema_version": "1.0.0",
+  "evidence_type": "fabric_data_agent_replacement_postpublication",
+  "recorded_at_utc": "2026-10-25T00:33:07Z",
+  "classification": "Internal - Synthetic POC; no real operator data",
+  "architecture_status": "CONDITIONAL PASS",
+  "fabric_modified_by_this_repository_change": false,
+  "publication": {
+    "agent_name": "da_drillrun_summary",
+    "agent_id": "961c0db2-e7c4-42f8-887c-039085290338",
+    "status": "SUCCEEDED",
+    "published_at_utc": "2026-10-25T00:32:14Z",
+    "request_id": "3348cf9e-642f-4995-909b-1f24a9b399bf",
+    "description": "calibration-only",
+    "shared": false,
+    "questions_sent": 0,
+    "calibration_started": false
+  },
+  "source_provenance": {
+    "mcp_remediation_commit": "8abece2090620becf882089ad3d37b0427c9e982",
+    "new_id_binding_commit": "2db841d68b91b87400db7715e1a87af8ec9545ee",
+    "runner_security_commit": "1578b2e4d8c23c1019484bef4ebfb50dde0d10a0",
+    "prepublication_evidence_commit": "c68e2b6e6a24553b283e7d8c5c2416f1e632b1ea",
+    "source_head_at_publication": "c68e2b6e6a24553b283e7d8c5c2416f1e632b1ea",
+    "required_commits_in_source_head": true
+  },
+  "postpublication_gates": [
+    {
+      "id": "Q1",
+      "gate": "published_definition_diff",
+      "status": "PASS",
+      "evidence": {
+        "approved_definition_parts": [
+          "Files/Config/data_agent.json",
+          "Files/Config/draft/stage_config.json",
+          "Files/Config/draft/semantic-model-sm_drillrun_summary/datasource.json",
+          "Files/Config/publish_info.json",
+          "Files/Config/published/stage_config.json",
+          "Files/Config/published/semantic-model-sm_drillrun_summary/datasource.json"
+        ],
+        "fabric_generated_parts": [
+          ".platform"
+        ],
+        "exact_approved_six_parts_plus_platform": true,
+        "draft_and_published_configs_match_source": true,
+        "source_count": 1,
+        "selected_tables": [
+          "Wells",
+          "Dataset Metadata",
+          "Data Quality",
+          "Categories"
+        ],
+        "normalization_only_difference": "Fabric normalized table elements with children: [].",
+        "fewshots_present": false,
+        "actions_present": false,
+        "additional_sources_present": false
+      }
+    },
+    {
+      "id": "Q2",
+      "gate": "acl_reverification",
+      "status": "PASS",
+      "evidence": {
+        "approved_principal_display_name": "Project requester",
+        "approved_principal_id": "61a37498-9ab6-43d2-b70f-706fd58274e7",
+        "principal_type": "User",
+        "agent_principal_count": 1,
+        "semantic_model_principal_count": 1,
+        "other_principals_present": false,
+        "workspace_prior_sole_user_evidence_unchanged": true
+      }
+    },
+    {
+      "id": "Q3",
+      "gate": "unauthorized_wrong_token_and_current_user_auth",
+      "status": "PASS",
+      "evidence": {
+        "preflight_run_id": "20261025T003243Z-8128b459",
+        "unauthenticated_status": 401,
+        "wrong_token_status": 401,
+        "current_delegated_user_authenticated_handshake": "PASS"
+      }
+    },
+    {
+      "id": "Q4",
+      "gate": "capability_inventory",
+      "status": "PASS",
+      "evidence": {
+        "mcp_tool_count": 1,
+        "tool_type": "question",
+        "tools_called_during_preflight": 0,
+        "actions_exposed": false,
+        "admin_capability_exposed": false,
+        "write_capability_exposed": false
+      }
+    },
+    {
+      "id": "Q5",
+      "gate": "evidence_safety",
+      "status": "PASS",
+      "evidence": {
+        "preflight_json_credentials_persisted": false,
+        "preflight_json_raw_response_bodies_persisted": false,
+        "control_json_credentials_persisted": false,
+        "control_json_raw_response_bodies_persisted": false,
+        "identity_cleanup": "PASS",
+        "secret_markers_found": 0
+      }
+    }
+  ],
+  "preflight": {
+    "run_id": "20261025T003243Z-8128b459",
+    "runner_output_observed": true,
+    "local_evidence_retained": true,
+    "local_retention_days": 90,
+    "local_access": [
+      "calibrator",
+      "designated reviewer"
+    ],
+    "delete_after_retention": true,
+    "sessions_cleaned_up": true,
+    "questions_sent": 0,
+    "agent_tool_calls_sent": 0,
+    "calibration_cases_started": 0
+  },
+  "constraints": {
+    "sharing_prohibited": true,
+    "additional_sources_prohibited": true,
+    "actions_and_writes_prohibited": true,
+    "external_integrations_prohibited": true,
+    "real_data_prohibited": true,
+    "production_claims_prohibited": true
+  },
+  "rollback": {
+    "immediate_stop_on_gate_failure": true,
+    "disable_or_unpublish_if_safely_available": true,
+    "mandatory_delete_fallback": true,
+    "complete_retest_after_remediation_required": true,
+    "independent_reviewer_reapproval_required": true
+  },
+  "decision": {
+    "verdict": "CONDITIONAL PASS",
+    "publication_completed": true,
+    "q1_q5_status": "PASS",
+    "designated_reviewer_approval": "REQUIRED_AGAIN_AFTER_FAILURE",
+    "publication_authorized_now": false,
+    "calibration_authorized_now": false,
+    "questions_authorized_now": false,
+    "remaining_gate": "The first calibration failed a hard gate and the agent was deleted. Independent remediation and complete review are required before a new agent may be published or calibrated."
+  },
+  "related_evidence": [
+    "evidence/data-agent-replacement-prepublication-v1.0.0.json",
+    "evidence/data-agent-prepublication-v1.0.0.json",
+    "evidence/data-agent-precreation-security-v1.0.0.json",
+    "evidence/data-agent-remediation-recreation-v1.0.0.json",
+    "evidence/fabric-data-agent-creation-v1.0.0.json",
+    "evidence/data-agent-calibration-failure-20261025.json"
+  ],
+  "current_state": {
+    "as_of_utc": "2026-10-25T00:58:30Z",
+    "agent_lifecycle_state": "deleted_after_calibration_failure",
+    "calibration_run_id": "20261025T004054Z-b79eede4",
+    "calibration_result": "FAIL_ROLLBACK_REQUIRED",
+    "current_evidence": "evidence/data-agent-calibration-failure-20261025.json"
+  },
+  "observed_existing_fabric_state": true,
+  "repository_change_modified_fabric_or_source": false
+}

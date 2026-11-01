@@ -1,0 +1,103 @@
+{
+  "evidence_schema_version": "1.0.0",
+  "evidence_type": "fabric_data_agent_v1_0_1_calibration_failure_and_rollback",
+  "recorded_at_utc": "2026-10-25T02:06:45Z",
+  "classification": "Internal - Synthetic POC; sanitized evidence only",
+  "architecture_status": "CONDITIONAL PASS",
+  "fabric_modified_by_this_repository_change": false,
+  "source_modified_by_this_repository_change": false,
+  "agent": {
+    "name": "da_drillrun_summary",
+    "id": "a23346c3-1ce7-4203-8ecf-9b9982c82a03",
+    "definition_version": "v1.0.1",
+    "publication_status_before_calibration": "SUCCEEDED",
+    "shared": false,
+    "current_lifecycle_state": "deleted_after_calibration_failure"
+  },
+  "calibration_run": {
+    "run_id": "20261025T013559Z-2808cabd",
+    "result": "FAIL_ROLLBACK_REQUIRED",
+    "milestone_passed": false,
+    "case_count": 36,
+    "attempts_per_case": 3,
+    "expected_invocation_count": 108,
+    "completed_invocation_count": 108,
+    "successful_invocation_count": 108,
+    "failed_invocation_count": 0,
+    "invocation_hard_stop_occurred": false,
+    "full_run_completed": true
+  },
+  "offline_grading": {
+    "reviewer": "Baek Yoonho",
+    "critical_factual_failures": 13,
+    "scope_violations": 19,
+    "security_disclosure_failures": 0,
+    "incorrect_expected_behaviors": 42,
+    "citation_claims": 141,
+    "citations_present": 123,
+    "citations_valid": 12,
+    "repeat_consistent_cases": 32,
+    "repeat_total_cases": 36,
+    "exact_synthetic_label_output_count": 108,
+    "exact_synthetic_label_total_output_count": 108,
+    "unauthorized_disclosure_failures": 0
+  },
+  "score": {
+    "citation_presence_percent": 87.234,
+    "citation_validity_percent": 8.511,
+    "clarification_or_refusal_percent": 50.0,
+    "repeat_consistency_percent": 88.889,
+    "exact_synthetic_label_percent": 100.0,
+    "p95_latency_seconds": 31.836999,
+    "cost": null,
+    "cost_status": "UNKNOWN"
+  },
+  "security_and_label_outcome": {
+    "security_failures": 0,
+    "unauthorized_disclosures": 0,
+    "exact_synthetic_label_on_all_outputs": true
+  },
+  "rollback": {
+    "action": "DELETE_AGENT",
+    "executed_at_utc": "2026-10-25T02:06:17Z",
+    "request_id": "3831710c-1a25-4a9f-a267-67afcc2d093e",
+    "post_delete_data_agents_list_count": 0,
+    "post_delete_verification": "PASS"
+  },
+  "authorization": {
+    "publication_authorized_now": false,
+    "calibration_authorized_now": false,
+    "questions_authorized_now": false,
+    "reason": "The v1.0.1 quality gate failed and the agent was deleted. Root-cause analysis and explicit approval of v1.0.2 remediation or an architecture change are required before any new agent activity."
+  },
+  "approved_state_preserved": {
+    "data_layer": "APPROVED",
+    "sql_views": "APPROVED",
+    "semantic_model": "APPROVED",
+    "evaluation_specification": "APPROVED",
+    "conversational_architecture_milestone": "NOT_PASSED",
+    "architecture": "CONDITIONAL PASS"
+  },
+  "next_gate": {
+    "root_cause_analysis_required": true,
+    "approved_v1_0_2_remediation_or_architecture_change_required": true,
+    "prior_attempts_count_toward_future_pass": false,
+    "prior_results_may_be_combined_with_future_run": false
+  },
+  "evidence_handling": {
+    "raw_run_evidence_retained_locally": true,
+    "raw_grading_evidence_retained_locally": true,
+    "local_evidence_ignored_by_git": true,
+    "local_retention_days": 90,
+    "raw_response_text_in_this_record": false,
+    "raw_response_text_committed": false,
+    "credentials_or_secrets_in_this_record": false
+  },
+  "related_evidence": [
+    "evidence/data-agent-replacement-prepublication-v1.0.1.json",
+    "evidence/data-agent-postpublication-v1.0.1.json",
+    "evidence/data-agent-remediation-recreation-v1.0.1.json",
+    "evidence/data-agent-calibration-failure-20261025.json"
+  ],
+  "repository_change_modified_fabric_or_source": false
+}

@@ -1,0 +1,141 @@
+{
+  "evidence_schema_version": "1.0.0",
+  "evidence_type": "summary_semantic_model_and_evaluation_approval",
+  "recorded_at_utc": "2026-10-24T19:12:37Z",
+  "classification": "Internal - Synthetic POC",
+  "architecture_status": "CONDITIONAL PASS",
+  "approval": {
+    "reviewer": "Baek Yoonho",
+    "verdict": "APPROVE",
+    "scope": [
+      "deployed summary-only semantic model",
+      "governed evaluation set",
+      "evaluation thresholds and provenance controls"
+    ],
+    "does_not_approve": [
+      "Fabric Data Agent creation",
+      "Fabric Data Agent calibration",
+      "Foundry agent creation",
+      "production readiness",
+      "business performance",
+      "real-data use"
+    ]
+  },
+  "semantic_model": {
+    "name": "sm_drillrun_summary",
+    "id": "ee7583b6-5be7-4802-83a8-530ce7dd8351",
+    "workspace_id": "4e1977a8-d7ff-487e-b42d-c4b3bc118f3d",
+    "storage_mode": "DirectQuery",
+    "source_count": 4,
+    "sources": [
+      "serving.well_summary",
+      "serving.dataset_summary",
+      "serving.quality_summary",
+      "serving.category_summary"
+    ],
+    "only_verified_serving_sources": true,
+    "final_source_commit": "21cd98fbd61bb05ae51cb201478dacc60dba2e28",
+    "source_history_authority": "The current repository log is the source of truth for the parser, relationship-cardinality, relationship-endpoint, object-name-collision, and synthetic-label fixes through the final source commit."
+  },
+  "live_dax_reconciliation": {
+    "status": "MATCH",
+    "well_count": 100,
+    "section_count": 274,
+    "source_run_count": 937,
+    "accepted_run_count": 932,
+    "quarantined_run_count": 5,
+    "rejected_record_count": 0,
+    "data_quality_issue_count": 20,
+    "accepted_footage": 909010.2,
+    "accepted_duration": 22358.76,
+    "synthetic_dataset_label": "SYNTHETIC DATA • v1.0.0 • DEVELOPMENT / HISTORICAL SUMMARY ONLY"
+  },
+  "evaluation_set": {
+    "version": "1.0.0",
+    "commit": "b65bc6a619a50d22cc931fd4c480d809063941f7",
+    "case_count": 36,
+    "category_counts": {
+      "answerable": 12,
+      "clarify": 12,
+      "refuse_security": 12
+    },
+    "authorized_source_reference_count": 102,
+    "unresolved_source_reference_count": 0,
+    "required_citation_count": 75,
+    "artifact_sha256": {
+      "evaluation/summary-v1.0.0/questions.jsonl": "cc6660f7a773063eddb62470889f18d336bd68d3d35fb05d718ce3478003e8dd",
+      "evaluation/summary-v1.0.0/scoring.json": "14da5f78e2b0c0546f1829dc64cbf6694656dd4f4f65c4e065b80ee7f35086c9",
+      "evaluation/summary-v1.0.0/governance-evidence.json": "89091b35d8fdeceb721ca792181729577044525b0d3498a758507521c011f389",
+      "evaluation/summary-v1.0.0/governance-evidence.md": "a08916476cc9f48ad784556d0487ea0e5e939290c3fe79449805f2274afe13d3"
+    }
+  },
+  "governance_provenance": {
+    "catalog_version": "1.0.0",
+    "excerpt_sha256": "a08916476cc9f48ad784556d0487ea0e5e939290c3fe79449805f2274afe13d3",
+    "claim_sha256": {
+      "GOV-SCOPE-001": "31f1cb2046c3f2fb2680e2802143e3b7b355f7cd869ed6cc35ab765f479df106",
+      "GOV-SYNTHETIC-LIMITS-001": "ca39df66cb63a759c72f4ee277fb896300c74425237fb79213ed1e976af60f55",
+      "GOV-DATA-ACCESS-001": "5491d11957c9af9f95a4b30d5ced3e48f39c332eea6da8589448396857d4410f",
+      "GOV-EXPORT-001": "67aeafb7901b6a2830e665a1e07281b1c1ccbb03063768f2eda057608bf2abd0",
+      "GOV-SECRETS-001": "fe5b1077831aa935a3ef60f3f90450fd1465ee68fdeb2c1b6dbd433628da5407",
+      "GOV-PROMPT-001": "7d604d5ae92e9d86cc3e0bf30895216de2c20c8fb33149b3c4e282d21603941f",
+      "GOV-FABRIC-001": "af94be8bdc79f212f56bedad90ca0cac483ceeac2608d160877964dfb9158270",
+      "GOV-AUTHORIZATION-001": "e163e6c45478f63f3ccfaf40d0c339865c26e555ddb2accf9ce4a84208f60f99"
+    },
+    "source_excerpt_sha256": [
+      "31f1cb2046c3f2fb2680e2802143e3b7b355f7cd869ed6cc35ab765f479df106",
+      "ca39df66cb63a759c72f4ee277fb896300c74425237fb79213ed1e976af60f55",
+      "bed1323ceb0f8be23b4c21126144d6a0fb1bf0a7ee32ed9d57a45e0e40b5eed3",
+      "d72f071575fe4bc85489cff285d0acade3a7385e83afc1e0cb7205f022aef303",
+      "67aeafb7901b6a2830e665a1e07281b1c1ccbb03063768f2eda057608bf2abd0",
+      "4506177aab6a6ccf45302bf5bb53fcaf16146f90d1b303983f151192a5203d3f",
+      "a02ea4a7b19a4f54c980603f2509803a4c0a37794a87828b3bed906c07c21217",
+      "31c598cca809f4a66826fb0d8a4d9de2611ed193ed9597b461f65b1fcc243ecf",
+      "d9d412c8aaf8ea41e44afd9b03edc13b7d5b4be7b7003269f3b2c6dc98e8ab84",
+      "7d604d5ae92e9d86cc3e0bf30895216de2c20c8fb33149b3c4e282d21603941f",
+      "172e5838425b81b555009572313e982d697a309a065d6c7805442d9fa5691844",
+      "7d33445d6c0d7606ca7c4227b02927f81abc5b0b70cbe99d0be763659c9bee77",
+      "be63c5fe38006d3dfe10b948b39c960351a177254daab7f4efe6c68fe852b8f0",
+      "923fdf275339e8b833f5661a8dd9e1302e22c5c4b3b297a052292ca179d810b0",
+      "40ac9e031118aed4d64a5d5d4436b754a95e3a84d70aae0ea3d2619c2f4d1c41"
+    ]
+  },
+  "approved_provisional_thresholds": {
+    "critical_factual_failures": 0,
+    "scope_boundary_violations": 0,
+    "unauthorized_disclosure_or_security_failures": 0,
+    "citation_validity_percent_minimum": 95,
+    "clarification_or_refusal_correctness_percent_minimum": 90,
+    "repeat_consistency_percent": 100,
+    "end_to_end_latency_p95_seconds_maximum": 15,
+    "cost": {
+      "capture_per_question_during_calibration": true,
+      "ceiling": null,
+      "ceiling_status": "Must be measured during calibration before approval."
+    }
+  },
+  "validation": {
+    "repository_tests": {
+      "result": "PASSED",
+      "test_count": 77,
+      "subtest_count": 51
+    },
+    "official_tom_tmdl_validation": {
+      "result": "PASSED",
+      "validator": "Microsoft Analysis Services TOM TmdlSerializer"
+    }
+  },
+  "limitations": [
+    "No Fabric Data Agent exists.",
+    "No Foundry agent exists.",
+    "No report or custom user interface exists.",
+    "No prediction or similarity capability exists.",
+    "No real operator data exists.",
+    "The approval verifies the bounded semantic model and evaluation package, not completed agent calibration.",
+    "No answer-quality, production-readiness, business-performance, safety, cost-savings, or regulatory-compliance claim is authorized."
+  ],
+  "next_authorization_gates": [
+    "Fabric Data Agent creation and calibration",
+    "remote Git repository and Fabric Git integration"
+  ]
+}

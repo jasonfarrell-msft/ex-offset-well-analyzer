@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools==80.9.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "drillrun-fabric-poc"
+version = "0.1.0"
+description = "Synthetic drill-run summary POC for Microsoft Fabric"
+requires-python = ">=3.13,<3.14"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]
+
+[tool.bandit]
+exclude_dirs = [".calibration-venv", ".test-artifacts"]

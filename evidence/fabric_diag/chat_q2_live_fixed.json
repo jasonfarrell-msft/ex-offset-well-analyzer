@@ -1,0 +1,1 @@
+{"type":"https://drill-advisor.example/problems/foundry_request_failed","title":"Foundry request failed","status":502,"detail":"Drill Advisor could not complete the upstream Foundry request.","code":"foundry_request_failed","upstreamStatus":400}

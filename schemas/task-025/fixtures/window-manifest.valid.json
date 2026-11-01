@@ -1,0 +1,67 @@
+{
+  "caller_identities": [
+    {
+      "application_id": null,
+      "display_name": "Offline validation operator",
+      "object_id": "object-001",
+      "principal_type": "User",
+      "tenant_id": "tenant-001"
+    }
+  ],
+  "cost_ceiling_decimal": "0.00",
+  "cost_currency": "USD",
+  "evidence_destination": "evidence/task-025",
+  "manifest_schema_version": "1.0",
+  "max_active_duration_seconds": 60,
+  "max_calls": 1,
+  "max_poll_count": 0,
+  "max_response_output_bytes": 1024,
+  "max_retry_count": 0,
+  "operations": [
+    {
+      "endpoint_or_portal_procedure": "offline-only validation",
+      "expected_status_or_result": [
+        "validation passed"
+      ],
+      "max_response_bytes": 1024,
+      "method_or_action": "LOCAL",
+      "polling_allowed": false,
+      "required_permission": "none",
+      "resource_id": "workload-001",
+      "retry_allowed": false,
+      "sequence": 0
+    }
+  ],
+  "operator": {
+    "application_id": null,
+    "display_name": "Offline validation operator",
+    "object_id": "object-001",
+    "principal_type": "User",
+    "tenant_id": "tenant-001"
+  },
+  "pause_deadline": "2026-10-28T15:00:00.000Z",
+  "poll_interval_seconds": 0,
+  "purpose": "Local schema verification",
+  "resource_ids": [
+    "workload-001"
+  ],
+  "retry_policy": "No retry",
+  "reviewers": [
+    {
+      "application_id": null,
+      "display_name": "Offline reviewer",
+      "object_id": "object-002",
+      "principal_type": "User",
+      "tenant_id": "tenant-001"
+    }
+  ],
+  "rollback_or_no_change": "No external changes",
+  "stop_criteria": [
+    "Validation fails"
+  ],
+  "success_criteria": [
+    "Validation passes"
+  ],
+  "window_id": "offline-window-001",
+  "workspace_id": "workspace-001"
+}

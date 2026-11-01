@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/calibration/score-report.schema.json",
+  "title": "Offline calibration score report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "scored_at_utc",
+    "status",
+    "complete",
+    "attempt_counts",
+    "metrics",
+    "gates",
+    "cost",
+    "judgment_provenance",
+    "rollback_required"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "run_id": {"type": "string"},
+    "scored_at_utc": {"type": "string", "format": "date-time"},
+    "status": {"enum": ["PASS", "INCOMPLETE", "FAIL_ROLLBACK_REQUIRED"]},
+    "complete": {"type": "boolean"},
+    "attempt_counts": {"type": "object"},
+    "metrics": {"type": "object"},
+    "gates": {"type": "object"},
+    "cost": {
+      "type": "object",
+      "required": ["status", "total_usd", "missing_cost_is_not_zero"],
+      "properties": {
+        "status": {"enum": ["KNOWN", "UNKNOWN"]},
+        "total_usd": {"type": ["number", "null"]},
+        "missing_cost_is_not_zero": {"const": true}
+      }
+    },
+    "judgment_provenance": {"type": "object"},
+    "rollback_required": {"type": "boolean"}
+  }
+}

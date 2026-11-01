@@ -1,0 +1,22 @@
+{
+  "status": 202,
+  "headers": {
+    "Cache-Control": "no-store, must-revalidate, no-cache",
+    "Pragma": "no-cache",
+    "Transfer-Encoding": "chunked",
+    "Content-Type": "application/json; charset=utf-8",
+    "Location": "https://wabi-west-us3-a-primary-redirect.analysis.windows.net/v1/operations/4d527a2a-39ab-4d24-8477-fafd346fc810",
+    "Retry-After": "20",
+    "x-ms-operation-id": "4d527a2a-39ab-4d24-8477-fafd346fc810",
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+    "X-Frame-Options": "deny",
+    "X-Content-Type-Options": "nosniff",
+    "RequestId": "1007840f-d0fa-4375-9e45-d365b53f1584",
+    "Access-Control-Expose-Headers": "RequestId,Location,Retry-After,x-ms-operation-id,Date",
+    "request-redirected": "true",
+    "home-cluster-uri": "https://wabi-west-us3-a-primary-redirect.analysis.windows.net/",
+    "Date": "Thu, 29 Oct 2026 15:56:04 GMT",
+    "Connection": "close"
+  },
+  "body": "null"
+}

@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "unavailable-marker.schema.json",
+  "title": "TASK-025 unavailable marker",
+  "$comment": "Canonical JSON: UTF-8 without BOM, LF line endings, sorted object keys, two-space indentation, exactly one trailing LF. Timestamps are UTC ISO-8601 with Z and millisecond precision. Arrays use REQ-009 stable sort keys: requests (started_at, request_id); definition parts (item_id, path); source nodes (item_id, parent_id, source_type, source_id), null parent first; ACL entries (scope_type, scope_id, principal_type, principal_id, role, inheritance_path); transitions (observed_at, state); redactions/unavailable fields (json_path, marker_type, reason_code); reviews (reviewed_at, reviewer_id). Hashes cover exact canonical bytes; an artifact hash is kept detached to avoid self-reference. JSON Schema cannot enforce arbitrary array sort order or distinct Operation.sequence values. This is the exact REQ-009 UNAVAILABLE value object; source_reference is a concrete evidence identifier or JSON null. It is not a generic null.",
+  "$ref": "./common.schema.json#/$defs/unavailableMarker"
+}
